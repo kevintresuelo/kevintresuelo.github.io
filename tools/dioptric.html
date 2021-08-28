@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <meta content="#3182ce" name="theme-color"/>
+    <link
+            href="./assets/vendor/@fortawesome/fontawesome-free/css/all.min.css"
+            rel="stylesheet"
+    />
+    <style>
+        .frac-line {
+            border-color: black;
+        }
+
+    </style>
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <script crossorigin="anonymous" defer
+            integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4"
+            src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+    <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css"
+          integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" rel="stylesheet">
+    <title>Dioptric/Vertex Power Calculator | Kevin Tresuelo</title>
+</head>
+<body class="text-gray-800 antialiased bg-gray-100">
+<noscript>You need to enable JavaScript to run this app.</noscript>
+<div id="root">
+    <nav class="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-no-wrap md:overflow-hidden shadow-xl bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10 py-4 px-6">
+        <div class="md:flex-col md:items-stretch md:min-h-full md:flex-no-wrap px-0 flex flex-wrap items-center justify-between w-full mx-auto">
+            <button class="cursor-pointer text-black opacity-50 md:hidden px-3 py-1 text-xl leading-none bg-transparent rounded border border-solid border-transparent" onclick="toggleNavbar('example-collapse-sidebar')" type="button">
+                <i class="fas fa-bars"></i>
+            </button>
+            <a class="md:block text-left md:pb-2 text-gray-700 mr-0 inline-block whitespace-no-wrap text-sm uppercase font-bold p-4 px-0" href="javascript:void(0)">
+                Kevin Tresuelo
+            </a>
+            <ul class="md:hidden items-center flex flex-wrap list-none">
+                <!--                <li class="inline-block relative">-->
+                <!--                    <a-->
+                <!--                            class="text-gray-600 block py-1 px-3"-->
+                <!--                            href="#pablo"-->
+                <!--                            onclick="openDropdown(event,'notification-dropdown')"-->
+                <!--                    ><i class="fas fa-bell"></i-->
+                <!--                    ></a>-->
+                <!--                    <div-->
+                <!--                            class="hidden bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg mt-1"-->
+                <!--                            style="min-width: 12rem;"-->
+                <!--                            id="notification-dropdown"-->
+                <!--                    >-->
+                <!--                        <a-->
+                <!--                                href="#pablo"-->
+                <!--                                class="text-sm py-2 px-4 font-normal block w-full whitespace-no-wrap bg-transparent text-gray-800"-->
+                <!--                        >Action</a-->
+                <!--                        ><a-->
+                <!--                            href="#pablo"-->
+                <!--                            class="text-sm py-2 px-4 font-normal block w-full whitespace-no-wrap bg-transparent text-gray-800"-->
+                <!--                    >Another action</a-->
+                <!--                    ><a-->
+                <!--                            href="#pablo"-->
+                <!--                            class="text-sm py-2 px-4 font-normal block w-full whitespace-no-wrap bg-transparent text-gray-800"-->
+                <!--                    >Something else here</a-->
+                <!--                    >-->
+                <!--                        <div class="h-0 my-2 border border-solid border-gray-200"></div>-->
+                <!--                        <a-->
+                <!--                                href="#pablo"-->
+                <!--                                class="text-sm py-2 px-4 font-normal block w-full whitespace-no-wrap bg-transparent text-gray-800"-->
+                <!--                        >Seprated link</a-->
+                <!--                        >-->
+                <!--                    </div>-->
+                <!--                </li>-->
+                <!--                <li class="inline-block relative">-->
+                <!--                    <a-->
+                <!--                            class="text-gray-600 block"-->
+                <!--                            href="#pablo"-->
+                <!--                            onclick="openDropdown(event,'user-responsive-dropdown')"-->
+                <!--                    ><div class="items-center flex">-->
+                <!--                  <span-->
+                <!--                          class="w-12 h-12 text-sm text-white bg-gray-300 inline-flex items-center justify-center rounded-full"-->
+                <!--                  ><img-->
+                <!--                          alt="..."-->
+                <!--                          class="w-full rounded-full align-middle border-none shadow-lg"-->
+                <!--                          src="./assets/img/team-1-800x800.jpg"-->
+                <!--                  /></span></div-->
+                <!--                    ></a>-->
+                <!--                    <div-->
+                <!--                            class="hidden bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg mt-1"-->
+                <!--                            style="min-width: 12rem;"-->
+                <!--                            id="user-responsive-dropdown"-->
+                <!--                    >-->
+                <!--                        <a-->
+                <!--                                href="#pablo"-->
+                <!--                                class="text-sm py-2 px-4 font-normal block w-full whitespace-no-wrap bg-transparent text-gray-800"-->
+                <!--                        >Action</a-->
+                <!--                        ><a-->
+                <!--                            href="#pablo"-->
+                <!--                            class="text-sm py-2 px-4 font-normal block w-full whitespace-no-wrap bg-transparent text-gray-800"-->
+                <!--                    >Another action</a-->
+                <!--                    ><a-->
+                <!--                            href="#pablo"-->
+                <!--                            class="text-sm py-2 px-4 font-normal block w-full whitespace-no-wrap bg-transparent text-gray-800"-->
+                <!--                    >Something else here</a-->
+                <!--                    >-->
+                <!--                        <div class="h-0 my-2 border border-solid border-gray-200"></div>-->
+                <!--                        <a-->
+                <!--                                href="#pablo"-->
+                <!--                                class="text-sm py-2 px-4 font-normal block w-full whitespace-no-wrap bg-transparent text-gray-800"-->
+                <!--                        >Seprated link</a-->
+                <!--                        >-->
+                <!--                    </div>-->
+                <!--                </li>-->
+            </ul>
+            <div class="md:flex md:flex-col md:items-stretch md:opacity-100 md:relative md:mt-4 md:shadow-none shadow absolute top-0 left-0 right-0 z-40 overflow-y-auto overflow-x-hidden h-auto items-center flex-1 rounded hidden" id="example-collapse-sidebar">
+                <div class="md:min-w-full md:hidden block pb-4 mb-4 border-b border-solid border-gray-300">
+                    <div class="flex flex-wrap">
+                        <div class="w-6/12">
+                            <a class="md:block text-left md:pb-2 text-gray-700 mr-0 inline-block whitespace-no-wrap text-sm uppercase font-bold p-4 px-0" href="javascript:void(0)">
+                                Kevin Tresuelo
+                            </a>
+                        </div>
+                        <div class="w-6/12 flex justify-end">
+                            <button class="cursor-pointer text-black opacity-50 md:hidden px-3 py-1 text-xl leading-none bg-transparent rounded border border-solid border-transparent" onclick="toggleNavbar('example-collapse-sidebar')" type="button">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <ul class="md:flex-col md:min-w-full flex flex-col list-none">
+                    <li class="items-center">
+                        <a class="text-gray-800 hover:text-gray-600 text-xs uppercase py-3 font-bold block" href="vogel.html">
+                            <svg class="w-3 inline-block opacity-75 mr-2 text-sm fill-current" viewBox="0 0 512 512">
+                                <g id="V"><path d="m258.893 323.496-111.387-323.496h-137.856l183.545 512h125.259l183.896-512h-135.688z"/></g>
+                            </svg>
+                            Vogel's Formula
+                        </a>
+                    </li>
+                    <li class="items-center">
+                        <a class="text-gray-800 hover:text-gray-600 text-xs uppercase py-3 font-bold block" href="base.html">
+                            <svg class="w-3 inline-block opacity-75 mr-2 text-sm fill-current" viewBox="0 0 189.929 189.929">
+                                <path d="M70.343,70.343c-30.554,30.553-44.806,72.7-39.102,115.635l-29.738,3.951C-5.442,137.659,11.917,86.34,49.129,49.13 C86.34,11.918,137.664-5.445,189.928,1.502l-3.95,29.738C143.041,25.54,100.895,39.789,70.343,70.343z"/>
+                            </svg>
+                            Nominal Power
+                        </a>
+                    </li>
+                    <li class="items-center">
+                        <a class="text-gray-800 hover:text-gray-600 text-xs uppercase py-3 font-bold block" href="oblique.html">
+                            <svg class="w-3 inline-block opacity-75 mr-2 text-sm fill-current" viewBox="0 0 109.113 109.113">
+                                <g>
+                                    <g>
+                                        <path d="M12.125,95.225h43.371c-0.66,1.761-1.43,3.548-2.283,5.391c-1.403,2.971-0.138,6.52,2.833,7.921
+                                            c0.825,0.385,1.679,0.577,2.559,0.577c2.228,0,4.373-1.265,5.391-3.41c1.705-3.603,3.08-7.096,4.125-10.479h28.877
+                                            c3.301,0,5.941-2.667,5.941-5.94c0-3.271-2.668-5.939-5.941-5.939H70.43c0.522-7.397-0.853-14.081-4.208-19.994
+                                            c-2.503-4.429-5.886-7.948-9.599-10.753l43.838-42.465c2.311-2.337,2.282-6.105-0.056-8.416c-2.337-2.312-6.105-2.283-8.415,0.055
+                                            l-46.04,44.691c-9.048-3.878-17.271-4.73-17.876-4.786c-3.273-0.302-6.161,2.063-6.491,5.335c-0.33,3.273,2.063,6.188,5.335,6.518
+                                            c0.083,0,4.456,0.496,9.874,2.23L7.888,85.104c-1.678,1.705-2.173,4.263-1.265,6.49C7.56,93.794,9.731,95.225,12.125,95.225z
+                                             M48.208,61.149c3.025,2.091,5.776,4.758,7.673,8.113c2.256,3.987,3.107,8.69,2.586,14.054H26.342L48.208,61.149z"/>
+                                    </g>
+                                </g>
+                            </svg>
+                            Oblique Meridian Power
+                        </a>
+                    </li>
+                    <li class="items-center">
+                        <a class="text-blue-500 hover:text-blue-600 text-xs uppercase py-3 font-bold block" href="dioptric.html">
+                            <svg class="w-3 inline-block opacity-75 mr-2 text-sm fill-current stroke-current" viewBox="0 0 80 80">
+                                <polyline points="0 15 21.69 15 42.43 25 80 25" fill="none" stroke-miterlimit="10" stroke-width="4"/>
+                                <polyline points="0 65 21.69 65 42.12 55 80 55" fill="none" stroke-miterlimit="10" stroke-width="4"/>
+                                <path d="M54.32,30h0a50.7,50.7,0,0,1,16-20H45A49.87,49.87,0,0,0,35,20Z" transform="translate(-10 -10)"/>
+                                <path d="M50.9,60h0a50,50,0,0,1,.2-20h0l-21.93-10a50.09,50.09,0,0,0,0,40Z" transform="translate(-10 -10)"/>
+                                <path d="M53.91,70h0L35,80A49.87,49.87,0,0,0,45,90H69.06A50.72,50.72,0,0,1,53.91,70Z" transform="translate(-10 -10)"/>
+                            </svg>
+                            Dioptric/Vertex Power
+                        </a>
+                    </li>
+                    <li class="items-center">
+                        <a class="text-gray-800 hover:text-gray-600 text-xs uppercase py-3 font-bold block" href="vertex.html">
+                            <svg class="w-3 inline-block opacity-75 mr-2 text-sm fill-current" viewBox="0 0 50.35 80">
+                                <path d="M51,60.45c-.33,0-.66,0-1,0a10,10,0,0,1,0-20c.34,0,.67,0,1,0A50.49,50.49,0,0,1,70.35,10H45A50,50,0,0,0,26,40.05,10,10,0,0,1,26,60,50,50,0,0,0,45,90H69.06A50.45,50.45,0,0,1,51,60.45Z" transform="translate(-20 -10)"/>
+                                <circle cx="5" cy="40.5" r="5"/>
+                                <circle cx="30" cy="40.5" r="5"/>
+                            </svg>
+                            Front &amp; Back Vertex Power
+                        </a>
+                    </li>
+                    <li class="items-center">
+                        <a class="text-gray-800 hover:text-gray-600 text-xs uppercase py-3 font-bold block" href="prentice.html">
+                            <svg class="w-3 inline-block opacity-75 mr-2 text-sm fill-current" viewBox="0 0 24 24">
+                                <path d="M12,2L1,21H23M12,6L19.53,19H4.47"/>
+                            </svg>
+                            Prentice Formula
+                        </a>
+                    </li>
+                    <li class="items-center hidden">
+                        <a class="text-gray-800 hover:text-gray-600 text-xs uppercase py-3 font-bold block" href="#/profile">
+                            <i class="fas fa-user-circle text-gray-500 mr-2 text-sm"></i>
+                            Profile Page
+                        </a>
+                    </li>
+                </ul>
+                <hr class="my-4 md:min-w-full"/>
+            </div>
+        </div>
+    </nav>
+    <div class="relative md:ml-64 bg-gray-100">
+        <nav class="absolute top-0 left-0 w-full z-10 bg-transparent md:flex-row md:flex-no-wrap md:justify-start flex items-center p-4">
+            <div class="w-full mx-auto items-center flex justify-between md:flex-no-wrap flex-wrap md:px-10 px-4">
+                <a class="text-white text-sm uppercase hidden lg:inline-block font-semibold my-4" href="./index.html">Dioptric/Vertex Power</a>
+            </div>
+        </nav>
+        <!-- Header -->
+        <div class="relative bg-blue-600 md:pt-16 pb-32 pt-12">
+        </div>
+        <div class="px-4 md:px-10 mx-auto w-full -m-24">
+            <form id="form">
+                <div class="flex flex-wrap">
+                    <div class="w-full lg:w-10/12 xl:w-8/12 mx-auto px-4">
+                        <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-white">
+                            <div class="py-4 px-6 text-sm uppercase font-medium tracking-wide text-gray-500">
+                                Calculate the missing value
+                            </div>
+                            <div class="pb-4 px-6">
+                                Instructions: Select the power in problem from the selection. Leave the input field of the missing value blank and compute.
+                            </div>
+                            <div class="pb-4 px-6 flex flex-col gap-y-2 md:flex-row md:gap-x-8">
+                                <div class="flex items-center">
+                                    <input id="push_everything" name="powertype" type="radio" value="dioptric" onclick="changeLabel('dioptric')" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300" checked>
+                                    <label for="push_everything" class="ml-3 block text-sm font-medium text-gray-700">
+                                        Dioptric power
+                                    </label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input id="push_email" name="powertype" type="radio" value="front" onclick="changeLabel('front')" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300">
+                                    <label for="push_email" class="ml-3 block text-sm font-medium text-gray-700">
+                                        Front vertex power
+                                    </label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input id="push_nothing" name="powertype" type="radio" value="back" onclick="changeLabel('back')" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300">
+                                    <label for="push_nothing" class="ml-3 block text-sm font-medium text-gray-700">
+                                        Back vertex power
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="pb-4 px-6 flex flex-col xl:flex-row xl:space-x-4">
+                                <div class="mb-4 flex-1">
+                                    <label class="block text-gray-700 text-sm font-medium mb-2 power-label" for="power">
+                                        Dioptric Power (<em class="font-serif">F</em>)
+                                    </label>
+                                    <input class="appearance-none flex-1 py-2 px-3 text-gray-700 leading-tight focus:outline-none shadow border rounded w-full"
+                                           id="power" placeholder="Dioptric Power" step="any" type="number"/>
+                                </div>
+                                <div class="mb-4 flex-1">
+                                    <label class="block text-gray-700 text-sm font-medium mb-2" for="focallength">
+                                        Focal length (<em class="font-serif">f&#8242;</em>) in cm
+                                    </label>
+                                    <input class="appearance-none flex-1 py-2 px-3 text-gray-700 leading-tight focus:outline-none shadow border rounded w-full"
+                                           id="focallength" placeholder="Focal Length" step="any" type="number"/>
+                                </div>
+                            </div>
+                            <div class="pb-4 px-6 mx-auto">
+                                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                                        id="compute" type="submit">
+                                    Compute
+                                </button>
+                            </div>
+                            <hr class="my-4 mx-4"/>
+                            <div class="px-6 hidden w-full overflow-x-scroll" id="result">
+                                <div id="computation"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <!-- Ads -->
+            <ins class="adsbygoogle pt-4"
+                 style="display:block"
+                 data-ad-client="ca-pub-7668017069284131"
+                 data-ad-slot="8134010859"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+            <footer class="block py-4">
+                <div class="container mx-auto px-4">
+                    <hr class="mb-4 border-b-1 border-gray-300"/>
+                    <div class="flex flex-wrap items-center md:justify-between justify-center">
+                        <div class="w-full md:w-4/12 px-4">
+                            <div class="text-sm text-gray-600 font-semibold py-1">
+                                Copyright © <span id="javascript-date"></span>
+                                <a class="text-gray-600 hover:text-gray-800 text-sm font-semibold py-1" href="https://www.creative-tim.com">
+                                    Kevin Tresuelo
+                                </a>
+                                <img src="https://iplogger.org/1z8it7.jpg" />
+                            </div>
+                        </div>
+                        <div class="w-full md:w-8/12 px-4">
+                            <ul class="flex flex-wrap list-none md:justify-end  justify-center hidden">
+                                <li>
+                                    <a class="text-gray-700 hover:text-gray-900 text-sm font-semibold block py-1 px-3" href="https://www.creative-tim.com">
+                                        Creative Tim
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="text-gray-700 hover:text-gray-900 text-sm font-semibold block py-1 px-3" href="https://www.creative-tim.com/presentation">
+                                        About Us
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="text-gray-700 hover:text-gray-900 text-sm font-semibold block py-1 px-3" href="http://blog.creative-tim.com">
+                                        Blog
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="text-gray-700 hover:text-gray-900 text-sm font-semibold block py-1 px-3" href="https://github.com/creativetimofficial/tailwind-starter-kit/blob/master/LICENSE.md">
+                                        MIT License
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    /* Sidebar - Side navigation menu on mobile/responsive mode */
+    function toggleNavbar(collapseID) {
+        document.getElementById(collapseID).classList.toggle("hidden");
+        document.getElementById(collapseID).classList.toggle("bg-white");
+        document.getElementById(collapseID).classList.toggle("m-2");
+        document.getElementById(collapseID).classList.toggle("py-3");
+        document.getElementById(collapseID).classList.toggle("px-6");
+    }
+
+    /* Function for dropdowns */
+    function openDropdown(event, dropdownID) {
+        let element = event.target;
+        while (element.nodeName !== "A") {
+            element = element.parentNode;
+        }
+        var popper = new Popper(element, document.getElementById(dropdownID), {
+            placement: "bottom-end"
+        });
+        document.getElementById(dropdownID).classList.toggle("hidden");
+        document.getElementById(dropdownID).classList.toggle("block");
+    }
+
+
+    (function () {
+        /* Add current date to the footer */
+        document.getElementById("javascript-date").innerHTML = new Date().getFullYear();
+    })();
+
+    const form = document.querySelector('#form');
+    const computation = document.querySelector('#computation');
+
+    const power = document.querySelector('#power');
+    const focallength = document.querySelector('#focallength');
+
+    focallength && focallength.addEventListener('change', (e) => {
+        focallength.value = !isNaN(decimalize(focallength.value), 4) ? decimalize(focallength.value, 4) : "";
+    })
+
+    form && form.addEventListener('submit', (e) => {
+        e.preventDefault()
+
+        const result = document.querySelector('#result.hidden');
+        result && result.classList.toggle('hidden');
+
+        let validator = 0;
+        let missing = "";
+        if (power.value) {
+            validator += 1;
+        } else {
+            missing = "power";
+        }
+        if (focallength.value) {
+            validator += 1;
+        } else {
+            missing = "focallength";
+        }
+
+        if (validator < 1) {
+            alert('Please provide 1 value.')
+            return;
+        } else if (validator > 1) {
+            alert('Please leave 1 value blank to compute.')
+            return;
+        }
+
+        const powertype = document.querySelector('input[name="powertype"]:checked').value;
+
+        let katex_power01 = signify(power.value);
+        let katex_focallength01 = focallength.value;
+        let katex_power02 = signify(power.value);
+        let katex_focallength02 = signify(focallength.value);
+
+        let katex_powertype = "\\textit{F}"
+        switch (powertype) {
+            case "dioptric":
+                katex_powertype = "\\textit{F}";
+                break;
+            case "front":
+                katex_powertype = "\\textit{F\\scriptscriptstyle N}";
+                break;
+            case "back":
+            default:
+                katex_powertype = "\\textit{F\\scriptscriptstyle V}";
+
+        }
+
+        switch (missing) {
+            case "power":
+                katex_power01 = katex_powertype;
+                katex_power02 = katex_powertype;
+                katex_focallength02 = "\\colorbox{#C6F6D5}{" + signify(100 / parseFloat(focallength.value), 3) + " D}";
+                break;
+            case "focallength":
+                katex_power01 = katex_power01 + " D";
+                katex_power02 = katex_power02 + " D";
+                katex_focallength01 = "f^{\\prime}";
+                katex_focallength02 = "\\frac{100}{\\colorbox{#C6F6D5}{" + decimalize(100 / parseFloat(power.value), 3) + " cm}}";
+                break;
+            default: return;
+        }
+
+        const katex_result01 = katex_powertype + " &= \\frac{1}{f^{\\prime}} \\\\\\\\";
+        const katex_result02 = katex_power01 + " &= \\frac{100}{" + katex_focallength01 + "} \\\\\\\\";
+        const katex_result03 = katex_power02 + " &= " + katex_focallength02 + " \\\\\\\\";
+
+        const katex_result = "\\begin{aligned}" + katex_result01 + katex_result02 + katex_result03 + "\\end{aligned}";
+        katex.render(katex_result, computation, {
+            throwOnError: false,
+            displayMode: true,
+            minRuleThickness: 0.06
+        })
+    })
+
+    function signify(given, decimals = 2) {
+        return ((parseFloat(given) < 0 ? "" : "+") + decimalize(given, decimals)).toString()
+    }
+
+    function decimalize(given, places = 2) {
+        return parseFloat(given).toFixed(places);
+    }
+
+    function changeLabel(value) {
+        const label = document.querySelector('.power-label');
+        const powerInput = document.getElementsByName('power')[0];
+
+        switch (value) {
+            case 'dioptric':
+                label.innerHTML = 'Dioptric Power (<em class="font-serif">F</em>)';
+                powerInput.placeholder='Dioptric Power';
+                break;
+            case 'front':
+                label.innerHTML = 'Front Vertex Power (<em class="font-serif">F<sub>N</sub></em>)';
+                powerInput.placeholder='Front Vertex Power';
+                break;
+            case 'back':
+                label.innerHTML = 'Back Vertex Power (<em class="font-serif">F<sub>V</sub></em>)';
+                powerInput.placeholder='Back Vertex Vertex Power';
+                break;
+            default:;
+
+
+        }
+    }
+</script>
+</body>
+</html>
+s

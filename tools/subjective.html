@@ -1,0 +1,478 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+
+	<meta content="width=device-width, initial-scale=1" name="viewport"/>
+
+	<title>Subjective Refraction</title>
+	<meta content="Kevin Tresuelo" name="author">
+
+	<link href="https://kevintresuelo.github.io/app.css" rel="stylesheet">
+	<script defer src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"></script>
+	<script crossorigin="anonymous" defer
+			integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4"
+			src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+	<link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css"
+		  integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" rel="stylesheet">
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+</head>
+
+<body class="bg-gray-100" x-data="{ fogging: 0, unfogging: 0, red: 0, green: 0, astig_sph: 0, astig_spoke_direction: 'left', astig_spoke_from: 1, astig_spoke_to: 1, astig_clicks: 0, astig_arrow_clicks: 0, astig_arrow_direction: 'left', fullscreen_counter: 0, fullscreen() { this.fullscreen_counter++; if (this.fullscreen_counter > 4) {document.documentElement.requestFullscreen(); this.fullscreen_counter = 0;} }, tentative_sph: 0, tentative_cyl: 0, tentative_axis: 0, jcc_axis_pos1: 0, jcc_axis_pos2: 0, jcc_power_pos1: 0, jcc_power_pos2: 0, ordinalSuffixOf(i) { var j = i % 10, k = i % 100; if (j == 1 && k != 11) { return i + 'st'; } if (j == 2 && k != 12) { return i + 'nd'; } if (j == 3 && k != 13) { return i + 'rd'; } return i + 'th'; } }">
+
+<div class="max-w-6xl mx-auto py-8 sm:px-8">
+
+	<div>
+		<div class="md:grid md:grid-cols-3 md:gap-6">
+			<div class="md:col-span-1" @click="fullscreen">
+				<div class="px-4 sm:px-0">
+					<h3 class="text-lg font-medium leading-6 text-gray-900">Sphere</h3>
+					<p class="mt-1 text-sm text-gray-600">
+						Fogging, unfogging and duochrome test.
+					</p>
+					<button class="bg-blue-200 hover:bg-blue-300 rounded-md px-3 py-1 uppercase text-sm font-medium mt-2 md:my-2" type="button" @click="fogging = 0; unfogging = 0; red = 0; green = 0">Reset</button>
+				</div>
+			</div>
+			<div class="mt-5 md:mt-0 md:col-span-2">
+				<form x-on:submit="event.preventDefault()">
+					<div class="shadow sm:rounded-md sm:overflow-hidden">
+						<div class="px-4 py-5 bg-white space-y-6 sm:p-6">
+							<div class="grid grid-cols-3 gap-6">
+								<div class="col-span-3 sm:col-span-2">
+									<label class="block text-sm font-medium text-gray-700" for="fogging">
+										Fogging clicks
+									</label>
+									<div class="mt-1 flex rounded-md shadow-sm">
+										<input class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-md sm:text-sm border-gray-300 text-right"
+											   id="fogging" name="fogging"
+											   type="number" step="1" x-model="fogging">
+									</div>
+								</div>
+							</div>
+							<div class="text-sm">
+								Fogging lens:
+								<span class="font-medium" x-text="(Math.sign(fogging * 0.25) != -1 ? '+' : '') + (fogging * 0.25).toFixed(2) + ' D'"></span>
+							</div>
+							<div class="grid grid-cols-3 gap-6">
+								<div class="col-span-3 sm:col-span-2">
+									<label class="block text-sm font-medium text-gray-700" for="unfogging">
+										Unfogging clicks
+									</label>
+									<div class="mt-1 flex rounded-md shadow-sm">
+										<input class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-md sm:text-sm border-gray-300 text-right"
+											   id="unfogging" name="unfogging"
+											   type="number" step="1" x-model="unfogging">
+									</div>
+								</div>
+							</div>
+							<div class="text-sm">
+								Unfogging lens/Tentative sphere:
+								<span class="font-medium" x-text="(Math.sign((fogging * 0.25)+(unfogging * -0.25)) != -1 ? '+' : '') + ((fogging * 0.25)+(unfogging * -0.25)).toFixed(2) + ' D'"></span>
+							</div>
+							<div aria-hidden="true">
+								<div class="py-2">
+									<div class="border-t border-gray-200"></div>
+								</div>
+							</div>
+							<div class="text-sm">
+								Duochrome test LIP:
+								<span class="font-medium" x-text="(Math.sign((fogging * 0.25)+(unfogging * -0.25)+0.50) != -1 ? '+' : '') + ((fogging * 0.25)+(unfogging * -0.25)+0.50).toFixed(2) + ' D'"></span>
+							</div>
+							<div class="grid grid-cols-4 gap-6">
+								<div class="col-span-4 md:col-span-2">
+									<label class="block text-sm font-medium text-gray-700" for="green">
+										No. of responses with <span class="font-semibold">green as darker</span>
+									</label>
+									<div class="mt-1 flex rounded-md shadow-sm">
+										<input class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-md sm:text-sm border-gray-300 text-right"
+											   id="green" name="green"
+											   type="number" step="1" x-model="green">
+									</div>
+								</div>
+								<div class="col-span-4 md:col-span-2">
+									<label class="block text-sm font-medium text-gray-700" for="red">
+										No. of responses with <span class="font-semibold">red as darker</span>
+									</label>
+									<div class="mt-1 flex rounded-md shadow-sm">
+										<input class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-md sm:text-sm border-gray-300 text-right"
+											   id="red" name="red"
+											   type="number" step="1" x-model="red">
+									</div>
+								</div>
+							</div>
+							<div class="text-sm" x-show="green != 0 || red != 0">
+								Final Rx:
+								<span class="font-bold" x-text="(Math.sign((fogging * 0.25)+(unfogging * -0.25)+0.50+(red*(-0.25))+(green*0.25)) != -1 ? '+' : '') + ((fogging * 0.25)+(unfogging * -0.25)+0.50+(red*(-0.25))+(green*0.25)).toFixed(2) + ' D Sph'"></span>
+							</div>
+							<div class="text-sm" x-show="green != 0 || red != 0">
+								EOR:
+								<span class="font-bold" x-text="Math.sign((fogging * 0.25)+(unfogging * -0.25)+0.50+(red*(-0.25))+(green*0.25)) == -1 ? 'Myopia' : (Math.sign((fogging * 0.25)+(unfogging * -0.25)+0.50+(red*(-0.25))+(green*0.25)) == 1 ? 'Hyperopia' : 'Emmetropia')"></span>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<div aria-hidden="true" class="hidden sm:block">
+		<div class="py-5">
+			<div class="border-t border-gray-200"></div>
+		</div>
+	</div>
+
+	<div class="mt-6 sm:mt-0">
+		<div class="md:grid md:grid-cols-3 md:gap-6">
+			<div class="md:col-span-1">
+				<div class="px-4 sm:px-0">
+					<h3 class="text-lg font-medium leading-6 text-gray-900">Astigmatism</h3>
+					<p class="mt-1 text-sm text-gray-600">
+						Colebrooke's astigmatic dial.
+					</p>
+					<button class="bg-blue-200 hover:bg-blue-300 rounded-md px-3 py-1 uppercase text-sm font-medium mt-2 md:my-2" type="button" @click="astig_sph = 0; astig_spoke_direction = 'left'; astig_spoke_from = 1; astig_spoke_to = 1; astig_clicks = 0; astig_arrow_clicks = 0; astig_arrow_direction = 'left';">Reset</button>
+				</div>
+			</div>
+			<div class="mt-5 md:mt-0 md:col-span-2">
+				<form x-on:submit="event.preventDefault()">
+					<div class="shadow sm:rounded-md sm:overflow-hidden">
+						<div class="px-4 py-5 bg-white space-y-6 sm:p-6">
+							<div class="grid grid-cols-3 gap-6">
+								<div class="col-span-3 sm:col-span-2">
+									<label class="block text-sm font-medium text-gray-700" for="astig_sph">
+										Tentative sphere
+									</label>
+									<div class="mt-1 flex rounded-md shadow-sm">
+										<input class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-md sm:text-sm border-gray-300 text-right"
+											   id="astig_sph" name="astig_sph"
+											   type="number" step="0.25" x-model="astig_sph">
+									</div>
+								</div>
+							</div>
+							<div class="text-sm">
+								Sphere used to fog:
+								<span class="font-medium" x-text="(Math.sign(parseFloat(astig_sph) + 0.50) != -1 ? '+' : '') + (parseFloat(astig_sph) + 0.50).toFixed(2) + ' D'"></span>
+							</div>
+							<div aria-hidden="true">
+								<div class="py-2">
+									<div class="border-t border-gray-200"></div>
+								</div>
+							</div>
+							<div class="text-sm">
+								Darkest spokes
+							</div>
+							<div class="grid grid-cols-4 gap-6">
+								<div class="col-span-4 md:col-span-2">
+									<label class="block text-sm font-medium text-gray-700" for="astig_spoke_from">
+										From nth spoke:
+									</label>
+									<div class="mt-1 flex rounded-md shadow-sm">
+										<input class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-md sm:text-sm border-gray-300 text-right"
+											   id="astig_spoke_from" name="astig_spoke_from"
+											   type="number" step="1" x-model="astig_spoke_from">
+									</div>
+								</div>
+								<div class="col-span-4 md:col-span-2">
+									<label class="block text-sm font-medium text-gray-700" for="astig_spoke_to">
+										To nth spoke:
+									</label>
+									<div class="mt-1 flex rounded-md shadow-sm">
+										<input class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-md sm:text-sm border-gray-300 text-right"
+											   id="astig_spoke_to" name="astig_spoke_to"
+											   type="number" step="1" x-model="astig_spoke_to">
+									</div>
+								</div>
+							</div>
+							<fieldset>
+								<div class="space-y-4">
+									<div class="flex items-center">
+										<input id="astig_spoke_direction_left" name="astig_spoke_direction" type="radio" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300" value="left" x-model="astig_spoke_direction">
+										<label for="astig_spoke_direction_left" class="ml-3 block text-sm font-medium text-gray-700">
+											From his left (0&deg;)
+										</label>
+									</div>
+									<div class="flex items-center">
+										<input id="astig_spoke_direction_right" name="astig_spoke_direction" type="radio" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300" value="right" x-model="astig_spoke_direction">
+										<label for="astig_spoke_direction_right" class="ml-3 block text-sm font-medium text-gray-700">
+											From his right (180&deg;)
+										</label>
+									</div>
+								</div>
+							</fieldset>
+							<div class="text-sm">
+								Power meridian:
+								<span class="font-bold" x-text="(90+(((astig_spoke_direction == 'left') ? 1 : -1)*((((parseFloat(astig_spoke_from) + parseFloat(astig_spoke_to))/2)-1)*10))-(((astig_spoke_direction == 'left') ? 1 : -1)*90) == 0) ? 180 : 90+(((astig_spoke_direction == 'left') ? 1 : -1)*((((parseFloat(astig_spoke_from) + parseFloat(astig_spoke_to))/2)-1)*10))-(((astig_spoke_direction == 'left') ? 1 : -1)*90)"></span>
+							</div>
+							<div class="text-sm">
+								Tentative axis:
+								<span class="font-bold" x-text="(90+(((astig_spoke_direction == 'left') ? 1 : -1)*((((parseFloat(astig_spoke_from) + parseFloat(astig_spoke_to))/2)-1)*10)) == 0) ? 180 : 90+(((astig_spoke_direction == 'left') ? 1 : -1)*((((parseFloat(astig_spoke_from) + parseFloat(astig_spoke_to))/2)-1)*10))"></span>
+							</div>
+							<div class="grid grid-cols-3 gap-6">
+								<div class="col-span-3 sm:col-span-2">
+									<label class="block text-sm font-medium text-gray-700" for="astig_arrow_clicks">
+										No. of arrowhead adjustments
+									</label>
+									<div class="mt-1 flex rounded-md shadow-sm">
+										<input class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-md sm:text-sm border-gray-300 text-right"
+											   id="astig_arrow_clicks" name="astig_arrow_clicks"
+											   type="number" step="1" x-model="astig_arrow_clicks">
+									</div>
+								</div>
+							</div>
+							<fieldset>
+								<div class="space-y-4">
+									<div class="flex items-center">
+										<input id="astig_arrow_direction_left" name="astig_arrow_direction" type="radio" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300" value="left" x-model="astig_arrow_direction">
+										<label for="astig_arrow_direction_left" class="ml-3 block text-sm font-medium text-gray-700">
+											Counterclockwise
+										</label>
+									</div>
+									<div class="flex items-center">
+										<input id="astig_arrow_direction_right" name="astig_arrow_direction" type="radio" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300" value="right" x-model="astig_arrow_direction">
+										<label for="astig_arrow_direction_right" class="ml-3 block text-sm font-medium text-gray-700">
+											Clockwise
+										</label>
+									</div>
+								</div>
+							</fieldset>
+							<div class="text-sm">
+								Power meridian after arrowhead adjustment:
+								<span class="font-bold" x-text="(90+(((astig_spoke_direction == 'left') ? 1 : -1)*((((parseFloat(astig_spoke_from) + parseFloat(astig_spoke_to))/2)-1)*10))+(((astig_arrow_direction == 'left') ? -1 : 1)*(astig_arrow_clicks*5))-(((astig_spoke_direction == 'left') ? 1 : -1)*90) == 0) ? 180 : 90+(((astig_spoke_direction == 'left') ? 1 : -1)*((((parseFloat(astig_spoke_from) + parseFloat(astig_spoke_to))/2)-1)*10))+(((astig_arrow_direction == 'left') ? -1 : 1)*(astig_arrow_clicks*5))-(((astig_spoke_direction == 'left') ? 1 : -1)*90)"></span>
+							</div>
+							<div class="text-sm">
+								Tentative axis after arrowhead adjustment:
+								<span class="font-bold" x-text="((90+(((astig_spoke_direction == 'left') ? 1 : -1)*((((parseFloat(astig_spoke_from) + parseFloat(astig_spoke_to))/2)-1)*10))+(((astig_arrow_direction == 'left') ? -1 : 1)*(astig_arrow_clicks*5)) == 0) ? 180 : 90+(((astig_spoke_direction == 'left') ? 1 : -1)*((((parseFloat(astig_spoke_from) + parseFloat(astig_spoke_to))/2)-1)*10))+(((astig_arrow_direction == 'left') ? -1 : 1)*(astig_arrow_clicks*5)))"></span>
+							</div>
+							<div aria-hidden="true">
+								<div class="py-2">
+									<div class="border-t border-gray-200"></div>
+								</div>
+							</div>
+							<div class="grid grid-cols-3 gap-6">
+								<div class="col-span-3 sm:col-span-2">
+									<label class="block text-sm font-medium text-gray-700" for="astig_clicks">
+										Clicks to even out the spokes
+									</label>
+									<div class="mt-1 flex rounded-md shadow-sm">
+										<input class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-md sm:text-sm border-gray-300 text-right"
+											   id="astig_clicks" name="astig_clicks"
+											   type="number" step="1" x-model="astig_clicks">
+									</div>
+								</div>
+							</div>
+							<div class="text-sm">
+								Cylinder power
+								<span class="font-bold" x-text="(Math.sign(astig_clicks * -0.25) != -1 ? '+' : '') + (astig_clicks * -0.25).toFixed(2) + ' D'"></span>
+							</div>
+							<div aria-hidden="true">
+								<div class="py-2">
+									<div class="border-t border-gray-200"></div>
+								</div>
+							</div>
+							<div class="text-sm">
+								Rx (still with proper fog):
+								<span class="font-bold" x-text="
+								(Math.sign(((parseFloat(astig_sph) + 0.50) + (Math.floor((astig_clicks * -0.25)/-0.50) * 0.25))) != -1 ? '+' : '') + (((parseFloat(astig_sph) + 0.50) + (Math.floor((astig_clicks * -0.25)/-0.50) * 0.25))).toFixed(2) + ' D Sph' +
+								' = ' +
+								(Math.sign(astig_clicks * -0.25) != -1 ? '+' : '') + (astig_clicks * -0.25).toFixed(2) + ' D Cyl x ' +
+								(((90+(((astig_spoke_direction == 'left') ? 1 : -1)*((((parseFloat(astig_spoke_from) + parseFloat(astig_spoke_to))/2)-1)*10))+(((astig_arrow_direction == 'left') ? -1 : 1)*(astig_arrow_clicks*5)) == 0) ? 180 : 90+(((astig_spoke_direction == 'left') ? 1 : -1)*((((parseFloat(astig_spoke_from) + parseFloat(astig_spoke_to))/2)-1)*10))+(((astig_arrow_direction == 'left') ? -1 : 1)*(astig_arrow_clicks*5))))"></span>
+							</div>
+							<div class="text-sm">
+								Tentative Rx:
+								<span class="font-bold" x-text="
+								(Math.sign(((parseFloat(astig_sph) + 0.50) + (Math.floor((astig_clicks * -0.25)/-0.50) * 0.25) - 0.50)) != -1 ? '+' : '') + (((parseFloat(astig_sph) + 0.50) + (Math.floor((astig_clicks * -0.25)/-0.50) * 0.25) - 0.50)).toFixed(2) + ' D Sph' +
+								' = ' +
+								(Math.sign(astig_clicks * -0.25) != -1 ? '+' : '') + (astig_clicks * -0.25).toFixed(2) + ' D Cyl x ' +
+								(((90+(((astig_spoke_direction == 'left') ? 1 : -1)*((((parseFloat(astig_spoke_from) + parseFloat(astig_spoke_to))/2)-1)*10))+(((astig_arrow_direction == 'left') ? -1 : 1)*(astig_arrow_clicks*5)) == 0) ? 180 : 90+(((astig_spoke_direction == 'left') ? 1 : -1)*((((parseFloat(astig_spoke_from) + parseFloat(astig_spoke_to))/2)-1)*10))+(((astig_arrow_direction == 'left') ? -1 : 1)*(astig_arrow_clicks*5))))"></span>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<div aria-hidden="true" class="hidden sm:block">
+		<div class="py-5">
+			<div class="border-t border-gray-200"></div>
+		</div>
+	</div>
+
+	<div class="mt-6 sm:mt-0">
+		<div class="md:grid md:grid-cols-3 md:gap-6">
+			<div class="md:col-span-1">
+				<div class="px-4 sm:px-0">
+					<h3 class="text-lg font-medium leading-6 text-gray-900">Refining the Cylinder</h3>
+					<p class="mt-1 text-sm text-gray-600">
+						Jackson Cross-Cylinder
+					</p>
+					<button class="bg-blue-200 hover:bg-blue-300 rounded-md px-3 py-1 uppercase text-sm font-medium mt-2 md:my-2" type="button" @click="tentative_sph = 0; tentative_cyl = 0; tentative_axis = 0; jcc_axis_pos1 = 0; jcc_axis_pos2 = 0; jcc_power_pos1 = 0; jcc_power_pos2 = 0">Reset</button>
+				</div>
+			</div>
+			<div class="mt-5 md:mt-0 md:col-span-2">
+				<form x-on:submit="event.preventDefault()">
+					<div class="shadow sm:rounded-md sm:overflow-hidden">
+						<div class="px-4 py-5 bg-white space-y-6 sm:p-6">
+							<div class="grid grid-cols-3 gap-6">
+								<div class="col-span-3 sm:col-span-2">
+									<label class="block text-sm font-medium text-gray-700" for="tentative_sph">
+										Tentative sphere
+									</label>
+									<div class="mt-1 flex rounded-md shadow-sm">
+										<input class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-md sm:text-sm border-gray-300 text-right"
+											   id="tentative_sph" name="tentative_sph"
+											   type="number" step="0.25" x-model="tentative_sph">
+									</div>
+								</div>
+							</div>
+							<div class="grid grid-cols-3 gap-6">
+								<div class="col-span-3 sm:col-span-2">
+									<label class="block text-sm font-medium text-gray-700" for="tentative_cyl">
+										Tentative cylinder
+									</label>
+									<div class="mt-1 flex rounded-md shadow-sm">
+										<input class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-md sm:text-sm border-gray-300 text-right"
+											   id="tentative_cyl" name="tentative_cyl"
+											   type="number" max="0" step="0.25" x-model="tentative_cyl">
+									</div>
+								</div>
+							</div>
+							<div class="grid grid-cols-3 gap-6">
+								<div class="col-span-3 sm:col-span-2">
+									<label class="block text-sm font-medium text-gray-700" for="tentative_axis">
+										Tentative axis
+									</label>
+									<div class="mt-1 flex rounded-md shadow-sm">
+										<input class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-md sm:text-sm border-gray-300 text-right"
+											   id="tentative_axis" name="tentative_axis"
+											   type="number" step="1" min="0" max="180" x-model="tentative_axis">
+									</div>
+								</div>
+							</div>
+							<div class="text-sm">
+								Tentative Rx:
+								<span class="font-bold" x-text="
+								(Math.sign(tentative_sph) != -1 ? '+' : '') + parseFloat(tentative_sph).toFixed(2) + ' D Sph' +
+								' = ' +
+								parseFloat(tentative_cyl).toFixed(2) + ' D Cyl x ' +
+								(tentative_axis)"></span>
+							</div>
+							<div aria-hidden="true">
+								<div class="py-2">
+									<div class="border-t border-gray-200"></div>
+								</div>
+							</div>
+							<div class="text-sm">
+								Axis Adjustments
+							</div>
+							<div class="grid grid-cols-4 gap-6">
+								<div class="col-span-4 md:col-span-2">
+									<label class="block text-sm font-medium text-gray-700" for="jcc_axis_pos2">
+										No. of responses with <span class="font-semibold">Pos 1 clearer</span>
+									</label>
+									<div class="mt-1 flex rounded-md shadow-sm">
+										<input class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-md sm:text-sm border-gray-300 text-right"
+											   id="jcc_axis_pos2" name="jcc_axis_pos2"
+											   type="number" step="1" x-model="jcc_axis_pos2">
+									</div>
+								</div>
+								<div class="col-span-4 md:col-span-2">
+									<label class="block text-sm font-medium text-gray-700" for="jcc_axis_pos1">
+										No. of responses with <span class="font-semibold">Pos 2 clearer</span>
+									</label>
+									<div class="mt-1 flex rounded-md shadow-sm">
+										<input class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-md sm:text-sm border-gray-300 text-right"
+											   id="jcc_axis_pos1" name="jcc_axis_pos1"
+											   type="number" step="1" x-model="jcc_axis_pos1">
+									</div>
+								</div>
+							</div>
+							<template x-for="i in (Math.abs(jcc_axis_pos1 - jcc_axis_pos2))">
+								<div class="text-sm">
+									<span x-text="ordinalSuffixOf(i) + ' response axis:'"></span>
+									<span class="font-bold" x-text="parseFloat(tentative_axis) + ((jcc_axis_pos1 > jcc_axis_pos2) ? ((((tentative_axis < 121) ? 1 : -1 ) * 5) * (i * -1)) : ((((tentative_axis < 121) ? 1 : -1 ) * 5) * (i)))"></span>
+								</div>
+							</template>
+							<div class="text-sm">
+								Final axis:
+								<span class="font-bold" x-text="parseFloat(tentative_axis) + ((((tentative_axis < 121) ? 1 : -1 ) * 5) * (-1 * jcc_axis_pos1)) + ((((tentative_axis < 121) ? 1 : -1 ) * 5) * jcc_axis_pos2)"></span>
+							</div>
+							<div aria-hidden="true">
+								<div class="py-2">
+									<div class="border-t border-gray-200"></div>
+								</div>
+							</div>
+							<div class="text-sm">
+								Cylinder power adjustments
+							</div>
+							<div class="grid grid-cols-4 gap-6">
+								<div class="col-span-4 md:col-span-2">
+									<label class="block text-sm font-medium text-gray-700" for="jcc_power_pos1">
+										No. of responses with <span class="font-semibold">Pos 1 clearer (red parallel to axis)</span>
+									</label>
+									<div class="mt-1 flex rounded-md shadow-sm">
+										<input class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-md sm:text-sm border-gray-300 text-right"
+											   id="jcc_power_pos1" name="jcc_power_pos1"
+											   type="number" step="1" x-model="jcc_power_pos1">
+									</div>
+								</div>
+								<div class="col-span-4 md:col-span-2">
+									<label class="block text-sm font-medium text-gray-700" for="jcc_power_pos2">
+										No. of responses with <span class="font-semibold">Pos 2 clearer (white parallel to axis)</span>
+									</label>
+									<div class="mt-1 flex rounded-md shadow-sm">
+										<input class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-md sm:text-sm border-gray-300 text-right"
+											   id="jcc_power_pos2" name="jcc_power_pos2"
+											   type="number" step="1" x-model="jcc_power_pos2">
+									</div>
+								</div>
+							</div>
+							<div class="text-sm">
+								Final cylinder power:
+								<span class="font-bold" x-text="(Math.sign(parseFloat(tentative_cyl) + ((jcc_power_pos1 > jcc_power_pos2) ? -1 : 1) * (Math.abs(jcc_power_pos1 - jcc_power_pos2) * 0.25)) != -1 ? '+' : '') + (parseFloat(tentative_cyl) + ((jcc_power_pos1 > jcc_power_pos2) ? -1 : 1) * (Math.abs(jcc_power_pos1 - jcc_power_pos2) * 0.25)).toFixed(2) + ' D Cyl'"></span>
+							</div>
+							<div aria-hidden="true">
+								<div class="py-2">
+									<div class="border-t border-gray-200"></div>
+								</div>
+							</div>
+							<div class="text-sm">
+								Tentative Rx:
+								<span class="font-bold" x-text="
+								(Math.sign(tentative_sph) != -1 ? '+' : '') + parseFloat(tentative_sph).toFixed(2) + ' D Sph' +
+								' = ' +
+								parseFloat(tentative_cyl).toFixed(2) + ' D Cyl x ' +
+								(tentative_axis)"></span>
+							</div>
+							<template x-for="i in (Math.abs(jcc_power_pos1 - jcc_power_pos2))">
+								<div class="text-sm">
+									<span x-text="ordinalSuffixOf(i) + ' response LIP:'"></span>
+									<span class="font-bold" x-text="
+										(Math.sign((parseFloat(tentative_sph)+((((jcc_power_pos1 > jcc_power_pos2) ? 1 : -1) * (Math.floor(Math.abs(((i*((jcc_power_pos1 > jcc_power_pos2) ? -1 : 1)) * 0.25)/-0.50))))*0.25))) != -1 ? '+' : '') + (parseFloat(tentative_sph)+((((jcc_power_pos1 > jcc_power_pos2) ? 1 : -1) * (Math.floor(Math.abs(((i*((jcc_power_pos1 > jcc_power_pos2) ? -1 : 1)) * 0.25)/-0.50))))*0.25)).toFixed(2) +
+										' D Sph = ' +
+										((Math.sign((parseFloat(tentative_cyl)+((i*((jcc_power_pos1 > jcc_power_pos2) ? -1 : 1)) * 0.25))) != -1 ? '+' : '') + (parseFloat(tentative_cyl)+((i*((jcc_power_pos1 > jcc_power_pos2) ? -1 : 1)) * 0.25)).toFixed(2)) + ' D Cyl x ' +
+										(parseFloat(tentative_axis) + ((((tentative_axis < 121) ? 1 : -1 ) * 5) * (-1 * jcc_axis_pos1)) + ((((tentative_axis < 121) ? 1 : -1 ) * 5) * jcc_axis_pos2))
+									"></span>
+								</div>
+							</template>
+							<div class="text-sm">
+								Final Rx:
+								<span class="font-bold" x-text="
+								((Math.sign(parseFloat(tentative_sph) + ((((jcc_power_pos1 > jcc_power_pos2) ? -1 : 1) * (Math.floor(Math.abs((((jcc_power_pos1 > jcc_power_pos2) ? -1 : 1) * (Math.abs(jcc_power_pos1 - jcc_power_pos2) * 0.25)))/0.50))) * -0.25)) != -1 ? '+' : '') + (parseFloat(tentative_sph) + ((((jcc_power_pos1 > jcc_power_pos2) ? -1 : 1) * (Math.floor(Math.abs((((jcc_power_pos1 > jcc_power_pos2) ? -1 : 1) * (Math.abs(jcc_power_pos1 - jcc_power_pos2) * 0.25)))/0.50))) * -0.25)).toFixed(2)) + ' D Sph' +
+								' = ' +
+								(Math.sign(parseFloat(tentative_cyl) + ((jcc_power_pos1 > jcc_power_pos2) ? -1 : 1) * (Math.abs(jcc_power_pos1 - jcc_power_pos2) * 0.25)) != -1 ? '+' : '') + (parseFloat(tentative_cyl) + ((jcc_power_pos1 > jcc_power_pos2) ? -1 : 1) * (Math.abs(jcc_power_pos1 - jcc_power_pos2) * 0.25)).toFixed(2) + ' D Cyl x ' +
+								(parseFloat(tentative_axis) + ((((tentative_axis < 121) ? 1 : -1 ) * 5) * (-1 * jcc_axis_pos1)) + ((((tentative_axis < 121) ? 1 : -1 ) * 5) * jcc_axis_pos2))"></span>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+</body>
+</html>

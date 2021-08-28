@@ -1,0 +1,138 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+	<meta content="width=device-width, initial-scale=1" name="viewport"/>
+
+  <title>Objective Refraction</title>
+  <meta name="author" content="Kevin Tresuelo">
+
+  <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+    <script crossorigin="anonymous" defer
+            integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4"
+            src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+    <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css"
+          integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" rel="stylesheet">
+
+</head>
+
+<body x-data="{ working: 2, customworking: 0, trueWorking: 0, power1: 0, axis1: 0, power2: 0, axis2: 0, power2Type: 'sphere', gross1: 0, gross2: 0, gross2Axis: 0, morePlusPower: 0, morePlusAxis: 0, moreMinusPower: 0, moreMinusAxis: 0, computeGross() {
+
+		if (this.power2Type=='sphere') {
+
+			if (parseFloat(this.power1) > parseFloat(this.power2)) {
+				this.morePlusPower = this.power1;
+				this.morePlusAxis = this.axis1;
+				this.moreMinusPower = this.power2;
+				this.moreMinusAxis = this.axis2;
+			} else {
+				this.morePlusPower = this.power2;
+				this.morePlusAxis = this.axis2;
+				this.moreMinusPower = this.power1;
+				this.moreMinusAxis = this.axis1;
+			}
+
+			this.gross1 = this.morePlusPower;
+			this.gross2 = parseFloat(this.moreMinusPower) - parseFloat(this.morePlusPower);
+			this.gross2Axis = this.moreMinusAxis;
+
+		} else {
+
+			const tmpPower1 = parseFloat(this.power1);
+			const tmpPower1Axis = parseFloat(this.axis1);
+			const tmpPower2 = parseFloat(this.power1) + parseFloat(this.power2);
+			const tmpPower2Axis = parseFloat(this.axis2);
+
+			if (tmpPower1 > tmpPower2) {
+				this.morePlusPower = tmpPower1;
+				this.morePlusAxis = tmpPower1Axis;
+				this.moreMinusPower = tmpPower2;
+				this.moreMinusAxis = tmpPower2Axis;
+			} else {
+				this.morePlusPower = tmpPower2;
+				this.morePlusAxis = tmpPower2Axis;
+				this.moreMinusPower = tmpPower1;
+				this.moreMinusAxis = tmpPower1Axis;
+			}
+
+			this.gross1 = this.morePlusPower;
+			this.gross2 = parseFloat(this.moreMinusPower) - parseFloat(this.morePlusPower);
+			this.gross2Axis = this.moreMinusAxis;
+
+		}
+
+		if (this.working == 0) {
+			this.trueWorking = this.customworking ?? 0;
+		} else {
+			this.trueWorking = this.working;
+		}
+	}
+}">
+<form x-on:submit="event.preventDefault();computeGross()" novalidate>
+  <div class="p-2">
+	<div class="text-xl font-bold">Working distance</div>
+	<span class="inline-block">
+		<input type="radio" name="working" value="2.5" id="sixteen" x-model="working" />
+		<label for="sixteen">16" or 40cm</label>
+	</span>
+	<span class="inline-block ml-4">
+		<input type="radio" name="working" value="2" id="twenty" x-model="working" />
+		<label for="twenty">20" or 50cm</label>
+	</span>
+	<span class="inline-block ml-4">
+		<input type="radio" name="working" value="1.5" id="sixtyseven" x-model="working" />
+		<label for="sixtyseven">26" or 67cm</label>
+	</span>
+  </div>
+	<div>
+		<span class="inline-block ml-2">
+			<input type="radio" name="working" value="0" id="custom" x-model="working" />
+			<label for="custom">Custom WD in Diopters</label>
+			<input class="border border-black px-2 bg-gray-100" placeholder="WD in Diopters" type="number" name="customworking" id="customworking" x-model="customworking" x-bind:disabled="working != 0" x-bind:class="{ 'bg-gray-300 text-gray-600': working != 0 }" />
+		</span>
+	</div>
+  <div class="p-2">
+	<div class="text-xl font-bold">1st neutralization (Sphere)</div>
+	<span class="block">
+		<label for="power1">Power 1:</label>
+		<input class="border border-black px-2 bg-gray-100" type="number" name="power1" id="power1" x-model="power1" />
+	</span>
+	<span class="block ml-4 my-2">
+		<label for="axis1">Axis 1:</label>
+		<input class="border border-black px-2 bg-gray-100" type="number" name="axis1" id="axis1" x-model="axis1" />
+	</span>
+  </div>
+  <div class="p-2">
+	<div class="text-xl font-bold">2nd neutralization</div>
+	<span class="block">
+		<label for="power1">Power 2:</label>
+		<input class="border border-black px-2 bg-gray-100" type="number" name="power2" id="power2" x-model="power2" />
+	</span>
+	<span class="block ml-4 my-2">
+		<label for="axis1">Axis 2:</label>
+		<input class="border border-black px-2 bg-gray-100" type="number" name="axis2" id="axis2" x-model="axis2" />
+	</span>
+	<span class="inline-block">
+		<input type="radio" name="power2Type" value="sphere" id="sphere" x-model="power2Type" />
+		<label for="sphere">Sphere</label>
+	</span>
+	<span class="inline-block ml-4">
+		<input type="radio" name="power2Type" value="cylinder" id="cylinder" x-model="power2Type" />
+		<label for="cylinder">Cylinder</label>
+	</span>
+  </div>
+  <button class="m-2 px-2 py-1 rounded-md bg-blue-500 hover:bg-blue-800 text-white" @click="computeGross">Submit</button>
+  <div class="p-2">
+	<div class="text-xl font-bold">Gross retinoscopy</div>
+	<span class="font-bold text-lg" x-text="(Math.round(gross1 * 100) / 100).toFixed(2) + ' D Sph = ' + (Math.round(gross2 * 100) / 100).toFixed(2) + ' D Cyl x' + gross2Axis"></span>
+  </div>
+  <div class="p-2">
+	<div class="text-xl font-bold">Net retinoscopy</div>
+	<span class="font-bold text-lg" x-text="(Math.round((gross1-trueWorking) * 100) / 100).toFixed(2) + ' D Sph = ' + (Math.round(gross2 * 100) / 100).toFixed(2) + ' D Cyl x' + gross2Axis"></span>
+  </div>
+</form>
+</body>
+</html>
