@@ -1,0 +1,95 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+
+	<meta content="width=device-width, initial-scale=1" name="viewport"/>
+
+	<title>Radical Retinoscopy</title>
+	<meta content="Kevin Tresuelo" name="author">
+
+	<link href="https://kevintresuelo.github.io/app.css" rel="stylesheet">
+	<script defer src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"></script>
+	<script crossorigin="anonymous" defer
+			integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4"
+			src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+	<link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css"
+		  integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" rel="stylesheet">
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+</head>
+
+<body class="bg-gray-100" x-data="{ workingDistance: 10, workingDistanceUnit: 'in', workingDistancePower: 0, neutralizingLens: 0 }">
+
+<div class="max-w-6xl mx-auto py-8 sm:px-8">
+
+	<div>
+		<div class="md:grid md:grid-cols-3 md:gap-6">
+			<div class="md:col-span-1" @click="fullscreen">
+				<div class="px-4 sm:px-0">
+					<h3 class="text-lg font-medium leading-6 text-gray-900">Radical Retinoscopy</h3>
+					<p class="mt-1 text-sm text-gray-600">
+
+					</p>
+					<button class="bg-blue-200 hover:bg-blue-300 rounded-md px-3 py-1 uppercase text-sm font-medium mt-2 md:my-2" type="button" @click="fogging = 0; unfogging = 0; red = 0; green = 0">Reset</button>
+				</div>
+			</div>
+			<div class="mt-5 md:mt-0 md:col-span-2">
+				<form x-on:submit="event.preventDefault()">
+					<div class="shadow sm:rounded-md sm:overflow-hidden">
+						<div class="px-4 py-5 bg-white space-y-6 sm:p-6">
+							<div class="grid grid-cols-3 gap-6">
+								<div class="col-span-3 sm:col-span-2">
+									<label class="block text-sm font-medium text-gray-700" for="workingDistance">
+										Working distance
+									</label>
+									<div class="mt-1 flex rounded-md shadow-sm">
+										<input class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-md sm:text-sm border-gray-300 text-right"
+											   id="workingDistance" name="workingDistance"
+											   type="number" step="1" x-model="workingDistance" autofocus>
+										<select id="country" name="country" autocomplete="country" class="ml-3 flex-none block h-full flex-none py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" x-model="workingDistanceUnit">
+											<option value="in">inches</option>
+											<option value="mm">mm</option>
+											<option value="mm">cm</option>
+											<option value="m">meter</option>
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="grid grid-cols-3 gap-6">
+								<div class="col-span-3 sm:col-span-2">
+									<label class="block text-sm font-medium text-gray-700" for="neutralizingLens">
+										Neutralizing lens
+									</label>
+									<div class="mt-1 flex rounded-md shadow-sm">
+										<input class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-md sm:text-sm border-gray-300 text-right"
+											   id="neutralizingLens" name="neutralizingLens"
+											   type="number" step="0.25" x-model="neutralizingLens">
+									</div>
+								</div>
+							</div>
+							<div class="text-sm">
+								Working distance:
+								<span class="font-bold" x-text="(Math.round(((workingDistanceUnit == 'in') ? 40/workingDistance : ((workingDistanceUnit == 'm') ? 1/workingDistance : ((workingDistanceUnit == 'cm') ? 100/workingDistance : ((workingDistanceUnit == 'mm') ? 1000/workingDistance : 'Unknown' ) ) ))*4)/4).toFixed(2) + ' D'"></span>
+							</div>
+							<div class="text-sm">
+								Neutralizing lens:
+								<span class="font-bold" x-text="parseFloat(neutralizingLens).toFixed(2) + ' D'"></span>
+							</div>
+							<div class="text-sm font-semibold">
+								Net retinoscopy:
+								<span class="font-bold" x-text="parseFloat(neutralizingLens).toFixed(2) - (Math.round(((workingDistanceUnit == 'in') ? 40/workingDistance : ((workingDistanceUnit == 'm') ? 1/workingDistance : ((workingDistanceUnit == 'cm') ? 100/workingDistance : ((workingDistanceUnit == 'mm') ? 1000/workingDistance : 'Unknown' ) ) ))*4)/4).toFixed(2) + ' D Sph'"></span>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+</body>
+</html>
