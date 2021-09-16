@@ -150,7 +150,7 @@
 							</div>
 							<div class="text-sm">
 								F =
-								<span class="font-bold" x-text="((lensPower > 4) ? (lensPower/(1-((vertexDistance/1000)*lensPower))).toFixed(2) + (((lensPower/(1-((vertexDistance/1000)*lensPower))) != 0) ? ' D' + ' or ' + ((Math.round(parseFloat(lensPower/(1-((vertexDistance/1000)*lensPower))) * 4) / 4).toFixed(2)) + ' D' : '') : parseFloat(lensPower).toFixed(2) + ' D')"></span>
+								<span class="font-bold" x-text="(((parseFloat(lensPower) > 4) || (parseFloat(lensPower) < -4)) ? (lensPower/(1-((vertexDistance/1000)*lensPower))).toFixed(2) + (((lensPower/(1-((vertexDistance/1000)*lensPower))) != 0) ? ' D' + ' or ' + ((Math.round(parseFloat(lensPower/(1-((vertexDistance/1000)*lensPower))) * 4) / 4).toFixed(2)) + ' D' : '') : parseFloat(lensPower).toFixed(2) + ' D')"></span>
 							</div>
 						</div>
 					</div>
