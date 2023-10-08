@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html class="h-full" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>October 9, 2023</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: Inter;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        clifford: "#da373d",
+                    },
+                    fontFamily: {
+                        sans: ['Inter'],
+                    },
+                },
+            },
+            plugins: [
+                require('@tailwindcss/forms'),
+                require('@tailwindcss/typography')
+            ]
+        }
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/@caneara/iodine@8.5.0/dist/iodine.min.umd.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script>
+    </script>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 h-full">
+<div class="font-sans text-gray-900 dark:text-gray-100 antialiased h-full">
+    <div class="flex min-h-full flex-col justify-center" x-data="{ activePage: 0, page1: { show: true, elements: false }, page2: { show: false, elements: false, days: 500 }, page3: { show: false, elements: false }, page4: { show: false, elements: false }, page5: { show: false, elements: false, response: false }, page6: { show: false, elements: false }, page7: { show: false, elements: false }, page8: { show: false, elements: false } }" x-init="setTimeout(() => {page1.elements = true}, 300);">
+        <audio src="music.mp3" class="hidden" x-ref="music" loop="true"></audio>
+        <div class="p-4 space-y-6 sm:mx-auto sm:w-full sm:max-w-sm sm:p-6 flex-1 flex flex-col gap-6 min-h-full" x-ref="page1" x-show="page1.show" x-transition:leave.scale.opacity.duration.1000ms x-on:click="page1.show = false; setTimeout(() => {page2.show = true; page2.elements = true; let interval = setInterval(() => { if(page2.days < 1309) { page2.days++ } else { clearInterval(interval) } }, 5)}, 500)" x-transition:leave.duration.500ms>
+            <div class="flex-1 flex flex-col items-center justify-center gap-4 transition-all duration-1000">
+                <span class="text-2xl font-semibold" x-show="page1.elements" x-transition:enter.scale.opacity.duration.1000ms>Dearest</span>
+                <span class="text-4xl font-bold" x-show="page1.elements" x-transition:enter.scale.opacity.duration.1000ms.delay.300ms>Khyla</span>
+            </div>
+            <div class="flex-none text-gray-500 text-center" x-show="page1.elements" x-transition:enter.scale.opacity.duration.1000ms.delay.700ms>Tap the screen to continue</div>
+        </div>
+        <div class="p-4 space-y-6 sm:mx-auto sm:w-full sm:max-w-sm sm:p-6 flex-1 flex flex-col gap-6 min-h-full" x-ref="page2" x-show="page2.show" x-transition:leave.scale.opacity.duration.1000ms x-on:click="page2.show = false; setTimeout(() => {page3.show = true; page3.elements = true;}, 500)" x-transition:leave.duration.500ms>
+            <div class="flex-1 flex flex-col items-start justify-center gap-4 transition-all duration-1000">
+                <span class="text-2xl font-semibold" x-show="page2.elements" x-transition:enter.scale.opacity.duration.1000ms>It has been</span>
+                <span class="text-4xl font-bold" x-show="page2.elements" x-transition:enter.scale.opacity.duration.1000ms.delay.300ms><span x-text="page2.days"></span> days</span>
+                <span class="text-2xl font-medium" x-show="page2.elements" x-transition:enter.scale.opacity.duration.1000ms.delay.500ms>since we <em>almost</em> became official</span>
+                <img src="image1.png" class="rounded-md h-48 w-auto" x-show="page2.elements" x-transition:enter.scale.opacity.duration.1000ms.delay.700ms />
+            </div>
+            <div class="flex-none text-gray-500 text-center" x-show="page2.elements" x-transition:enter.scale.opacity.duration.1000ms.delay.900ms>Tap the screen to continue</div>
+        </div>
+        <div class="p-4 space-y-6 sm:mx-auto sm:w-full sm:max-w-sm sm:p-6 flex-1 flex flex-col gap-6 min-h-full" x-ref="page3" x-show="page3.show" x-transition:leave.scale.opacity.duration.1000ms x-on:click="page3.show = false; setTimeout(() => {page4.show = true; page4.elements = true;}, 500)" x-transition:leave.duration.500ms>
+            <div class="flex-1 flex flex-col items-start justify-center gap-2 transition-all duration-1000">
+                <span class="text-lg font-medium" x-show="page3.elements" x-transition:enter.scale.opacity.duration.1000ms>But still,</span>
+                <span class="text-2xl font-medium" x-show="page3.elements" x-transition:enter.scale.opacity.duration.1000ms.delay.300ms>our love continued to grow</span>
+                <span class="text-4xl font-bold" x-show="page3.elements"><span x-show="page3.elements" x-transition:enter.scale.opacity.duration.1000ms.delay.500ms>stronger</span> <span x-show="page3.elements" x-transition:enter.scale.opacity.duration.1000ms.delay.700ms> than ever</span></span>
+                <span class="text-lg font-medium" x-show="page3.elements" x-transition:enter.scale.opacity.duration.1000ms.delay.900ms>as days pass by</span>
+                <div class="flex flex-col gap-4 w-full">
+                    <img src="image2.jpg" class="rounded-md h-24 w-full object-cover" x-show="page3.elements" x-transition:enter.scale.opacity.duration.1000ms.delay.1100ms />
+                    <img src="image3.jpg" class="rounded-md h-24 w-full object-cover" x-show="page3.elements" x-transition:enter.scale.opacity.duration.1000ms.delay.1300ms />
+                </div>
+            </div>
+            <div class="flex-none text-gray-500 text-center" x-show="page2.elements" x-transition:enter.scale.opacity.duration.1000ms.delay.1500ms>Tap the screen to continue</div>
+        </div>
+        <div class="p-4 space-y-6 sm:mx-auto sm:w-full sm:max-w-sm sm:p-6 flex-1 flex flex-col gap-6 min-h-full" x-ref="page4" x-show="page4.show" x-transition:leave.scale.opacity.duration.1000ms x-on:click="page4.show = false; setTimeout(() => {page5.show = true; page5.elements = true;}, 500)" x-transition:leave.duration.500ms>
+            <div class="flex-1 flex flex-col items-end justify-center gap-2 transition-all duration-1000">
+                <span class="text-4xl font-bold" x-show="page4.elements" x-transition:enter.scale.opacity.duration.1000ms>You</span>
+                <span class="text-lg font-medium" x-show="page4.elements" x-transition:enter.scale.opacity.duration.1000ms.delay.300ms>take away all</span>
+                <span class="text-2xl font-semibold" x-show="page4.elements"><span x-show="page4.elements" x-transition:enter.scale.opacity.duration.1000ms.delay.500ms>the worries</span> <span x-show="page4.elements" x-transition:enter.scale.opacity.duration.1000ms.delay.700ms> and stresses</span></span>
+                <span class="text-xl font-medium" x-show="page4.elements" x-transition:enter.scale.opacity.duration.1000ms.delay.900ms>with your mesmerizing smile</span>
+                <div class="flex flex-col gap-4 w-full">
+                    <img src="image4.jpg" class="rounded-md h-40 w-full object-cover" x-show="page4.elements" x-transition:enter.scale.opacity.duration.1000ms.delay.1100ms />
+                </div>
+            </div>
+            <div class="flex-none text-gray-500 text-center" x-show="page4.elements" x-transition:enter.scale.opacity.duration.1000ms.delay.1300ms>Tap the screen to continue</div>
+        </div>
+        <div class="p-4 space-y-6 sm:mx-auto sm:w-full sm:max-w-sm sm:p-6 flex-1 flex flex-col gap-6 min-h-full" x-ref="page5" x-show="page5.show" x-transition:leave.scale.opacity.duration.1000ms x-transition:leave.duration.500ms>
+            <div class="flex-1 flex flex-col items-center justify-center gap-2 transition-all duration-1000">
+                <span class="text-lg font-medium" x-show="page5.elements" x-transition:enter.scale.opacity.duration.1000ms>In return,</span>
+                <span class="text-2xl font-semibold" x-show="page5.elements" x-transition:enter.scale.opacity.duration.1000ms.delay.500ms>I'd like to ask you out</span>
+                <span class="text-4xl font-bold" x-show="page5.elements" x-transition:enter.scale.opacity.duration.1000ms.delay.1000ms>on a date</span>
+                <div class="mt-12 flex flex-col gap-2 items-center">
+                    <button class="rounded-md font-medium text-base tracking-wide text-blue-50 bg-blue-600 border border-blue-700 shadow-sm px-3 py-1.5" x-show="page5.elements && !page5.response" x-on:click="page5.response = true" x-transition:enter.scale.opacity.duration.1000ms.delay.1200ms>Yes</button>
+                    <div class="text-base font-medium py-1.5" x-show="page5.elements && page5.response">Ano ba yan, yes lang?!</div>
+                    <button class="rounded-md font-medium text-base tracking-wide text-blue-50 bg-blue-600 border border-blue-700 shadow-sm px-3 py-1.5" x-show="page5.elements" x-on:click="page5.show = false; setTimeout(() => {page6.show = true; page6.elements = true;}, 500); setTimeout(() => {page6.show = false;}, 6000); setTimeout(() => {page7.show = true; page7.elements = true;}, 6500); setTimeout(() => {page7.show = false;}, 9500); setTimeout(() => {page8.show = true; page8.elements = true; $refs.music.play(); $refs.music.volume = 0.25}, 10000);" x-transition:enter.scale.opacity.duration.1000ms.delay.1400ms>Yes na yes!</button>
+                </div>
+            </div>
+        </div>
+        <div class="p-4 space-y-6 sm:mx-auto sm:w-full sm:max-w-sm sm:p-6 flex-1 flex flex-col gap-6 min-h-full" x-ref="page6" x-show="page6.show" x-transition:leave.scale.opacity.duration.1000ms x-transition:leave.duration.500ms>
+            <div class="flex-1 flex flex-col items-center justify-center gap-2 transition-all duration-1000">
+                <span class="text-sm uppercase tracking-widest font-bold" x-show="page6.elements" x-transition:enter.scale.opacity.duration.1000ms.delay.200ms>Movie date</span>
+                <img src="image5.jpg" class="rounded-md w-48 h-auto" x-show="page6.elements" x-transition:enter.scale.opacity.duration.1000ms />
+                <span class="text-2xl font-semibold text-center" x-show="page6.elements" x-transition:enter.scale.opacity.duration.1000ms.delay.200ms>Expendables 4</span>
+                <span class="text-xl font-medium text-center" x-show="page6.elements" x-transition:enter.scale.opacity.duration.1000ms.delay.400ms>SM Cinema - SM Megamall</span>
+                <span class="text-lg" x-show="page6.elements" x-transition:enter.scale.opacity.duration.1000ms.delay.600ms>October 15, 2023 - 2:40 PM</span>
+            </div>
+        </div>
+        <div class="p-4 space-y-6 sm:mx-auto sm:w-full sm:max-w-sm sm:p-6 flex-1 flex flex-col gap-6 min-h-full" x-ref="page7" x-show="page7.show" x-transition:leave.duration.500ms>
+            <div class="flex-1 flex flex-col items-center justify-center gap-2 transition-all duration-1000">
+                <span class="text-2xl font-medium" x-show="page7.elements" x-transition:enter.scale.opacity.duration.1000ms>Oops joke lang...</span>
+            </div>
+        </div>
+        <div class="p-4 space-y-6 sm:mx-auto sm:w-full sm:max-w-sm sm:p-6 flex-1 flex flex-col gap-6 min-h-full" x-ref="page8" x-show="page8.show" x-transition:leave.scale.opacity.duration.1000ms x-transition:leave.duration.500ms>
+            <div class="flex-1 flex flex-col items-center justify-center gap-2 transition-all duration-1000">
+                <span class="text-sm uppercase tracking-widest font-bold" x-show="page8.elements" x-transition:enter.scale.opacity.duration.1000ms.delay.200ms>Movie date</span>
+                <img src="image6.png" class="rounded-md w-48 h-auto" x-show="page8.elements" x-transition:enter.scale.opacity.duration.1000ms />
+                <span class="text-2xl font-semibold text-center" x-show="page8.elements" x-transition:enter.scale.opacity.duration.1000ms.delay.200ms>Taylor Swift | The Eras Tour Movie</span>
+                <span class="text-xl font-medium" x-show="page8.elements" x-transition:enter.scale.opacity.duration.1000ms.delay.400ms>VIP Cinema - Robinsons Magnolia</span>
+                <span class="text-lg" x-show="page8.elements" x-transition:enter.scale.opacity.duration.1000ms.delay.600ms>October 15, 2023 - 5:00 PM</span>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
