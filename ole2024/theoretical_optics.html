@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp,container-queries"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    animation: {
+                        border: 'border 2s linear infinite',
+                        flip1: 'flip1 20s ease-in-out infinite',
+                        flip2: 'flip2 20s ease-in-out infinite',
+                    },
+                    colors: {
+                        pink: {
+                            1000: '#1d020d',
+                        },
+                    },
+                    fontFamily: {
+                        sans: ['Inter'],
+                    },
+                    fontSize: {
+                        '2xs': '0.625rem',
+                    },
+                    keyframes: {
+                        border: {
+                            to: { '--border-angle': '360deg' },
+                        },
+                        flip1: {
+                            '0%': { opacity: 0 },
+                            '1%': { opacity: 1 },
+                            '49%': { opacity: 1 },
+                            '50%': { opacity: 0 },
+                            '100%': { opacity: 0 },
+                        },
+                        flip2: {
+                            '0%': { opacity: 0 },
+                            '51%': { opacity: 0 },
+                            '52%': { opacity: 1 },
+                            '99%': { opacity: 1 },
+                            '100%': { opacity: 0 },
+                        }
+                    },
+                    listStyleType: {
+                        square: 'square',
+                    }
+                },
+            },
+        }
+    </script>
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('quiz', () => ({
+                subject: "Theoretical Optics",
+                questions: {
+                    1: {
+                        question: "It is the flux per unit solid angle.",
+                        choices: {
+                            a: "luminous intensity",
+                            b: "illumination",
+                            c: "luminous power",
+                            d: "solid angle",
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    2: {
+                        question: "What is the unit of luminous flux?",
+                        choices: {
+                            a: "steradian",
+                            b: "diopter",
+                            c: "lumen",
+                            d: "candela",
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    3: {
+                        question: "Which is true about mean or average luminous intensity?",
+                        choices: {
+                            a: "It is the amount of light emitted by the source in one given direction.",
+                            b: "Its unit is lux or meter candle",
+                            c: "It is the amount of light emitted by the source in all directions.",
+                            d: "Its unit is steradian",
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    4: {
+                        question: "It is the rate of flow of light energy emitted by the source.",
+                        choices: {
+                            a: "luminous intensity",
+                            b: "luminous flux",
+                            c: "illuminance",
+                            d: "luminance",
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    5: {
+                        question: "What is the solid angle subtended at the center of a sphere of radius 3 meters by an area of 4.5 m^2 ?",
+                        choices: {
+                            a: "0.63 steradian",
+                            b: "0.50 steradian",
+                            c: "0.25 steradian",
+                            d: "0.75 steradian",
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    6: {
+                        question: "Which is NOT true about luminous flux?",
+                        choices: {
+                            a: "It is also known as luminous energy",
+                            b: "Its unit is lumen",
+                            c: "It is the rate of flow of light energy from a source.",
+                            d: "It is also known as luminous power",
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    7: {
+                        question: "An object is originally at 125 inches in front of a vertical plane mirror. If the said object is moved by 25 inches away from the mirror, how far now is its image from the mirror and from the object respectively?",
+                        choices: {
+                            a: "none of the choices",
+                            b: "100 inches and 200 inches",
+                            c: "50 inches and 100 inches",
+                            d: "150 inches and 300 inches",
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    8: {
+                        question: "Cycle per second is also known as __________.",
+                        choices: {
+                            a: "nanometer",
+                            b: "miles/sec",
+                            c: "hertz",
+                            d: "none of the choices",
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    9: {
+                        question: "A soap bubble is made of an extremely thin film. Light reflecting from the outer and inner sides of this film interact with each other to cause the colors that we see. The phenomenon is known as",
+                        choices: {
+                            a: "selective reflection",
+                            b: "diffraction",
+                            c: "dispersion",
+                            d: "interference",
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    10: {
+                        question: "The following are properties of laser lights except",
+                        choices: {
+                            a: "polychromatic",
+                            b: "coherent",
+                            c: "monochromatic",
+                            d: "collimated",
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    11: {
+                        question: "A ray is of light suffered a deviation of 180 degrees in a single plane mirror, what is the angle of incidence?",
+                        choices: {
+                            a: "0 deg",
+                            b: "180 degrees",
+                            c: "90 degrees",
+                            d: "45 degrees",
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    12: {
+                        question: "__________ refers to the distance between two successive crests or troughs, expressed in __________.",
+                        choices: {
+                            a: "Frequency..... hertz",
+                            b: "Wavelength..... nanometer",
+                            c: "Velocity..... miles/sec",
+                            d: "Period..... seconds",
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    13: {
+                        question: "To a scuba diver below the water surface, a bird flying over the water will appear to be",
+                        choices: {
+                            a: "diving.",
+                            b: "in its actual position.",
+                            c: "farther away than it actually is.",
+                            d: "closer than it actually is.",
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    14: {
+                        question: "A light ray passes from one material to a second material with an angle of incidence that is smaller than the angle of refraction. In this situation,",
+                        choices: {
+                            a: "the ray is travelling from a rarer to a denser material",
+                            b: "the ray is traveling from a denser to a rarer material.",
+                            c: "the ray is traveling obliquely.",
+                            d: "the ray is undeviated.",
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    15: {
+                        question: "An object embedded in glass will appear to be",
+                        choices: {
+                            a: "closer than it actually is.",
+                            b: "in its actual position.",
+                            c: "farther away than it actually is.",
+                            d: "floating.",
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    16: {
+                        question: "A refracted ray leaves normal to a crown glass-air interface. What is the angle of incidence?",
+                        choices: {
+                            a: "0 deg.",
+                            b: "45 deg.",
+                            c: "90 deg.",
+                            d: "180 deg.",
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    17: {
+                        question: "Light hits the boundary between CR39 and air at an angle of incidence of 20 degrees, the angle of refraction is",
+                        choices: {
+                            a: "30 deg 25 min 40 sec",
+                            b: "39 deg 60 min",
+                            c: "20 degrees",
+                            d: "none of the choices",
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    18: {
+                        question: "When you are looking at a person standing in a swimming pool, why do the legs appear to be shorter than they actually are?",
+                        choices: {
+                            a: "Because the light coming from water is refracted toward the normal to the surface.",
+                            b: "Because the light coming from water is reflected.",
+                            c: "Because the light coming from water is demonstrating total internal reflection.",
+                            d: "Because the light coming from water is refracted away from the normal to the surface",
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    19: {
+                        question: "The principle behind the following is total internal reflection except",
+                        choices: {
+                            a: "fiber optics",
+                            b: "periscope",
+                            c: "brilliance of diamond",
+                            d: "road studs",
+                            e: "colors in peacock feathers",
+                        },
+                        answer_key: "e",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    20: {
+                        question: "Light travels through _____________ at a speed of 124,198.93 miles/sec",
+                        choices: {
+                            a: "polycarbonate",
+                            b: "CR 39",
+                            c: "flint glass",
+                            d: "crown glass",
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    21: {
+                        question: "An object is located under a tank filled with three media (glass=1.523/thickness=1cm, water=1.33/thickness=3cm, oil=1.51/thickness=5cm). Where is the apparent position of the object viewed from the air above the tank?",
+                        choices: {
+                            a: "6.56 cm",
+                            b: "4.75 cm",
+                            c: "5.25 cm",
+                            d: "7.28 cm",
+                            e: "none of the choices",
+                        },
+                        answer_key: "e",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    22: {
+                        question: "What is the critical angle for light rays passing from ice (1.31) into air?",
+                        choices: {
+                            a: "43 deg 30 mins 25 sec",
+                            b: "45 degrees",
+                            c: "51.4 degrees",
+                            d: "38.48 deg",
+                            e: "none of the choices",
+                        },
+                        answer_key: "e",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    23: {
+                        question: "A light ray travels from water to polycarbonate. What is the relative refractive index?",
+                        choices: {
+                            a: "0.84",
+                            b: "1.96",
+                            c: "0.48",
+                            d: "1.69",
+                            e: "1.19",
+                        },
+                        answer_key: "e",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    24: {
+                        question: "A light ray forms angle of incidence of 50.3 degrees at crown-glass (1.523)- water interface. What is the angle of refraction?",
+                        choices: {
+                            a: "25.75 degrees",
+                            b: "16.28 degrees",
+                            c: "48. 16 degrees",
+                            d: "none of the choices",
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    25: {
+                        question: "Two plane mirrors are inclined at an angle of 25 degrees. If the angle of incidence formed at the 1st mirror is 50 degrees, how much is the total deviation suffered by the incident ray.",
+                        choices: {
+                            a: "50 degrees",
+                            b: "100 degrees",
+                            c: "130 degrees",
+                            d: "260 degrees",
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    26: {
+                        question: "An incident ray traveling in a fixed direction is reflected by a mirror which is rotating. If the incident angle is 65 degrees and the mirror is rotated by 10 degrees counter-clockwise, what is the new angle of incidence and the rotation & direction of the reflected ray",
+                        choices: {
+                            a: "25 degrees and 20 degrees clockwise",
+                            b: "25 degrees and 20 degrees counter-clockwise",
+                            c: "55 degrees and 20 degrees clockwise",
+                            d: "55 degrees and 20 degrees counter-clockwise",
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    27: {
+                        question: "A diverging mirror has a focal length of 25 cm. How much is its curvature?",
+                        choices: {
+                            a: "-2.00 D",
+                            b: "-4.00 D",
+                            c: "+2.00 D",
+                            d: "+4.00 D",
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    28: {
+                        question: "A 5 ft. 9 in. tall man stands at 4.5 ft from a plane vertical mirror. The size of the man formed by the mirror is",
+                        choices: {
+                            a: "2.5 ft. 4.5 inches",
+                            b: "5.5 ft",
+                            c: "5 ft. 9 inches",
+                            d: "none of the choices",
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    29: {
+                        question: "An object, 15 inches, high is at 100 inches is in front of a concave mirror whose radius is 2 feet. Where is the image located?",
+                        choices: {
+                            a: "at infinity",
+                            b: "between C and F",
+                            c: "between F and V",
+                            d: "at C",
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    30: {
+                        question: "An object is located 50 cm in front of a convex lens. An image is formed 25 cm to the right of the lens. What must be the lens power to change the wave fronts accordingly?",
+                        choices: {
+                            a: "+1.00 D",
+                            b: "+1.50 D",
+                            c: "+2.00 D",
+                            d: "+2.50 D",
+                            e: "none of the choices",
+                        },
+                        answer_key: "e",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    31: {
+                        question: "A 3 ft high indirect snellen chart is 10 ft in front of a vertical plane mirror. What must be the minimum height of the mirror in order for a patient, 3 meters from the mirror, to see the whole image of the chart?",
+                        choices: {
+                            a: "0.5 ft",
+                            b: "1 ft",
+                            c: "0.95 ft",
+                            d: "1.8 ft",
+                            e: "none of the choices",
+                        },
+                        answer_key: "e",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    32: {
+                        question: "Which of the following are arranged from high frequency to low frequency?",
+                        choices: {
+                            a: "red, orange, yellow, green, blue, violet",
+                            b: "red, violet, blue, green, yellow, orange",
+                            c: "violet, blue, green, yellow, orange, red",
+                            d: "yellow, green, blue, violet, red, orange",
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    33: {
+                        question: "He let white light pass through a prism and measured the temperature across the rainbow. Just passed the red, he measured the highest temperature. It is now called",
+                        choices: {
+                            a: "ultraviolet",
+                            b: "infrared",
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    34: {
+                        question: "William Herschel discovered ultraviolet.",
+                        choices: {
+                            a: "True",
+                            b: "False",
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    35: {
+                        question: "Light emitting diodes are examples of luminescence.",
+                        choices: {
+                            a: "True",
+                            b: "False",
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    36: {
+                        question: "What must be the size of the hole of a 40cm long camera obscura to produce the clearest image?",
+                        choices: {
+                            a: "0.002 cm",
+                            b: "0.003 cm",
+                            c: "0.004 cm",
+                            d: "none of the choices",
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    37: {
+                        question: "Glow in the dark stars and paints are examples of",
+                        choices: {
+                            a: "fluorescence",
+                            b: "phosphorescence",
+                            c: "chemiluminescence",
+                            d: "bioluminescence",
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    38: {
+                        question: "Johann Ritter tested the end of the visible spectrum passed the purple, there he found chemical reaction happens fastest. He called it oxidizing rays, now we call it high energy _________ light.",
+                        choices: {
+                            a: "ultraviolet",
+                            b: "infrared",
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    39: {
+                        question: "The image of an object seen through a prism is displaced towards the",
+                        choices: {
+                            a: "refracting surfaces",
+                            b: "base",
+                            c: "apex",
+                            d: "principal section",
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    40: {
+                        question: "A base-in prism dissociates the image",
+                        choices: {
+                            a: "nasally.",
+                            b: "temporally.",
+                            c: "downward.",
+                            d: "upward.",
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    41: {
+                        question: "The limiting apical angle is",
+                        choices: {
+                            a: "twice the critical angle of the prism.",
+                            b: "the smallest apical angle of the prism that could still refract light.",
+                            c: "the largest apical angle of the prism that could still refract light.",
+                            d: "both A and C are correct",
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    42: {
+                        question: "Which is NOT true about ophthalmic prism?",
+                        choices: {
+                            a: "Its most common unit is centrad",
+                            b: "Its apical angle is 15 degree or less.",
+                            c: "fresnel prism is a thin prism",
+                            d: "ophthalmic prism power unit can be converted to another unit",
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    43: {
+                        question: "An observer located behind a 2.5 prism diopter ophthalmic prism views an object located 50 meters in front of the prism. By how much does the object appears to be displaced?",
+                        choices: {
+                            a: "1.25 cm",
+                            b: "2.25 cm",
+                            c: "3.25 cm",
+                            d: "none of the choices",
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    44: {
+                        question: "A candle whose flame is 2 inches tall is at 12 inches in front of a pinhole camera 30.48 cm long. What is the height of the inverted image on the screen?",
+                        choices: {
+                            a: "5 inches",
+                            b: "3 inches",
+                            c: "2 inches",
+                            d: "1.5 inches",
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    45: {
+                        question: "Light forms a critical angle of 34.4 degrees when it travels from unknown medium into air. What is the index of refraction of the medium?",
+                        choices: {
+                            a: "1.47",
+                            b: "1.57",
+                            c: "1.67",
+                            d: "1.77",
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    46: {
+                        question: "What must be the apical angle of a prism (n=1.59) to produce Total internal refraction?",
+                        choices: {
+                            a: "less than the critical angle of the prism",
+                            b: "greater than the critical angle of the prism",
+                            c: "equal to the critical angle of the prism",
+                            d: "twice the critical angle of the prism",
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    47: {
+                        question: "What must be the angle of incidence at the 1st surface of a prism made of crown glass to produce total internal reflection?",
+                        choices: {
+                            a: "smaller than the limiting angle of incidence",
+                            b: "larger than the limiting angle of incidence",
+                            c: "equal to the limiting angle of incidence",
+                            d: "twice the limiting angle of incidence",
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    48: {
+                        question: "An object is 20 inches in front of a concave mirror whose radius is 50 inches. Where is the image located and what is the nature of the image?",
+                        choices: {
+                            a: "11.11 inches behind the mirror... virtual image",
+                            b: "11.11 inches in front of the mirror... real image",
+                            c: "100 inches behind the mirror... virtual image",
+                            d: "100 inches in front of the mirror... real image",
+                            e: "none of the choices",
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    49: {
+                        question: "4 prism degree deviation s equivalent to ________ prism degree.",
+                        choices: {
+                            a: "4",
+                            b: "3.5",
+                            c: "1.75",
+                            d: "none of the choices",
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                },
+                options: {
+                    shuffleQuestions: true,
+                    instantFeedback: true,
+                },
+                reveal: false,
+            }))
+        })
+    </script>
+</head>
+<body class="bg-blue-100">
+    <div class="container mx-auto max-w-2xl p-4" x-data="quiz">
+        <div class="flex flex-row justify-between items-center p-2">
+            <div>
+                <div class="text-lg font-semibold">Mock Board Exam on</div>
+                <div class="text-2xl font-bold" x-text="subject">Theoretical Optics</div>
+            </div>
+            <div>
+                <div class="relative flex gap-x-3">
+                    <div class="flex h-6 items-center">
+                        <input id="instantFeedback" x-model="options.instantFeedback" type="checkbox" class="h-4 w-4 rounded border-gray-300 bg-white text-blue-600 outline-none transition-all enabled:checked:bg-blue-600 enabled:checked:border-blue-600 enabled:focus:ring-blue-600 enabled:focus:ring-offset-blue-100 disabled:border-gray-200 disabled:bg-gray-50 disabled:text-gray-400 disabled:checked:border-gray-400 disabled:checked:bg-gray-400">
+                    </div>
+                    <div class="text-start text-sm leading-6">
+                        <label for="instantFeedback" class="font-medium text-gray-900">Check instantly</label>
+                        <p class="text-gray-500 leading-tight text-xs max-w-[14rem]">Immediately reveal correct answers. The first answer you click will be the final answer.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="h-0.5 bg-blue-900 opacity-25 rounded-full"></div>
+        <div class="space-y-4">
+            <template x-for="item in questions">
+                <div class="space-y-4 rounded-lg bg-white px-4 py-4">
+                    <div class="text-gray-900 font-medium" x-text="item.question"></div>
+                    <div class="grid grid-cols-2 gap-4 text-sm">
+                        <template x-for="(choice, letter) in item.choices">
+                            <button x-bind:disabled="item.reveal" x-bind:class="{ 'flex items-start outline-none text-left border border-gray-200 p-2 rounded-md': (item.selected_choice != letter && item.reveal), 'flex items-start outline-none text-left border border-red-200 bg-red-100 transition-all p-2 rounded-md': (item.selected_choice == letter && item.answer_key != letter && item.reveal), 'flex items-start outline-none text-left border border-green-200 bg-green-100 transition-all p-2 rounded-md': (item.selected_choice && item.answer_key == letter && item.reveal), 'flex items-start outline-none text-left border border-gray-200 hover:bg-gray-200 hover:border-gray-400 transition-all p-2 rounded-md': (item.selected_choice != letter && !item.reveal), 'flex items-start outline-none text-left border border-orange-200 bg-orange-100 transition-all p-2 rounded-md': (item.selected_choice == letter && !item.reveal) }" x-on:click="if(!item.reveal) { item.selected_choice = letter; if(options.instantFeedback) { item.reveal = true } } ">
+                                <div class="flex flex-row gap-2 items-start">
+                                    <div x-text="letter + '. '"></div>
+                                    <div x-text="choice"></div>
+                                </div>
+                            </button>
+                        </template>
+                    </div>
+                </div>
+            </template>
+        </div>
+        <div class="space-y-4" x-show="!options.instantFeedback && !reveal">
+            <div class="h-0.5 bg-blue-900 opacity-25 rounded-full"></div>
+            <div class="flex justify-end">
+                <button class="px-4 py-2 bg-blue-500 text-sm text-white rounded-lg" x-on:click="Object.values(questions).forEach(item => { item.reveal = true }); reveal = true">Submit answers</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

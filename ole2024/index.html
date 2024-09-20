@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp,container-queries"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    animation: {
+                        border: 'border 2s linear infinite',
+                        flip1: 'flip1 20s ease-in-out infinite',
+                        flip2: 'flip2 20s ease-in-out infinite',
+                    },
+                    colors: {
+                        pink: {
+                            1000: '#1d020d',
+                        },
+                    },
+                    fontFamily: {
+                        sans: ['Inter'],
+                    },
+                    fontSize: {
+                        '2xs': '0.625rem',
+                    },
+                    keyframes: {
+                        border: {
+                            to: { '--border-angle': '360deg' },
+                        },
+                        flip1: {
+                            '0%': { opacity: 0 },
+                            '1%': { opacity: 1 },
+                            '49%': { opacity: 1 },
+                            '50%': { opacity: 0 },
+                            '100%': { opacity: 0 },
+                        },
+                        flip2: {
+                            '0%': { opacity: 0 },
+                            '51%': { opacity: 0 },
+                            '52%': { opacity: 1 },
+                            '99%': { opacity: 1 },
+                            '100%': { opacity: 0 },
+                        }
+                    },
+                    listStyleType: {
+                        square: 'square',
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-blue-100">
+    <div class="container mx-auto max-w-2xl p-4" x-data="quiz">
+        <div class="flex flex-col gap-4">
+            <div class="text-2xl font-bold text-center">Mock Board Exams</div>
+            <a href="theoretical_optics.html" class="outline-none">
+                <div class="bg-white hover:bg-green-100 group transition-all rounded-lg p-4 mx-auto max-w-md">
+                    <div class="text-xl font-semibold text-gray-900 group-hover:text-green-800 transition-all text-center">Theoretical Optics</div>
+                    <div class="text-base font-medium text-gray-500 group-hover:text-green-700 transition-all text-center">49 questions</div>
+                </div>
+            </a>
+            <div class="flex flex-row justify-center gap-2">
+                <div class="w-1.5 h-1.5 rounded-full bg-blue-400"></div>
+                <div class="w-1.5 h-1.5 rounded-full bg-blue-400"></div>
+                <div class="w-1.5 h-1.5 rounded-full bg-blue-400"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
