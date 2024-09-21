@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp,container-queries"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    animation: {
+                        border: 'border 2s linear infinite',
+                        flip1: 'flip1 20s ease-in-out infinite',
+                        flip2: 'flip2 20s ease-in-out infinite',
+                    },
+                    colors: {
+                        pink: {
+                            1000: '#1d020d',
+                        },
+                    },
+                    fontFamily: {
+                        sans: ['Inter'],
+                    },
+                    fontSize: {
+                        '2xs': '0.625rem',
+                    },
+                    keyframes: {
+                        border: {
+                            to: { '--border-angle': '360deg' },
+                        },
+                        flip1: {
+                            '0%': { opacity: 0 },
+                            '1%': { opacity: 1 },
+                            '49%': { opacity: 1 },
+                            '50%': { opacity: 0 },
+                            '100%': { opacity: 0 },
+                        },
+                        flip2: {
+                            '0%': { opacity: 0 },
+                            '51%': { opacity: 0 },
+                            '52%': { opacity: 1 },
+                            '99%': { opacity: 1 },
+                            '100%': { opacity: 0 },
+                        }
+                    },
+                    listStyleType: {
+                        square: 'square',
+                    }
+                },
+            },
+        }
+    </script>
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('quiz', () => ({
+                subject: "Ophthalmic Optics",
+                questions: {
+                    1: {
+                        question: "Using the Vogel's formula, what base curve would you recommend for a +3.00 D Sph -2.00 D Cyl X 45?",
+                        choices: {
+                            a: "+7.50",
+                            b: "+8.00",
+                            c: "+7.00",
+                            d: "+6.00",
+                            e: "+8.50",
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    2: {
+                        question: "What is the interval of sturm of +3.50 D Sph -1.50 D Cyl X 90?",
+                        choices: {
+                            a: "206.85 mm",
+                            b: "219.52 mm",
+                            c: "214.29 mm",
+                            d: "235.25 mm",
+                            e: "221.18 mm",
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    3: {
+                        question: "What power of lens is the summation of the front and back surface power?",
+                        choices: {
+                            a: "front vertex power",
+                            b: "back vertex power",
+                            c: "equivalent power",
+                            d: "nominal power",
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    4: {
+                        question: "A tinted solid +9.50 D Sph lens will have what kind of tint effect?",
+                        choices: {
+                            a: "distortion effect",
+                            b: "aberrare effect",
+                            c: "bull's eye effect",
+                            d: "racooning effect",
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    5: {
+                        question: "A -5.00 D lens centered for distance and is being used at near will create which prismatic effect?",
+                        choices: {
+                            a: "base out",
+                            b: "base in",
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    6: {
+                        question: "Which of frame is normally a wrapped frame?",
+                        choices: {
+                            a: "cycling frames",
+                            b: "rayban aviator",
+                            c: "aphakic frame",
+                            d: "diving googles",
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    7: {
+                        question: "M90: -4.00, M180: -1.00 Which meridian will have WITH scissor's motion?",
+                        choices: {
+                            a: "M180",
+                            b: "M90",
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    8: {
+                        question: "A patient reports that he sees clearly at distance when he moves his head to the left side. Which of the following statements is true?",
+                        choices: {
+                            a: "The pd is off.",
+                            b: "The lens is fitted low.",
+                            c: "The lens is fitted high.",
+                            d: "The pd is correct.",
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    9: {
+                        question: "In a base-in risley prism, which of the following is TRUE?",
+                        choices: {
+                            a: "Front prism & back prisms have equal base-out, and opposite vertical prisms with equal amount.",
+                            b: "Front prism & back prisms have equal base-in, and base-up prisms.",
+                            c: "Front prism & back prisms have equal base-in, and opposite vertical prisms with equal amount.",
+                            d: "Front prism & back prisms have equal base-in, and base-down prisms.",
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    10: {
+                        question: "Polarized lenses are best for driving because they greatly reduce which type of glare?",
+                        choices: {
+                            a: "veiling glare",
+                            b: "blinding glare",
+                            c: "distracting glare",
+                            d: "discomforting glare",
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    11: {
+                        question: "What is the effect of multicoating a lens?",
+                        choices: {
+                            a: "decrease light transmission, decrease reflection",
+                            b: "decrease light transmission, increase reflection",
+                            c: "increase light transmission, decrease reflection",
+                            d: "increase light transmission, increase reflection",
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    12: {
+                        question: "A lens clock (n=1.53) reads +7.75 D. If the surface material has a refractive index of 1.61, what is the true surface power?",
+                        choices: {
+                            a: "+7.94",
+                            b: "+9.03",
+                            c: "+8.37",
+                            d: "+8.75",
+                            e: "+8.92",
+                        },
+                        answer_key: "e",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    13: {
+                        question: "How would you compute the transmission of tinted lens with an absorption rate of 68%?",
+                        choices: {
+                            a: "68/100",
+                            b: "100/68",
+                            c: "100 - 68",
+                            d: "100 x 0.68",
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    14: {
+                        question: "What eyeglass temple would you recommend to motorcycle riders?",
+                        choices: {
+                            a: "library",
+                            b: "skull",
+                            c: "comfort cable",
+                            d: "convertible",
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    15: {
+                        question: "It is a type of aberration where edges have color fringes?",
+                        choices: {
+                            a: "monochromatic aberration",
+                            b: "axial chromatic aberration",
+                            c: "chromatic aberration",
+                            d: "lateral chromatic aberration",
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    16: {
+                        question: "A lens is said to have a power if ...",
+                        choices: {
+                            a: "if is coated.",
+                            b: "it is curve.",
+                            c: "it refracts light.",
+                            d: "it changes the vergence of light.",
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    17: {
+                        question: "+2.50 D Cyl X 175 +0.75 D Cyl X 85 is the same as ...",
+                        choices: {
+                            a: "+0.75 D Sph +1.75 D Cyl X 85",
+                            b: "+0.75 D Sph -0.75 D Cyl X 175",
+                            c: "+2.50 D Sph -1.75 D Cyl X 175",
+                            d: "+2.50 D Sph -1.75 D Cyl X 85",
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    18: {
+                        question: "It is the linear distance between the principal focus and the lens.",
+                        choices: {
+                            a: "principal focus",
+                            b: "optical center",
+                            c: "focal point",
+                            d: "focal length",
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    19: {
+                        question: "Which of the following describes a curve with a short radius?",
+                        choices: {
+                            a: "flat",
+                            b: "steep",
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    20: {
+                        question: "These are dark lines of the spectrum and represent specific gasses or elements.",
+                        choices: {
+                            a: "relative lines",
+                            b: "fraunhofer lines",
+                            c: "petzval lines",
+                            d: "refraction lines",
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    21: {
+                        question: "How do parallel rays of light behave after passing through a concave lens?",
+                        choices: {
+                            a: "bent parallel with the principal axis.",
+                            b: "undeviated.",
+                            c: "bent as if coming from the principal focus.",
+                            d: "bent passing through the principal focus.",
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    22: {
+                        question: "Rotating a generating arc on an axis at its center will create which of the following surfaces?",
+                        choices: {
+                            a: "capstan",
+                            b: "cylinder",
+                            c: "barrel",
+                            d: "sphere",
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    23: {
+                        question: "Which of the following is used in cancer treatment?",
+                        choices: {
+                            a: "uv rays",
+                            b: "microwaves",
+                            c: "infrared",
+                            d: "xray",
+                            e: "gamma rays",
+                        },
+                        answer_key: "e",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    24: {
+                        question: "Given the same power, which among these lens materials will be the thinnest?",
+                        choices: {
+                            a: "trivex",
+                            b: "MR7",
+                            c: "polycarbonate",
+                            d: "cr39",
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    25: {
+                        question: "The height from which the steel ball used for drop-ball test is dropped is :",
+                        choices: {
+                            a: "50 feet",
+                            b: "50 centimeters",
+                            c: "50 meters",
+                            d: "50 inches",
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    26: {
+                        question: "Which lens is best to give for night driving?",
+                        choices: {
+                            a: "yellow tinted lens",
+                            b: "photochromic lens",
+                            c: "antireflective lens",
+                            d: "polarized lens",
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    27: {
+                        question: "What is the bifocal segment height of a frame with the following size A=52, B=32, DBL=18 & DBC=65 if the patient's pd is 62mm?",
+                        choices: {
+                            a: "13 mm",
+                            b: "10 mm",
+                            c: "14 mm",
+                            d: "12 mm",
+                            e: "11 mm",
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    28: {
+                        question: "What is the image jump of a KK28 (n=1.56) that has a power of +2.00 D Sph -1.25 D Cyl X 90 ADD +3.00?",
+                        choices: {
+                            a: "4.20 BD",
+                            b: "7.00 BU",
+                            c: "4.20 BU",
+                            d: "7.00 BD",
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    29: {
+                        question: "Brown tint blocks which of the following?",
+                        choices: {
+                            a: "red",
+                            b: "yellow",
+                            c: "green",
+                            d: "blue",
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    30: {
+                        question: "If the total absorption and reflection of light on a material with a refractive index of 1.56 is 11.47%, which of the following statement is true?",
+                        choices: {
+                            a: "It's transmission is 88.53%.",
+                            b: "It's absorption is 8.47%.",
+                            c: "It's reflection is 7.56%.",
+                            d: "It's thickness is 5.83 mm.",
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    31: {
+                        question: "A patient reports that he sees the table higher on one side. Which of the following is a possibility?",
+                        choices: {
+                            a: "He has excessive base up prism",
+                            b: "He has excessive base down prism",
+                            c: "He has excessive horizontal prism.",
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    32: {
+                        question: "Which of the following describes a hard design progressive lens?",
+                        choices: {
+                            a: "wide distance, subtle progression & long corridor",
+                            b: "wide distance, abrupt progression & short corridor",
+                            c: "wide distance, subtle progression & short corridor",
+                            d: "wide distance, abrupt progression & long corridor",
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    33: {
+                        question: "Ghost images can be corrected by the following except ....",
+                        choices: {
+                            a: "change the frame",
+                            b: "add multicoating",
+                            c: "change the tilt",
+                            d: "change the power",
+                            e: "change the base curve",
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    34: {
+                        question: "In a blue coat lens, objects appear sepia because of the reduction of which color?",
+                        choices: {
+                            a: "yellow",
+                            b: "blue",
+                            c: "red",
+                            d: "green",
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    35: {
+                        question: "What is the center thickness of a +10.00 D Plano Convex (n = 1.50) with an aperture of 50 mm and edge thickness of 1.82 mm?",
+                        choices: {
+                            a: "+8.07 mm",
+                            b: "+9.01 mm",
+                            c: "+7.86 mm",
+                            d: "+8.14 mm",
+                            e: "+7.92 mm",
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    36: {
+                        question: "Which of these will have a barrel distortion?",
+                        choices: {
+                            a: "polaroid lens",
+                            b: "aphakic lens",
+                            c: "myodisc",
+                            d: "achromatic lens",
+                            e: "chromatic lens",
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    37: {
+                        question: "A -8.00 D Sph lens has an original vertex distance of 8 mm. If the new frame requires a 14mm vertex distance, how should you adjust the Rx?",
+                        choices: {
+                            a: "reduce -8.00",
+                            b: "increase -8.00",
+                            c: "retain -8.00",
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    38: {
+                        question: "A -5.00 D was centered for distance pd. What prism base would be created if it is being used for near?",
+                        choices: {
+                            a: "Base IN",
+                            b: "Base OUT",
+                            c: "Base UP",
+                            d: "Base DOWN",
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    39: {
+                        question: "Which of the following is a lenticular lens for a high myope?",
+                        choices: {
+                            a: "aphakic",
+                            b: "myodisc",
+                            c: "aspheric",
+                            d: "cylinder",
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    40: {
+                        question: "A cylinder lens will have 25% of its power on a meridian __ degrees from the POWER meridian?",
+                        choices: {
+                            a: "60",
+                            b: "90",
+                            c: "30",
+                            d: "45",
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    41: {
+                        question: "What is the prism base direction of 120 deg on the right eye?",
+                        choices: {
+                            a: "base-out & down",
+                            b: "base-out & up",
+                            c: "base-in & up",
+                            d: "base-in & down",
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    42: {
+                        question: "Which of the ff describes the transmission of brown tint?",
+                        choices: {
+                            a: "low uv, low blue, high red, high ir",
+                            b: "low uv, high blue, high red, low ir",
+                            c: "high uv, low blue, low red, high ir",
+                            d: "high uv, low blue, high red, high ir",
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    43: {
+                        question: "Which metallic oxide produces a green tint?",
+                        choices: {
+                            a: "chromium",
+                            b: "manganese",
+                            c: "cobalt",
+                            d: "gold",
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    44: {
+                        question: "Which lens property directly affects the chromatic dispersion of a lens material?",
+                        choices: {
+                            a: "specific gravity",
+                            b: "abbe value",
+                            c: "coating",
+                            d: "index of refraction",
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    45: {
+                        question: "In ophthalmic prescription, a cylinder lens has a combination of these surfaces.",
+                        choices: {
+                            a: "front: sphere, back: sphere",
+                            b: "front: toric, back: sphere",
+                            c: "front: toric, back: toric",
+                            d: "front: sphere, back: toric",
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    46: {
+                        question: "What is the power of -4.50 D Sph -4.00 D Cyl X 40 on the meridian 80?",
+                        choices: {
+                            a: "-8.23",
+                            b: "-8.62",
+                            c: "-8.49",
+                            d: "-8.54",
+                            e: "-8.34",
+                        },
+                        answer_key: "e",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    47: {
+                        question: "In fitting progressive lens, which of the following would be coincided with the pupillary center?",
+                        choices: {
+                            a: "prism reference point",
+                            b: "fitting cross",
+                            c: "distance reference point",
+                            d: "near reference point",
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    48: {
+                        question: "A +3.00 D Sph -1.25 D Cyl X 90, is a prescription for which EOR?",
+                        choices: {
+                            a: "simple myopia",
+                            b: "compound hyperopia",
+                            c: "simple hyperopia",
+                            d: "compound myopia",
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    49: {
+                        question: "What would you do if the patient sees the intermediate area while wearing a progressive lens?",
+                        choices: {
+                            a: "narrow the gap between temples",
+                            b: "widen the gap between temples",
+                            c: "narrow the gap between nose pads",
+                            d: "widen the gap between nose pads",
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    50: {
+                        question: "Instrument used to measure the surface power?",
+                        choices: {
+                            a: "lensmeter",
+                            b: "lens caliper",
+                            c: "lens clock",
+                            d: "lens polariscope",
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    51: {
+                        question: "If a -5.00 D Sph -2.00 D Cyl X 90 on the right eye is decentered 6mm inward, what would be the prismatic power induced?",
+                        choices: {
+                            a: "4.2 BI",
+                            b: "3.0 BI",
+                            c: "4.2 BO",
+                            d: "3.0 BO",
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                },
+                options: {
+                    shuffleQuestions: true,
+                    instantFeedback: true,
+                },
+                reveal: false,
+            }))
+        })
+    </script>
+</head>
+<body class="bg-blue-100">
+    <div class="container mx-auto max-w-2xl space-y-4 p-4" x-data="quiz">
+        <div class="flex flex-row justify-between items-center">
+            <div>
+                <div class="text-lg text-gray-700 font-semibold">Mock Board Exam on</div>
+                <div class="text-2xl text-gray-900 font-bold" x-text="subject">Theoretical Optics</div>
+            </div>
+            <div class="text-right">
+                <div class="text-base text-gray-500 font-medium">Score</div>
+                <div class="text-lg  text-gray-700 font-semibold" x-text="Object.values(questions).reduce((accumulator, item) => accumulator + ((item.selected_choice == item.answer_key && item.reveal) ? 1 : 0), 0) + '/' + Object.values(questions).reduce((accumulator, item) => accumulator + ((item.selected_choice && item.reveal) ? 1 : 0), 0)"></div>
+            </div>
+        </div>
+        <div>
+            <label class="relative flex gap-x-3" for="instantFeedback">
+                <div>
+                    <input id="instantFeedback" x-model="options.instantFeedback" type="checkbox" class="peer rounded-full w-10 h-6 absolute inset-0 z-0 enabled:focus:ring-blue-600 enabled:focus:ring-offset-blue-100 outline-none checked:bg-none bg-transparent text-transparent border-transparent accent-transparent after:opacity-0">
+                    <div class="rounded-full w-10 h-6 bg-gray-300 peer-enabled:cursor-pointer peer-checked:bg-blue-600 peer-disabled:bg-transparent peer-checked:peer-disabled:bg-transparent border border-transparent peer-disabled:border-gray-300 transition-all relative z-10"></div>
+                    <div class="top-1/2 -mt-4 translate-x-1 peer-checked:translate-x-5 transition-all absolute w-4 h-4 rounded-full peer-enabled:cursor-pointer bg-gray-400 peer-checked:bg-blue-100 peer-disabled:bg-gray-400 peer-checked:peer-disabled:bg-gray-400 z-20"></div>
+                </div>
+                <div class="text-start text-sm leading-6">
+                    <label for="instantFeedback" class="font-medium text-gray-900">Check instantly</label>
+                    <p class="text-gray-500 leading-tight text-xs">Immediately reveal correct answers. The first answer you click will be the final answer.</p>
+                </div>
+            </label>
+        </div>
+        <div class="h-0.5 bg-blue-900 opacity-25 rounded-full"></div>
+        <div class="space-y-4">
+            <template x-for="item in questions">
+                <div class="space-y-4 rounded-lg bg-white px-6 py-6">
+                    <div class="flex flex-row items-center gap-4">
+                        <div class="flex-1 text-gray-900 font-medium tracking-wide leading-6" x-text="item.question"></div>
+                        <button class="flex-none outline-none text-gray-400 focus:text-gray-600 hover:text-gray-600 transition-all" :class="item.reveal ? '' : 'invisible'" x-on:click="item.selected_choice = null; item.reveal = false">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 stroke-current fill-transparent">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M4.05 11a8 8 0 1 1 .5 4m-.5 5v-5h5" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 text-sm">
+                        <template x-for="(choice, letter) in item.choices">
+                            <button x-bind:disabled="item.reveal" x-bind:class="{ 'flex items-start outline-none text-left border border-blue-200 bg-blue-100 transition-all p-2 rounded-md': (item.selected_choice == null && item.answer_key == letter && item.reveal), 'flex items-start outline-none text-left border border-gray-200 p-2 rounded-md': (item.selected_choice != letter && item.reveal), 'flex items-start outline-none text-left border border-red-200 bg-red-100 transition-all p-2 rounded-md': (item.selected_choice == letter && item.answer_key != letter && item.reveal), 'flex items-start outline-none text-left border border-green-200 bg-green-100 transition-all p-2 rounded-md': (item.selected_choice && item.answer_key == letter && item.reveal), 'flex items-start outline-none text-left border border-gray-200 hover:bg-gray-200 hover:border-gray-400 transition-all p-2 rounded-md': (item.selected_choice != letter && !item.reveal), 'flex items-start outline-none text-left border border-orange-200 bg-orange-100 transition-all p-2 rounded-md': (item.selected_choice == letter && !item.reveal) }" x-on:click="if(!item.reveal) { item.selected_choice = letter; if(options.instantFeedback) { item.reveal = true } } ">
+                                <div class="tracking-wide text-gray-900 flex flex-row gap-2 items-start">
+                                    <div x-text="letter + '. '"></div>
+                                    <div x-text="choice"></div>
+                                </div>
+                            </button>
+                        </template>
+                    </div>
+                </div>
+            </template>
+        </div>
+        <div class="space-y-4" x-show="!options.instantFeedback && !reveal">
+            <div class="h-0.5 bg-blue-900 opacity-25 rounded-full"></div>
+            <div class="flex justify-end">
+                <button class="px-4 py-2 bg-blue-500 text-sm text-white rounded-lg" x-on:click="Object.values(questions).forEach(item => { item.reveal = true }); reveal = true">Submit answers</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
