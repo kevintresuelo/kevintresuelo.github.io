@@ -1,0 +1,1333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp,container-queries"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    animation: {
+                        border: 'border 2s linear infinite',
+                        flip1: 'flip1 20s ease-in-out infinite',
+                        flip2: 'flip2 20s ease-in-out infinite',
+                    },
+                    colors: {
+                        pink: {
+                            1000: '#1d020d',
+                        },
+                    },
+                    fontFamily: {
+                        sans: ['Inter'],
+                    },
+                    fontSize: {
+                        '2xs': '0.625rem',
+                    },
+                    keyframes: {
+                        border: {
+                            to: { '--border-angle': '360deg' },
+                        },
+                        flip1: {
+                            '0%': { opacity: 0 },
+                            '1%': { opacity: 1 },
+                            '49%': { opacity: 1 },
+                            '50%': { opacity: 0 },
+                            '100%': { opacity: 0 },
+                        },
+                        flip2: {
+                            '0%': { opacity: 0 },
+                            '51%': { opacity: 0 },
+                            '52%': { opacity: 1 },
+                            '99%': { opacity: 1 },
+                            '100%': { opacity: 0 },
+                        }
+                    },
+                    listStyleType: {
+                        square: 'square',
+                    }
+                },
+            },
+        }
+    </script>
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('quiz', () => ({
+                subject: "Theoretical Optics",
+                questions: [
+                    {
+                        question: "Using the Vogel's formula, what base curve would you recommend for a +3.00 D Sph -2.00 D Cyl X 45?",
+                        choices: {
+                            a: "+7.50",
+                            b: "+8.00",
+                            c: "+7.00",
+                            d: "+6.00",
+                            e: "+8.50",
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Headaches that do not accompany prolonged use of the eyes may well be non-ocular in origin. Which of the following non-ocular HA is characteristically severe, boring, unilaterally, occurring in the temporal region, and often accompanied by ipsilateral lacrimation and nasal congestion?",
+                        choices: {
+                            a: "cluster HA",
+                            b: "macular contraction HA",
+                            c: "migraine",
+                            d: "nasal sinusitis HA",
+                            e: "trigeminal neuralgia"
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Which of the ff conditions produce a complaint of blurred vision?",
+                        choices: {
+                            a: "uncorrected hyperopia/astigmatism",
+                            b: "night myopia or retinitis pigmentosa",
+                            c: "functional amblyopia/senile macular degeneration",
+                            d: "nuclear or posterior subcapsular lens opacities",
+                            e: "all of these"
+                        },
+                        answer_key: "e",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Which of the ff conditions do not produce a typical complaint of eyestrain?",
+                        choices: {
+                            a: "uncorrected astigmatism",
+                            b: "uncorrected myopia",
+                            c: "uncorrected hyperopia",
+                            d: "convergence excess",
+                            e: "divergence insufficiency"
+                        },
+                        answer_key: "e",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Which of the ff produce a patient complaint of temporary loss of vision?",
+                        choices: {
+                            a: "migraine",
+                            b: "multiple sclerosis",
+                            c: "carotid artery occlusive disease",
+                            d: "temporal arteritis",
+                            e: "all of these"
+                        },
+                        answer_key: "e",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Which of the ff do not produce a patient complaint of double vision?",
+                        choices: {
+                            a: "keratoconus",
+                            b: "uncorrected astigmatism",
+                            c: "occasional exotropia",
+                            d: "occasional esotropia",
+                            e: "none of these"
+                        },
+                        answer_key: "e",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Which of the ff statements concerning pupil size is not correct?",
+                        choices: {
+                            a: "very small pupils are usually associated with hyperopia",
+                            b: "large pupils are associated with myopia",
+                            c: "very small pupils are usually associated with astigmatism",
+                            d: "large pupils are associated with presbyopia",
+                            e: "very small pupils are usually associated with presbyopia"
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "If, by parallax, an opacity within the eye does not appear to move, its probable location is in the?",
+                        choices: {
+                            a: "aqueous",
+                            b: "vitreous",
+                            c: "lens near the nucleus",
+                            d: "lens at the posterior surface"
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "What minimum amplitude of accommodation is expected for a 40 year old individual?",
+                        choices: {
+                            a: "9.00D",
+                            b: "6.50D",
+                            c: "3.00D",
+                            d: "5.00D",
+                            e: "8.25D"
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Which of the ff retinoscopy methods is used when the patient has small pupils, cataract, or other media opacities that make the retinoscope reflex faint and indistinct?",
+                        choices: {
+                            a: "static retinoscopy @ 50cm",
+                            b: "radical retinoscopy",
+                            c: "book retinoscopy",
+                            d: "lens bar retinoscopy",
+                            e: "MEM retinoscopy"
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Scissors movement in retinoscopy is said to be caused by",
+                        choices: {
+                            a: "spherical aberrations",
+                            b: "conical cornea",
+                            c: "tilted crystalline lens",
+                            d: "coma aberration",
+                            e: "all of these"
+                        },
+                        answer_key: "e",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "With proper blur, the patient reports that the 10 o’clock line is the clearest on the fan dial, what is the axis of the minus cylinder?",
+                        choices: {
+                            a: "30°",
+                            b: "60°",
+                            c: "90°",
+                            d: "120°",
+                            e: "150°"
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "With proper blur, the patient reports that the 9 o’clock line is the clearest on the fan dial, what is the axis of the minus cylinder?",
+                        choices: {
+                            a: "30°",
+                            b: "60°",
+                            c: "90°",
+                            d: "120°",
+                            e: "150°"
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Which of the ff statements concerning the subjective examination of the aged patient is not correct?",
+                        choices: {
+                            a: "a trial frame examination is better than a refractor examination",
+                            b: "because the aged fatigued quickly, the exam should be brief",
+                            c: "the morning hours are better for testing than the afternoon",
+                            d: "it is advisable to begin with patients old Rx and check by modification rather than start at the beginning",
+                            e: "none of the above"
+                        },
+                        answer_key: "e",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "If the refractive correction is +0.50 Dsph = -0.50 Dcyl x 150, the refractive diagnosis would be?",
+                        choices: {
+                            a: "MA",
+                            b: "CMA",
+                            c: "SHA",
+                            d: "CHA",
+                            e: "SMA"
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "If, upon occlusion, the left eye moves out while the unoccluded right eye remains stationary and, upon exposure, the left eye moves in while the unoccluded right eye remains stationary, the preliminary diagnosis would be?",
+                        choices: {
+                            a: "esophoria",
+                            b: "exotropia",
+                            c: "exophoria",
+                            d: "esotropia",
+                            e: "none of these"
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "If, upon occlusion, the left eye moves out while the unoccluded right eye moves in and, upon exposure, neither the left eye nor the right eye show motion, the preliminary diagnosis would be?",
+                        choices: {
+                            a: "occasional exotropia",
+                            b: "right esotropia",
+                            c: "alternating exotropia",
+                            d: "right exotropia",
+                            e: "none of these"
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "If upon occlusion, the left eye moves in while the unoccluded right eye moves out and, upon exposure, the left eye moves out while the unoccluded right eye moves in, the preliminary diagnosis would be?",
+                        choices: {
+                            a: "right exotropia",
+                            b: "left esotropia",
+                            c: "left exotropia",
+                            d: "right esotropia",
+                            e: "none of these"
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "The condition in which the eyes fail to achieve simultaneous bifoveal fixation is called?",
+                        choices: {
+                            a: "phoria",
+                            b: "suppression",
+                            c: "strabismus",
+                            d: "ametropia",
+                            e: "none of the above"
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Which of the following conditions would not be relieved by monocular occlusion?",
+                        choices: {
+                            a: "vertical imbalance",
+                            b: "accommodative insufficiency",
+                            c: "photophobia",
+                            d: "aniseikonia",
+                            e: "both b and c are correct"
+                        },
+                        answer_key: "e",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Which of the ff diagnostic procedure does not require the use of topical anaesthetics in order to be carried out?",
+                        choices: {
+                            a: "Goldman applanation tonometry",
+                            b: "gonioscopy",
+                            c: "Binocular indirect ophthalmoscopy",
+                            d: "fundus photography",
+                            e: "both c and d"
+                        },
+                        answer_key: "e",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Greatest accuracy in measurement of aniseikonia is claimed for the?",
+                        choices: {
+                            a: "leaf room",
+                            b: "tilting plane",
+                            c: "direct comparison eikonometer",
+                            d: "empirical estimation from refractive properties",
+                            e: "space eikonometer"
+                        },
+                        answer_key: "e",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "An acuity task in which the subject is required to name the test object is called?",
+                        choices: {
+                            a: "detection",
+                            b: "resolution",
+                            c: "recognition",
+                            d: "localization",
+                            e: "rationalization"
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "The threshold of minimum displacement of an object measured under optimal conditions is of the same order as?",
+                        choices: {
+                            a: "vernier acuity",
+                            b: "resolution acuity",
+                            c: "recognition acuity",
+                            d: "Snellen acuity",
+                            e: "e.dynamic acuity"
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Which of the following statements is not a clinical presentation of reduced visual acuity in infants or toddlers",
+                        choices: {
+                            a: "headaches",
+                            b: "inability to maintain eye contact",
+                            c: "failure to recognize familiar faces at distance",
+                            d: "excessive clumsiness in children as they begin to walk"
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "These are individual refractive changes in children during their school year except:",
+                        choices: {
+                            a: "Children with greater than 1.50D of hyperopia tend to remain hyperopic",
+                            b: "Children with +0.50D to 1.25D of hyperopia entering school will tend to become emmetropic",
+                            c: "Children with more myopia tend to become more hyperopic",
+                            d: "Children with more myopia tend to become more myopic"
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "A prominent epicanthal fold may lead to the false impression that",
+                        choices: {
+                            a: "exotropia is present",
+                            b: "hypermetropia is present",
+                            c: "esotropia is present",
+                            d: "hypotropia is present",
+                            e: "none of these"
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Asthenopia is used almost exclusively to designate the visual fatigue and other symptoms arising from uncorrected:",
+                        choices: {
+                            a: "ametropia",
+                            b: "hyperopia",
+                            c: "myopia",
+                            d: "none of these"
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Results in difficulty reading letters on a line of an acuity chart when single letter of the same size can be readily discriminated.",
+                        choices: {
+                            a: "crowding phenomenon",
+                            b: "contour interaction",
+                            c: "preferential looking",
+                            d: "both a & b",
+                            e: "both b & c"
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Ability to detect small difference in the brightness of 2 light sources",
+                        choices: {
+                            a: "minimum visible",
+                            b: "minimum separable",
+                            c: "minimum legible"
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Axial length grows in order to compensate for errors in the eye’s focal length.",
+                        choices: {
+                            a: "active emmetropization and nurture",
+                            b: "passive emmetropization and nature"
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "It is a near acuity test from birth to age 5. It is also used in physically or mentally impaired children",
+                        choices: {
+                            a: "Tumbling E",
+                            b: "Forced LEA symbols",
+                            c: "preferential looking",
+                            d: "Snellen chart"
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Which is not true regarding a Broken wheel test:",
+                        choices: {
+                            a: "it is a visual acuity test effective in children from 3 years of age",
+                            b: "it is used in older children who are physically and mentally impaired",
+                            c: "it is used in patients who have difficulty with letters and numbers",
+                            d: "it is a distance and near acuity test that uses picture optotypes"
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "These are indications to perform cycloplegic refraction except for:",
+                        choices: {
+                            a: "non-responsive or non-communicative patients",
+                            b: "when objective and subjective data do not correlate",
+                            c: "indications of high hyperopia",
+                            d: "large esophoria or esotropia",
+                            e: "large pupils for age"
+                        },
+                        answer_key: "e",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "These are disadvantages of cycloplegic refraction except:",
+                        choices: {
+                            a: "cycloplegia is not always complete",
+                            b: "not always equal cycloplegia between the two eyes",
+                            c: "side effect of dilation causes crazy retinoscopy reflex due to peripheral scattering",
+                            d: "what you get is not usually something you can prescribe",
+                            e: "none of the above"
+                        },
+                        answer_key: "e",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Desired qualities of a perfect cycloplegic agent",
+                        choices: {
+                            a: "fast acting (about 1 minute) / fast recovery time (about 1 minute)",
+                            b: "does not dilate the pupil",
+                            c: "has no adverse reactions",
+                            d: "none of the above, this drug has yet to be invented",
+                            e: "all of the above"
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Which of these statements about cover test is true?",
+                        choices: {
+                            a: "Speed is essential",
+                            b: "Suppression is detected",
+                            c: "It can distinguish phoria from tropia",
+                            d: "all of these",
+                            e: "none of these"
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Identify the visual problem base on the following complaints. - diplopia (double vision) and headaches when reading - have difficulty concentrating on near work (computer, reading, etc.) - written word blurs after prolonged periods of reading or if reading when tired - patients may be noted to squint or close one eye when reading",
+                        choices: {
+                            a: "accommodative insufficiency",
+                            b: "accommodative excess",
+                            c: "convergence insufficiency",
+                            d: "convergence excess"
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Identify the visual problem base on the following complaints, blurred vision at distance - asthenopia - headaches after short periods of reading - photophobia difficulty attending and concentrating on reading tasks - diplopia",
+                        choices: {
+                            a: "accommodative insufficiency",
+                            b: "accommodative excess",
+                            c: "convergence insufficiency",
+                            d: "convergence excess"
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Identify the visual problem base on the following complaints drawing or pulling sensation around the eyes - excess blinking",
+                        choices: {
+                            a: "accommodative insufficiency",
+                            b: "accommodative excess",
+                            c: "convergence insufficiency",
+                            d: "convergence excess"
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Drug of choice for cycloplegia in children",
+                        choices: {
+                            a: "atropine",
+                            b: "homatropine",
+                            c: "cyclopentolate",
+                            d: "tropicamide"
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "For dilation and provides weak cycloplegia",
+                        choices: {
+                            a: "atropine",
+                            b: "homatropine",
+                            c: "cyclopentolate",
+                            d: "tropicamide"
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Extremely toxic cycloplegic drug",
+                        choices: {
+                            a: "atropine",
+                            b: "homatropine",
+                            c: "cyclopentolate",
+                            d: "tropicamide"
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "A line connecting the centers of curvature of the refracting surfaces of the eye is known as the?",
+                        choices: {
+                            a: "pupillary axis",
+                            b: "optic axis",
+                            c: "line of sight",
+                            d: "visual axis",
+                            e: "visual line"
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "The image of the real pupil formed by the refraction at the cornea is known as the?",
+                        choices: {
+                            a: "entrance pupil",
+                            b: "exit pupil",
+                            c: "entrance port",
+                            d: "apparent port",
+                            e: "exit port"
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "The line connecting the point of fixation with the center of the entrance pupil is known as?",
+                        choices: {
+                            a: "pupillary axis",
+                            b: "base line",
+                            c: "line of fixation",
+                            d: "optic axis",
+                            e: "line of sight"
+                        },
+                        answer_key: "e",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "The line perpendicular to the cornea and passing through the center of the entrance pupil of the eye is the?",
+                        choices: {
+                            a: "visual axis",
+                            b: "fixation axis",
+                            c: "corneal axis",
+                            d: "pupillary axis",
+                            e: "entrance pupil axis"
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "A straight ahead line that connects the object of regard with the center of rotation is known as?",
+                        choices: {
+                            a: "pupillary axis",
+                            b: "fixation axis",
+                            c: "visual axis",
+                            d: "sagittal axis",
+                            e: "optic axis"
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "In order for a small media opacity to interfere with vision, it must be near the?",
+                        choices: {
+                            a: "cornea",
+                            b: "nodal point",
+                            c: "center of rotation",
+                            d: "retina",
+                            e: "lens"
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Which of the following extra-ocular muscle exhibits a simple & singular actions?",
+                        choices: {
+                            a: "superior and inferior recti",
+                            b: "superior and inferior oblique",
+                            c: "lateral and medial recti",
+                            d: "superior rectus and inferior oblique",
+                            e: "none of these"
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Contrast sensitivity is",
+                        choices: {
+                            a: "threshold of grating frequency",
+                            b: "the ability to resolve a low grating frequency",
+                            c: "the reciprocal of the threshold of contrast sensitivity",
+                            d: "the reciprocal of grating acuity",
+                            e: "the reciprocal of the threshold of grating frequency"
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Monocular diplopia may be a symptom in",
+                        choices: {
+                            a: "cataractous changes of the crystalline lens",
+                            b: "uncorrected high astigmatism",
+                            c: "polycoria",
+                            d: "subluxated lens",
+                            e: "all of these"
+                        },
+                        answer_key: "e",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "This is caused by excessive growth in axial length while other components of the eye exhibit normal growth",
+                        choices: {
+                            a: "pathologic myopia",
+                            b: "progressive myopia",
+                            c: "malignant myopia",
+                            d: "all of the these",
+                            e: "none of these"
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "This is associated with normal growth of the refractive components of each eye, the combination of which will result in mild to moderate nearsightedness",
+                        choices: {
+                            a: "physiologic myopia",
+                            b: "school myopia",
+                            c: "simple myopia",
+                            d: "all of these",
+                            e: "none of these"
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Test to diagnose foveal suppression and microtropia",
+                        choices: {
+                            a: "4ΔD BO",
+                            b: "4ΔD BI",
+                            c: "CUT/UCT",
+                            d: "alternating cover test"
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "This is used to subjectively determine the power required to correct the refractive error of each of the principal meridians",
+                        choices: {
+                            a: "stenopaic slit refraction",
+                            b: "flipper lens",
+                            c: "multiple pinhole spectacle",
+                            d: "all of these",
+                            e: "none of these"
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "In myopes, the vitreous body is generally less solid than in hyperopes.",
+                        choices: {
+                            a: "true",
+                            b: "false"
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Accomodation may be stimulated by:",
+                        choices: {
+                            a: "placing an object at a distance farther than infinity and by the use of minus lens",
+                            b: "placing an object at a distance closer than infinity and by the use of plus lens",
+                            c: "placing an object at a distance closer than infinity and by using minus lens",
+                            d: "placing an object at a distance farther than infinity and by using plus lens"
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Which of the following subjective tests are not used to detect and measure astigmatism?",
+                        choices: {
+                            a: "stenopaic slit refraction",
+                            b: "Robinson Cohen slide",
+                            c: "paraboline test",
+                            d: "duochrome test",
+                            e: "all of these"
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Which of the following tests cannot be used to determine the spherical portion of the distance correction?",
+                        choices: {
+                            a: "duochrome",
+                            b: "cross cylinder",
+                            c: "modified thorington",
+                            d: "Maddox wing",
+                            e: "both C and D are correct"
+                        },
+                        answer_key: "e",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "When the angle of squint is substantially the same in all fields of gaze, the squint is said to be?",
+                        choices: {
+                            a: "noncomitant",
+                            b: "paralytic",
+                            c: "concomitant",
+                            d: "anomalous",
+                            e: "none of these"
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Orthoptic treatment is most commonly given to",
+                        choices: {
+                            a: "improve fixational ability",
+                            b: "reduce amblyopia",
+                            c: "eliminate suppression",
+                            d: "improve sensory fusion",
+                            e: "all of these"
+                        },
+                        answer_key: "e",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Which of the following statements concerning the correction of latency in hyperopia is not correct?",
+                        choices: {
+                            a: "a full distance correction should be given for intermittent esoptropia",
+                            b: "a partial distance correction should be given for divergent strabismus",
+                            c: "a full distance correction should be given for marked eyestrain",
+                            d: "a partial distance correction should be given for very young patients",
+                            e: "none of the above"
+                        },
+                        answer_key: "e",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Which of the clinical electro diagnostic procedures produces an electrical response of the visual cortex that can be evoked by having the patient view an oscillating checker board?",
+                        choices: {
+                            a: "electroretinogram",
+                            b: "visually evoked response",
+                            c: "electrooculogram",
+                            d: "ophthalmic ultrasonography",
+                            e: "none of these"
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Myopia is rare in preschool or early school age children unless",
+                        choices: {
+                            a: "there is a history of premature birth",
+                            b: "neurodevelopmental delay",
+                            c: "family of degenerative myopia",
+                            d: "all of the above",
+                            e: "none of the above"
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Ability to perceive a less sharply delineated pattern.",
+                        choices: {
+                            a: "depth of focus",
+                            b: "contrast sensitivity",
+                            c: "contrast and field",
+                            d: "aberration"
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "This is based on the knowledge that infants prefer to look at a patterned rather than a plain surface.",
+                        choices: {
+                            a: "visually evoked potential",
+                            b: "forced choice preferential looking",
+                            c: "optokinetic nystagmus",
+                            d: "all of these",
+                            e: "none of these"
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "The most common problem that initiates a prescription for spectacles around age 3 is",
+                        choices: {
+                            a: "accommodative ET",
+                            b: "esotropia",
+                            c: "exotropia",
+                            d: "all of the above",
+                            e: "none of the above"
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Results in difficulty reading letters on a line of an acuity chart when single letter of the same size can be readily discriminated.",
+                        choices: {
+                            a: "crowding phenomenon",
+                            b: "contour interaction",
+                            c: "preferential looking",
+                            d: "both a & b",
+                            e: "both b & c"
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Between infancy and childhood, the eye grows in such a way that the distribution of refractive error shifts toward emmetropia, and this process is called?",
+                        choices: {
+                            a: "passive emmetropization",
+                            b: "emmetropization",
+                            c: "active emmetropization",
+                            d: "none of these"
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "The dominant technique for refractive measurement of pediatric patients",
+                        choices: {
+                            a: "static terinoscopy",
+                            b: "dynamic retinoscopy",
+                            c: "cycloplegic retinoscopy",
+                            d: "all of the above",
+                            e: "none of the above"
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "It is generally agreed that partial sight is said to exist when",
+                        choices: {
+                            a: "the corrected visual acuity in the better eye is 20/40 or poorer",
+                            b: "the corrected visual acuity in the poorer eye is 20/70 or better",
+                            c: "the corrected acuity in the better eye is 20/70 or poorer",
+                            d: "both A and B are correct",
+                            e: "none of the above"
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "The following is not characteristic of advanced myopia",
+                        choices: {
+                            a: "Fuch’s spot",
+                            b: "posterior staphyloma",
+                            c: "tendency to convergent strabismus",
+                            d: "floaters in the vitreous",
+                            e: "depression in the superior temporal quadrants in the field"
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "A sign that would be helpful in distinguishing a conjunctival injection from a ciliary injection is",
+                        choices: {
+                            a: "brick-red color of the vessels",
+                            b: "tortuosity of the vessel",
+                            c: "increase of the congestion towards the fornix",
+                            d: "movability of the vessels with the conjunctiva",
+                            e: "all of the above"
+                        },
+                        answer_key: "e",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "The following statements about arcus senilis are true except",
+                        choices: {
+                            a: "it may not form a complete ring",
+                            b: "it may expand towards the center of the cornea",
+                            c: "it is separated by a fairly clear zone from the limbus",
+                            d: "it is usually found in the older age group",
+                            e: "it may or may not be associated with increased blood cholesterol"
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Visual acuity of a man, 20 years of age, was gradually decreasing. No history of eye diseases. The placido disc test shows distortion. The keratometer readings indicate abnormal astigmatism. The apex of the cornea shows thinning, striae in the stroma, scars in Bowman’s membrane, and rapture in Descemet’s membrane. This is probably",
+                        choices: {
+                            a: "keratectasia",
+                            b: "keratoconus",
+                            c: "high myopia",
+                            d: "megalocornea",
+                            e: "birth trauma"
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Headaches occurring in the late afternoon are most probably associated with the following condition",
+                        choices: {
+                            a: "chronic simple glaucoma",
+                            b: "migraine",
+                            c: "frontal sinusitis",
+                            d: "anomalies of EOMs or IOMs"
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Which of the ff statements concerning pupil size is not correct?",
+                        choices: {
+                            a: "very small pupils are usually associated with hyperopia",
+                            b: "large pupils are associated with myopia",
+                            c: "very small pupils are usually associated with astigmatism",
+                            d: "large pupils are associated with presbyopia"
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Scissors movement in retinoscopy is said to be caused by",
+                        choices: {
+                            a: "spherical aberrations",
+                            b: "conical cornea",
+                            c: "tilted crystalline lens",
+                            d: "coma aberration",
+                            e: "all of these"
+                        },
+                        answer_key: "e",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Which of the ff diagnostic procedure does not require the use of topical anaesthetics in order to be carried out?",
+                        choices: {
+                            a: "Goldman applanation tonometry",
+                            b: "gonioscopy",
+                            c: "Binocular indirect ophthalmoscopy",
+                            d: "fundus photography",
+                            e: "both c and d"
+                        },
+                        answer_key: "e",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "An 18 year old female patient has self-inflicted a corneal abrasion with a mascara brush. Her symptomatology is likely to include",
+                        choices: {
+                            a: "photophobia",
+                            b: "lacrimation",
+                            c: "pain",
+                            d: "blepharospasm",
+                            e: "all of the above"
+                        },
+                        answer_key: "e",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "A finding in the anterior chamber of no serious consequence is",
+                        choices: {
+                            a: "aqueous flare",
+                            b: "hypopyon",
+                            c: "a persistent pupillary membrane",
+                            d: "fibrinous exudates",
+                            e: "hyphema"
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "It is a near acuity test from birth to age 5. It is also used in physically or mentally impaired children",
+                        choices: {
+                            a: "Tumbling E",
+                            b: "Forced LEA symbols",
+                            c: "preferential looking",
+                            d: "Snellen chart"
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "What is the accommodative lag if the accommodative response is 1.5D at a distance of 10 inches?",
+                        choices: {
+                            a: "3D",
+                            b: "2.5D",
+                            c: "2D",
+                            d: "1.5D",
+                            e: "1D"
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "What is the accommodative lag if the accommodative response is 2D at a distance of 10 inches?",
+                        choices: {
+                            a: "3D",
+                            b: "2.5D",
+                            c: "2D",
+                            d: "1.5D",
+                            e: "1D"
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "What is the accommodative lag if the accommodative response is 1D at a distance of 10 inches?",
+                        choices: {
+                            a: "3D",
+                            b: "2.5D",
+                            c: "2D",
+                            d: "1.5D",
+                            e: "1D"
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "What is the accommodative lag if the accommodative response is 2.5D at a distance of 10 inches?",
+                        choices: {
+                            a: "3D",
+                            b: "2.5D",
+                            c: "2D",
+                            d: "1.5D",
+                            e: "1D"
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "What is the estimated prescription if the patient’s far point is 50cm?",
+                        choices: {
+                            a: "2D",
+                            b: "4D",
+                            c: "6D",
+                            d: "8D",
+                            e: "10D"
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "What is the estimated prescription if the patient’s far point is 12.5cm?",
+                        choices: {
+                            a: "2D",
+                            b: "4D",
+                            c: "6D",
+                            d: "8D",
+                            e: "10D"
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "What is the estimated prescription if the patient’s far point is 25cm?",
+                        choices: {
+                            a: "2D",
+                            b: "4D",
+                            c: "6D",
+                            d: "8D",
+                            e: "10D"
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "What is the estimated prescription if the patient’s far point is 16.7cm?",
+                        choices: {
+                            a: "2D",
+                            b: "4D",
+                            c: "6D",
+                            d: "8D",
+                            e: "10D"
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "What is the estimated prescription if the patient’s far point is 10cm?",
+                        choices: {
+                            a: "2D",
+                            b: "4D",
+                            c: "6D",
+                            d: "8D",
+                            e: "10D"
+                        },
+                        answer_key: "e",
+                        reveal: false,
+                        selected_choice: null,
+                    }
+                ],
+                options: {
+                    shuffleQuestions: true,
+                    instantFeedback: true,
+                },
+                shuffledQuestions: [], // Holds shuffled questions
+                reveal: false,
+                init() {
+                    if (this.options.shuffleQuestions) {
+                        this.shuffleQuestions();
+                    } else {
+                        this.shuffledQuestions = this.questions; // Use the original questions if not shuffled
+                    }
+                },
+
+                shuffleQuestions() {
+                    // Clone the questions array to avoid mutating the original
+                    let clonedQuestions = [...this.questions];
+
+                    // Fisher-Yates shuffle algorithm for arrays
+                    for (let i = clonedQuestions.length - 1; i > 0; i--) {
+                        const j = Math.floor(Math.random() * (i + 1));
+                        [clonedQuestions[i], clonedQuestions[j]] = [clonedQuestions[j], clonedQuestions[i]];
+                    }
+
+                    // Assign the shuffled array to shuffledQuestions
+                    this.shuffledQuestions = clonedQuestions;
+                },
+            }))
+        })
+    </script>
+</head>
+<body class="bg-blue-100">
+    <div class="container mx-auto max-w-2xl space-y-4 p-4" x-data="quiz">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+            <div class="flex flex-row gap-4 items-start">
+                <a href="index.html" class="outline-none outline-none text-gray-400 focus:text-gray-600 hover:text-gray-600 transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 stroke-current fill-transparent">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M5 12l14 0" />
+                        <path d="M5 12l6 6" />
+                        <path d="M5 12l6 -6" />
+                    </svg>
+                </a>
+                <div>
+                    <div class="text-lg text-gray-700 font-semibold">Mock Board Exam on</div>
+                    <div class="text-2xl text-gray-900 font-bold" x-text="subject"></div>
+                </div>
+            </div>
+            <div class="text-right">
+                <div class="text-base text-gray-500 font-medium">Score</div>
+                <div class="text-lg  text-gray-700 font-semibold" x-text="Object.values(questions).reduce((accumulator, item) => accumulator + ((item.selected_choice == item.answer_key && item.reveal) ? 1 : 0), 0) + '/' + Object.values(questions).reduce((accumulator, item) => accumulator + ((item.selected_choice && item.reveal) ? 1 : 0), 0)"></div>
+            </div>
+        </div>
+        <div>
+            <label class="relative flex gap-x-3" for="instantFeedback">
+                <div>
+                    <input id="instantFeedback" x-model="options.instantFeedback" type="checkbox" class="peer rounded-full w-10 h-6 absolute inset-0 z-0 enabled:focus:ring-blue-600 enabled:focus:ring-offset-blue-100 outline-none checked:bg-none bg-transparent text-transparent border-transparent accent-transparent after:opacity-0">
+                    <div class="rounded-full w-10 h-6 bg-gray-300 peer-enabled:cursor-pointer peer-checked:bg-blue-600 peer-disabled:bg-transparent peer-checked:peer-disabled:bg-transparent border border-transparent peer-disabled:border-gray-300 transition-all relative z-10"></div>
+                    <div class="top-1/2 -mt-4 translate-x-1 peer-checked:translate-x-5 transition-all absolute w-4 h-4 rounded-full peer-enabled:cursor-pointer bg-gray-400 peer-checked:bg-blue-100 peer-disabled:bg-gray-400 peer-checked:peer-disabled:bg-gray-400 z-20"></div>
+                </div>
+                <div class="text-start text-sm leading-6">
+                    <label for="instantFeedback" class="font-medium text-gray-900">Check instantly</label>
+                    <p class="text-gray-500 leading-tight text-xs">Immediately reveal correct answers. The first answer you click will be the final answer.</p>
+                </div>
+            </label>
+        </div>
+        <div class="h-0.5 bg-blue-900 opacity-25 rounded-full"></div>
+        <div class="space-y-4">
+            <template x-for="(item, index) in shuffledQuestions">
+                <div class="space-y-4 rounded-lg bg-white px-6 py-6">
+                    <div class="flex flex-row items-start gap-4">
+                        <div class="flex-1 text-gray-900 font-medium tracking-wide leading-6" x-html="item.question"></div>
+                        <button class="flex-none outline-none text-gray-400 focus:text-gray-600 hover:text-gray-600 transition-all" :class="item.reveal ? '' : 'invisible'" x-on:click="item.selected_choice = null; item.reveal = false">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 stroke-current fill-transparent">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M4.05 11a8 8 0 1 1 .5 4m-.5 5v-5h5" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 text-sm">
+                        <template x-for="(choice, letter) in item.choices">
+                            <button x-bind:disabled="item.reveal" x-bind:class="{ 'flex items-start outline-none text-left border border-blue-200 bg-blue-100 transition-all p-2 rounded-md': (item.selected_choice == null && item.answer_key == letter && item.reveal), 'flex items-start outline-none text-left border border-gray-200 p-2 rounded-md': (item.selected_choice != letter && item.reveal), 'flex items-start outline-none text-left border border-red-200 bg-red-100 transition-all p-2 rounded-md': (item.selected_choice == letter && item.answer_key != letter && item.reveal), 'flex items-start outline-none text-left border border-green-200 bg-green-100 transition-all p-2 rounded-md': (item.selected_choice && item.answer_key == letter && item.reveal), 'flex items-start outline-none text-left border border-gray-200 hover:bg-gray-200 hover:border-gray-400 transition-all p-2 rounded-md': (item.selected_choice != letter && !item.reveal), 'flex items-start outline-none text-left border border-orange-200 bg-orange-100 transition-all p-2 rounded-md': (item.selected_choice == letter && !item.reveal) }" x-on:click="if(!item.reveal) { item.selected_choice = letter; if(options.instantFeedback) { item.reveal = true; if (item.selected_choice != item.answer_key) { new Audio('buzzer.mp3?').play() } } } ">
+                                <div class="tracking-wide text-gray-900 flex flex-row gap-2 items-start">
+                                    <div x-text="letter + '. '"></div>
+                                    <div x-text="choice"></div>
+                                </div>
+                            </button>
+                        </template>
+                    </div>
+                </div>
+            </template>
+        </div>
+        <div class="space-y-4" x-show="!options.instantFeedback && !reveal">
+            <div class="h-0.5 bg-blue-900 opacity-25 rounded-full"></div>
+            <div class="flex justify-end">
+                <button class="px-4 py-2 bg-blue-500 hover:bg-blue-400 font-semibold transition-all text-sm text-white rounded-lg" x-on:click="Object.values(questions).forEach(item => { item.reveal = true }); reveal = true">Submit answers</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

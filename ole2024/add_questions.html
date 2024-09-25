@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp,container-queries"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/persist@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    animation: {
+                        border: 'border 2s linear infinite',
+                        flip1: 'flip1 20s ease-in-out infinite',
+                        flip2: 'flip2 20s ease-in-out infinite',
+                    },
+                    colors: {
+                        pink: {
+                            1000: '#1d020d',
+                        },
+                    },
+                    fontFamily: {
+                        sans: ['Inter'],
+                    },
+                    fontSize: {
+                        '2xs': '0.625rem',
+                    },
+                    keyframes: {
+                        border: {
+                            to: { '--border-angle': '360deg' },
+                        },
+                        flip1: {
+                            '0%': { opacity: 0 },
+                            '1%': { opacity: 1 },
+                            '49%': { opacity: 1 },
+                            '50%': { opacity: 0 },
+                            '100%': { opacity: 0 },
+                        },
+                        flip2: {
+                            '0%': { opacity: 0 },
+                            '51%': { opacity: 0 },
+                            '52%': { opacity: 1 },
+                            '99%': { opacity: 1 },
+                            '100%': { opacity: 0 },
+                        }
+                    },
+                    listStyleType: {
+                        square: 'square',
+                    }
+                },
+            },
+        }
+    </script>
+    <script>
+        Array.prototype.remove = function(from, to) {
+            var rest = this.slice((to || from) + 1 || this.length);
+            this.length = from < 0 ? this.length + from : from;
+            return this.push.apply(this, rest);
+        };
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('quiz', () => ({
+                questions: Alpine.$persist([]),
+                blank: {
+                    question: "",
+                    choices: {
+                        a: "",
+                        b: "",
+                        c: "",
+                        d: "",
+                    },
+                    answer_key: null,
+                    reveal: false,
+                    selected_choice: null,
+                },
+                pending_question: {
+                    question: "",
+                    choices: {
+                        a: "",
+                        b: "",
+                        c: "",
+                        d: "",
+                    },
+                    answer_key: null,
+                    reveal: false,
+                    selected_choice: null,
+                },
+            }))
+        })
+    </script>
+</head>
+<body class="bg-blue-100">
+    <div class="container mx-auto max-w-2xl p-4" x-data="quiz">
+        <div class="flex flex-col gap-4">
+            <div class="flex flex-row gap-4 justify-center">
+                <div class="text-2xl font-bold text-center" x-text="'Questions: ' + Object.keys(questions).length"></div>
+                <button class="flex-none outline-none text-gray-400 focus:text-gray-600 hover:text-gray-600 transition-all" x-on:click="questions = []">
+                    <svg xmlns="http:<br /><br />www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 stroke-current fill-transparent">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M4.05 11a8 8 0 1 1 .5 4m-.5 5v-5h5" />
+                    </svg>
+                </button>
+            </div>
+            <div class="bg-white p-6 rounded-lg space-y-4">
+                <div>
+                    <label for="question" class="block text-sm font-medium leading-6 text-gray-900">Question</label>
+                    <div class="flex relative w-full rounded-md ring-1 ring-inset transition-all focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600 ring-gray-300 bg-white shadow-sm">
+                        <textarea name="question" id="question" class="block flex-1 border rounded-md placeholder:text-gray-400 text-gray-900 outline-none transition-all py-1.5 focus:ring-0 sm:text-sm sm:leading-6 disabled:text-gray-500 resize-none" rows="3" x-model="pending_question.question" x-on:keydown.enter.prevent x-on:input="$event.target.value = $event.target.value.replace(/(\r\n|\n|\r)/gm, '')" x-bind:class="pending_question.answer_key == null ? 'bg-red-100 border-red-300' : 'bg-transparent border-gray-200'"></textarea>
+                    </div>
+                </div>
+                <div class="h-0.5 bg-gray-900 opacity-10 rounded-full"></div>
+                <div class="flex flex-row gap-4 justify-between items-center">
+                    <div class="text-lg font-semibold text-gray-700" x-text="'Choices: ' + Object.keys(pending_question.choices).length"></div>
+                    <button class="px-4 py-2 bg-blue-500 hover:bg-blue-400 transition-all text-sm text-white rounded-lg font-semibold" x-on:click="pending_question.choices[String.fromCharCode(96 + (Object.keys(pending_question.choices).length + 1))] = null">Add choice</button>
+                </div>
+                <template x-for="(choice, letter) in pending_question.choices">
+                    <div class="flex flex-row gap-4 items-end">
+                        <div class="flex-none flex h-10 items-center">
+                            <input type="radio" x-bind:value="letter" x-model="pending_question.answer_key" class="h-4 w-4 rounded-full border-gray-300 bg-white text-blue-600 outline-none transition-all enabled:checked:border-blue-600 enabled:checked:text-blue-600 enabled:focus:ring-blue-600 enabled:focus:ring-offset-white disabled:border-gray-200 disabled:bg-gray-50 disabled:text-gray-400 disabled:checked:border-gray-400 disabled:checked:bg-gray-400" />
+                        </div>
+                        <div class="flex-1">
+                            <label class="block text-sm font-medium leading-6 text-gray-900" x-text="'Choice ' + letter.toUpperCase()"></label>
+                            <div class="flex relative w-full rounded-md ring-1 ring-inset transition-all focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600 ring-gray-300 bg-white shadow-sm">
+                                <input type="text" name="question" x-bind:id="'choice_' + letter" x-on:input="pending_question.answer_key = $event.target.getAttribute('id').split('_')[1]" class="block flex-1 border-0 bg-transparent placeholder:text-gray-400 text-gray-900 outline-none transition-all py-1.5 focus:ring-0 sm:text-sm sm:leading-6 disabled:text-gray-500" x-model="pending_question.choices[letter]">
+                            </div>
+                        </div>
+                    </div>
+                </template>
+                <div class="flex justify-end gap-2">
+                    <button class="px-4 py-2 bg-red-600 hover:bg-red-500 transition-all text-sm text-white rounded-lg font-semibold" x-on:click="delete pending_question.choices[String.fromCharCode(96 + (Object.keys(pending_question.choices).length))]" x-show="Object.keys(pending_question.choices).length > 1">Delete last choice</button>
+                    <button class="px-4 py-2 bg-blue-500 hover:bg-blue-400 transition-all text-sm text-white rounded-lg font-semibold" x-on:click="questions.push(pending_question); pending_question = JSON.parse(JSON.stringify(blank)); $store.questions = questions">Save question</button>
+                </div>
+            </div>
+            <div class="flex flex-row justify-center gap-2">
+                <div class="w-1.5 h-1.5 rounded-full bg-blue-400"></div>
+                <div class="w-1.5 h-1.5 rounded-full bg-blue-400"></div>
+                <div class="w-1.5 h-1.5 rounded-full bg-blue-400"></div>
+            </div>
+            <div class="flex flex-row gap-4">
+                <textarea class="flex-1 resize-none text-xs" spellcheck="false" readonly rows="5" x-bind:value="JSON.stringify(pending_question)"></textarea>
+                <textarea class="flex-1 resize-none text-xs" spellcheck="false" readonly rows="5" x-bind:value="JSON.stringify(questions)"></textarea>
+                <textarea class="flex-1 resize-none text-xs" spellcheck="false" readonly rows="5" x-bind:value="JSON.stringify(blank)"></textarea>
+            </div>
+            <div class="flex flex-row justify-center gap-2">
+                <div class="w-1.5 h-1.5 rounded-full bg-blue-400"></div>
+                <div class="w-1.5 h-1.5 rounded-full bg-blue-400"></div>
+                <div class="w-1.5 h-1.5 rounded-full bg-blue-400"></div>
+            </div>
+            <div class="space-y-4">
+                <template x-for="(item, index) in questions">
+                    <div class="space-y-4 rounded-lg px-6 py-6 transition-all" x-bind:class="item.answer_key == null ? 'bg-red-100' : 'bg-white'">
+                        <div class="flex flex-row items-start gap-4">
+                            <div class="flex-1 text-gray-900 font-medium tracking-wide leading-6" x-html="item.question"></div>
+                            <button class="flex-none outline-none text-gray-400 focus:text-gray-600 hover:text-gray-600 transition-all"  x-on:click="questions.remove(index)">
+                                <svg xmlns="http:<br /><br />www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 stroke-current fill-transparent">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M4 7l16 0" />
+                                    <path d="M10 11l0 6" />
+                                    <path d="M14 11l0 6" />
+                                    <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+                                    <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4 text-sm">
+                            <template x-for="(choice, letter) in item.choices">
+                                <button x-bind:class="{ 'flex items-start outline-none text-left bg-white border border-green-200 bg-green-100 transition-all p-2 rounded-md': (item.answer_key == letter), 'flex items-start outline-none text-left bg-white border border-gray-200 hover:bg-gray-200 hover:border-gray-400 transition-all p-2 rounded-md': (!item.answer_key || item.answer_key != letter) }" x-on:click="item.answer_key = letter;">
+                                    <div class="tracking-wide text-gray-900 flex flex-row gap-2 items-start">
+                                        <div x-text="letter + '. '"></div>
+                                        <div x-text="choice"></div>
+                                    </div>
+                                </button>
+                            </template>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

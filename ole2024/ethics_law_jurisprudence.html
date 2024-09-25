@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp,container-queries"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    animation: {
+                        border: 'border 2s linear infinite',
+                        flip1: 'flip1 20s ease-in-out infinite',
+                        flip2: 'flip2 20s ease-in-out infinite',
+                    },
+                    colors: {
+                        pink: {
+                            1000: '#1d020d',
+                        },
+                    },
+                    fontFamily: {
+                        sans: ['Inter'],
+                    },
+                    fontSize: {
+                        '2xs': '0.625rem',
+                    },
+                    keyframes: {
+                        border: {
+                            to: { '--border-angle': '360deg' },
+                        },
+                        flip1: {
+                            '0%': { opacity: 0 },
+                            '1%': { opacity: 1 },
+                            '49%': { opacity: 1 },
+                            '50%': { opacity: 0 },
+                            '100%': { opacity: 0 },
+                        },
+                        flip2: {
+                            '0%': { opacity: 0 },
+                            '51%': { opacity: 0 },
+                            '52%': { opacity: 1 },
+                            '99%': { opacity: 1 },
+                            '100%': { opacity: 0 },
+                        }
+                    },
+                    listStyleType: {
+                        square: 'square',
+                    }
+                },
+            },
+        }
+    </script>
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('quiz', () => ({
+                subject: "Optometry Law, Ethics, and Practice Management",
+                questions: [
+                    {
+                        question: "The requirement that the \"space should be enough to render minimum services efficiently an effectively\" refers to the clinic / office's",
+                        choices: {
+                            a: "Patients Records",
+                            b: "Instruments / Equipments",
+                            c: "Service Delivery",
+                            d: "Physical Facilities"
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "It is the act of the Commission in granting successful examinees the professional licenses to practice optometry",
+                        choices: {
+                            a: "Registration",
+                            b: "Oath-taking",
+                            c: "Suspension",
+                            d: "Payment"
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Flat income tax rate is",
+                        choices: {
+                            a: "8% of net taxable income",
+                            b: "8% of gross receipts",
+                            c: "30% of net taxable income",
+                            d: "5% of gross receipts"
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Improper professional act",
+                        choices: {
+                            a: "Neglect of duty",
+                            b: "Incompetence",
+                            c: "Malpractice",
+                            d: "Immoral"
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Statement (1): All licenses shall be renewable every three (3) years <br /><br /> Statement (2): The Professional Identification Card issued shall be renewed on the birth month of the registered optometrist.",
+                        choices: {
+                            a: "Both statements are correct",
+                            b: "Both statements are incorrect",
+                            c: "Only the first statement is correct",
+                            d: "Only the second statement is correct"
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Who among the following can are engaged in unauthorized practice of optometry?",
+                        choices: {
+                            a: "Regularly licensed and duly registered physicians who have received postgraduate training in diagnosis and treatment of eye diseases",
+                            b: "Technician who establishes an office / clinic where optometric services are regularly offered",
+                            c: "Registered physicians who examine the human eye in connection with the physical examination of patients",
+                            d: "Public health workers trained and involved in the government’s blindness prevention program who may conduct only visual acuity testing and visual screening"
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Income in excess of ______ is taxable",
+                        choices: {
+                            a: "0",
+                            b: "100,000",
+                            c: "250,000",
+                            d: "500,000"
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "It is an artificial being created by operation of law, having the right of succession and the powers, attributes, and properties expressly authorized by law or incidental to its existence.",
+                        choices: {
+                            a: "Sole Proprietorship",
+                            b: "Partnership",
+                            c: "Corporation",
+                            d: "Employer"
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Which of the following demonstrates unprofessional conduct by an optometrist?",
+                        choices: {
+                            a: "The manner of examination is prescribed by the head office of the optical retail company",
+                            b: "The time of examination by the handling optometrist is not subjected to external influence",
+                            c: "The handling optometrist observe wear professional attire",
+                            d: "The handling optometrist can choose the procedure to examine the patient"
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Who among the following can NOT administer oath?",
+                        choices: {
+                            a: "City Mayor",
+                            b: "Regional Trial Court Judge",
+                            c: "Retired Board Chair",
+                            d: "PRC Commissioner"
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Which of the following is NOT a ground for disciplinary action?",
+                        choices: {
+                            a: "Habitual use of drugs",
+                            b: "Violation of RA 8050 IRR",
+                            c: "Gross Incompetence",
+                            d: "Found guilty of jaywalking"
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Statement (1): Criminal liability may include the accessory penalty of perpetual disqualification from holding any public office. <br /><br /> Statement (2): The Board can impose the accessory penalty of perpetual disqualification to an optometrist guilty of malpractice.",
+                        choices: {
+                            a: "Both statements are correct",
+                            b: "Both statements are incorrect",
+                            c: "Only the first statement is correct",
+                            d: "Only the second statement is correct"
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Which of the following statements does NOT apply to faculty teaching board subjects?",
+                        choices: {
+                            a: "The faculty must be 21 years of age.",
+                            b: "The faculty must possess appropriate Doctoral Degree (Ph.D.)",
+                            c: "The faculty must posses a current / valid PRC ID.",
+                            d: "The faculty must be a registered optometrist."
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Solicitation of patients by way of office canvassing",
+                        choices: {
+                            a: "Prohibited act",
+                            b: "Unethical conduct",
+                            c: "Unauthorized practice",
+                            d: "Unlawful practice"
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "It has the power to revoke and suspend the certificate and license of an optometrist.",
+                        choices: {
+                            a: "Law Enforcement Agency",
+                            b: "Regional Trial Court",
+                            c: "Professional Regulation Commission",
+                            d: "Board of Optometry"
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "A registered optometrist who is authorized to practice the profession in the Philippines by virtue of a valid certificate of registration and a valid professional license issued by the Professional Regulation Commission.",
+                        choices: {
+                            a: "Optometry professional",
+                            b: "Optometry board passer",
+                            c: "Optometrist",
+                            d: "Optometrist in good standing"
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Which of the following statements is true.",
+                        choices: {
+                            a: "Refresher course is required from an applicant who failed to pass the board examination for the third time.",
+                            b: "Refresher course shall be taken only from a duly PRC-accredited institution.",
+                            c: "Proof of refresher course is required from an applicant who will take the board examination for his/her third try.",
+                            d: "There is a maximum try or takes in the board examination, that is, five (5) takes / try."
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Who among the following is NOT required to pay income tax and file income tax return?",
+                        choices: {
+                            a: "Solo practitioner",
+                            b: "Partner optometrist",
+                            c: "Stockholder of EO",
+                            d: "Employee of Vision Express"
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Statement (1): Human resource management is the process of employing people, training them, compensating them, developing policies relating to them, and developing strategies to retain them. <br /><br /> Statement (2): Financial management deals with investing the available financial resources in a way that greater business success and return on-investment (ROI) is achieved.",
+                        choices: {
+                            a: "Both statements are correct",
+                            b: "Both statements are incorrect",
+                            c: "Only the first statement is correct",
+                            d: "Only the second statement is correct"
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Prescribing and endorsing doubtful products other than those approved by the Foods and Drugs Administration (FDA) and Department of Trade and Industry (DTI)",
+                        choices: {
+                            a: "Prohibited act",
+                            b: "Unethical conduct",
+                            c: "Unauthorized practice",
+                            d: "Unlawful practice"
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Any form of advertisement in media outlets giving information and impression to the public that the particular optometrist is better than the others, is collecting lower professional fees or selling cheaper frames or lenses",
+                        choices: {
+                            a: "Prohibited act",
+                            b: "Unethical conduct",
+                            c: "Unauthorized practice",
+                            d: "Unlawful practice"
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Statement (1): Only natural-born Filipino citizen can practice professional in the Philippines. <br /><br /> Statement (2): No person shall practice optometry nor perform any of the acts constituting the practice of optometry, without having been first admitted to the practice of profession",
+                        choices: {
+                            a: "Both statements are correct",
+                            b: "Both statements are incorrect",
+                            c: "Only the first statement is correct",
+                            d: "Only the second statement is correct"
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "What aspect of practice management deals with capital, profits, investments and receivables?",
+                        choices: {
+                            a: "Financial",
+                            b: "Operations",
+                            c: "Marketing",
+                            d: "Compliance"
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Which of the following demonstrates ethical examination of patient by an optometrist outside the clinic / office?",
+                        choices: {
+                            a: "An unsolicited request by a patient for occupation reason",
+                            b: "An solicited request by an ambulant patient for health reason",
+                            c: "An unsolicited request for a patient unable to visit for health reasons",
+                            d: "An unsolicited request by a patient who is not ambulant"
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Statement (1): There is VAT payable when the output VAT is less than the input VAT. <br /><br /> Statement (2): Overpayment of VAT is creditable to other tax liabilities",
+                        choices: {
+                            a: "Both statements are correct",
+                            b: "Both statements are incorrect",
+                            c: "Only the first statement is correct",
+                            d: "Only the second statement is correct"
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Statement (1): It is unethical for an optometrist to NOT comply with the Code of Professional Ethics. <br /><br /> Statement (2): Violations of the Code of Professional Ethics is a ground for disciplinary action.",
+                        choices: {
+                            a: "Both statements are correct",
+                            b: "Both statements are incorrect",
+                            c: "Only the first statement is correct",
+                            d: "Only the second statement is correct"
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Which of the following statements is NOT correct?",
+                        choices: {
+                            a: "The PRC review, revise and approve board resolution promulgated by the PRB.",
+                            b: "The PRC prepares and conducts the licensure examination.",
+                            c: "The PRC adopt and institute a comprehensive rating system based on the passing ratio.",
+                            d: "The PRC monitor the performance of schools in licensure examinations."
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Statement (1): The employment of a qualified optometrist by a corporation is against public policy. <br /><br /> Statement (2): The manufacturing, selling, trading and bartering of eyeglasses and spectacles as articles of merchandise do constitute the practice of optometry.",
+                        choices: {
+                            a: "Both statements are correct",
+                            b: "Both statements are incorrect",
+                            c: "Only the first statement is correct",
+                            d: "Only the second statement is correct"
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Non-display of PRC certificate of registration",
+                        choices: {
+                            a: "Prohibited act",
+                            b: "Unethical conduct",
+                            c: "Unauthorized practice",
+                            d: "Unlawful practice"
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Statement (1): The office/clinic shall display only such certificates, diplomas, and similar documents attesting to the competence and educational qualification earned by the optometrist. <br /><br /> Statement (2): The Certificate of Distinction issued by the Professional Regulation Commission for being one of the board exam topnotcher attest the competence of the optometrist to merit display for public view.",
+                        choices: {
+                            a: "Both statements are correct",
+                            b: "Both statements are incorrect",
+                            c: "Only the first statement is correct",
+                            d: "Only the second statement is correct"
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Who defines the professional responsibilities of IPAO members?",
+                        choices: {
+                            a: "Law",
+                            b: "Court",
+                            c: "Board",
+                            d: "IPAO"
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "It refers to the process of ensuring that the business and corporate processes comply with the government regulations and legal requirements including internal policies and bylaws.",
+                        choices: {
+                            a: "Financial",
+                            b: "Operations",
+                            c: "Marketing",
+                            d: "Compliance"
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Attendance in CPD-accredited professional activities like training or workshop is considered as",
+                        choices: {
+                            a: "Self-directed learning",
+                            b: "Professional work experience",
+                            c: "Non-formal learning",
+                            d: "Online learning"
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Statement (1): A special permit to practice may be given to a foreigner who is internationally known to be an outstanding expert. <br /><br /> Statement (2): A special permit to practice may be granted to a foreigner who is a consultant in foreign-funded projects of the government.",
+                        choices: {
+                            a: "Both statements are correct",
+                            b: "Both statements are incorrect",
+                            c: "Only the first statement is correct",
+                            d: "Only the second statement is correct"
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Statement (1): If the violation of RA 8050 is committed by an association, partnership, corporation or any other institution, the managing officers and other persons responsible for its commission shall be liable for the penalties. <br /><br /> Statement (2): The Board can order a juridical offender to pay damages to the injured victim.",
+                        choices: {
+                            a: "Both statements are correct",
+                            b: "Both statements are incorrect",
+                            c: "Only the first statement is correct",
+                            d: "Only the second statement is correct"
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "An employee illegally terminated by his / her employer can seek redress by filing a case before the",
+                        choices: {
+                            a: "Labor Arbitration Office (NLRC)",
+                            b: "Sandiganbayan",
+                            c: "Regional Trial Court",
+                            d: "Board of Optometry"
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Statement (1): Professional office means that the clinic is manned by a licensed optometrist during regular operating hours. <br /><br /> Statement (2): The optometrist cannot be engaged as a frontline to sell products and services.",
+                        choices: {
+                            a: "Both statements are correct",
+                            b: "Both statements are incorrect",
+                            c: "Only the first statement is correct",
+                            d: "Only the second statement is correct"
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "VAT threshold",
+                        choices: {
+                            a: "1,000,000",
+                            b: "1,500,000",
+                            c: "2,000,000",
+                            d: "3,000,000"
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Ocular Examination instrument",
+                        choices: {
+                            a: "Maddox Wing",
+                            b: "Tangent Screen",
+                            c: "Worth Four Dot",
+                            d: "Corneal Topographer"
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "What aspect of practice management deals with supplies, IT system, record keeping, and operating hours?",
+                        choices: {
+                            a: "Financial",
+                            b: "Operations",
+                            c: "Marketing",
+                            d: "Compliance"
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Statement (1): The practice of optometry is governed by the highest standards of professionalism with the aim of promoting the visual welfare of the public and the best standards of professional care. <br /><br /> Statement (2): An optometrist guilty of unprofessional conduct can be reprimanded by the IPAO.",
+                        choices: {
+                            a: "Both statements are correct",
+                            b: "Both statements are incorrect",
+                            c: "Only the first statement is correct",
+                            d: "Only the second statement is correct"
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Domestic corporations are registered with the",
+                        choices: {
+                            a: "Securities and Exchange Commission",
+                            b: "Professional Regulation Commission",
+                            c: "Department of Trade and Industry",
+                            d: "Bureau of Internal Revenue"
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Statement (1): The special meeting of the board shall be once a month upon the call of the chair. <br /><br /> Statement (2): The quorum in the board is such number sufficient to officially conduct business, that is majority of the actual members.",
+                        choices: {
+                            a: "Both statements are correct",
+                            b: "Both statements are incorrect",
+                            c: "Only the first statement is correct",
+                            d: "Only the second statement is correct"
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Statement (1): Excess CPD credit units may not be used on the next renewal cycle. <br /><br /> Statement (2): The entire CPD credit units compliance in one renewal cycle can be based on self-directed learning.",
+                        choices: {
+                            a: "Both statements are correct",
+                            b: "Both statements are incorrect",
+                            c: "Only the first statement is correct",
+                            d: "Only the second statement is correct"
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Administrative liability results from breach of obligation arising from",
+                        choices: {
+                            a: "Contract",
+                            b: "Law",
+                            c: "Delict",
+                            d: "Quasi-delict"
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Which does NOT evaluate the performance of education institutions offering optometric education?",
+                        choices: {
+                            a: "CHED",
+                            b: "PRC",
+                            c: "Board of Optometry",
+                            d: "IPAO"
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Which is a quasi-judicial power of the Board?",
+                        choices: {
+                            a: "Hear and investigate cases arising from violation of laws, rules and regulations, Code of Ethics",
+                            b: "Regulate the practice of profession subject to administrative supervision by the Commission",
+                            c: "Adopt measures for the enhancement and/or maintenance of high professional, ethical and technical standard",
+                            d: "Submit to the Commission, at the end of each calendar year, an annual report of its program projects and activities and proceedings projects and activities and proceedings"
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Statement (1): The PRC special prosecutors has the authority to conduct moot proprio investigations. <br /><br /> Statement (2): The PRC special prosecutors are designated by the chairman of the board.",
+                        choices: {
+                            a: "Both statements are correct",
+                            b: "Both statements are incorrect",
+                            c: "Only the first statement is correct",
+                            d: "Only the second statement is correct"
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Statement (1): Ocular prosthesis are necessary to aid human vision. <br /><br /> Statement (2): Ocular exercises are done to correct abnormalities of human vision.",
+                        choices: {
+                            a: "Both statements are correct",
+                            b: "Both statements are incorrect",
+                            c: "Only the first statement is correct",
+                            d: "Only the second statement is correct"
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Statement (1): Board actions issued in exercise of rule-making power to implement RA 8050 need not be published. <br /><br /> Statement (2): All issuances that affect the public must be published on any newspaper of general circulation.",
+                        choices: {
+                            a: "Both statements are correct",
+                            b: "Both statements are incorrect",
+                            c: "Only the first statement is correct",
+                            d: "Only the second statement is correct"
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Statement (1): The Board of Optometry may cancel the examination papers of an examinee who found to have submitted false or forged certifications in his / her application to take the licensure examination. <br /><br /> Statement (2): Only the president can remove a member of the Board from office.",
+                        choices: {
+                            a: "Both statements are correct",
+                            b: "Both statements are incorrect",
+                            c: "Only the first statement is correct",
+                            d: "Only the second statement is correct"
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Statement (1): The member of the board and the commissioners of PRC are appointed by the President of IPAO. <br /><br /> Statement (2): The members of the board and the commissioners of PRC shall serve for a term of 5 years and 7 years respectively, with no reappointment.",
+                        choices: {
+                            a: "Both statements are correct",
+                            b: "Both statements are incorrect",
+                            c: "Only the first statement is correct",
+                            d: "Only the second statement is correct"
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Statement (1): Charitable contributions can be claimed as part of optional standard deduction. <br /><br /> Statement (2): Bad debts between related taxpayers are deductible.",
+                        choices: {
+                            a: "Both statements are correct",
+                            b: "Both statements are incorrect",
+                            c: "Only the first statement is correct",
+                            d: "Only the second statement is correct"
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "It is a common reference framework that enables comparisons of education qualifications across participating ASEAN member states.",
+                        choices: {
+                            a: "ASEAN Qualifications Reference Framework",
+                            b: "Mutual Recognition Agreement",
+                            c: "Philippine Qualifications Framework",
+                            d: "Pathways and Equivalencies"
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Criminal liability excludes:",
+                        choices: {
+                            a: "Imprisonment",
+                            b: "Fine",
+                            c: "Disqualification",
+                            d: "Revocation"
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Statement (1): Administrative cases are within the jurisdiction of the regular courts. <br /><br /> Statement (2): When an optometrist is guilty of unethical or unprofessional conduct, he/she can be suspended from the practice of optometry.",
+                        choices: {
+                            a: "Both statements are correct",
+                            b: "Both statements are incorrect",
+                            c: "Only the first statement is correct",
+                            d: "Only the second statement is correct"
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Statement (1): The Board of Optometry is composed of 5 members with a 5 year term each. <br /><br /> Statement (2): The Professional Regulation Commission is composed of 3 members with a 7 year term each.",
+                        choices: {
+                            a: "Both statements are correct",
+                            b: "Both statements are incorrect",
+                            c: "Only the first statement is correct",
+                            d: "Only the second statement is correct"
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Which is a quasi-legislative power of the Board?",
+                        choices: {
+                            a: "To monitor the conditions affecting the practice or occupation",
+                            b: "To issue summons, subpoena, subpoena duces tecum",
+                            c: "To issue special permits and updated personal identification cards to former citizen",
+                            d: "To prescribe, upon approval by the PRC, additional requirements or grant certain privileges to foreigners, seeking registration in the Philippines"
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "The power to settle actual controversies resides with the ____ branch of government.",
+                        choices: {
+                            a: "Executive",
+                            b: "Judicial",
+                            c: "Legislative",
+                            d: "Police"
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "It refers to the kind of services available and the costs / charges for these services.",
+                        choices: {
+                            a: "Right to informed consent",
+                            b: "Right to medical records",
+                            c: "Right to information",
+                            d: "Right to religious belief"
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    }
+                ],
+                options: {
+                    shuffleQuestions: true,
+                    instantFeedback: true,
+                },
+                shuffledQuestions: [], // Holds shuffled questions
+                reveal: false,
+                init() {
+                    if (this.options.shuffleQuestions) {
+                        this.shuffleQuestions();
+                    } else {
+                        this.shuffledQuestions = this.questions; // Use the original questions if not shuffled
+                    }
+                },
+
+                shuffleQuestions() {
+                    // Clone the questions array to avoid mutating the original
+                    let clonedQuestions = [...this.questions];
+
+                    // Fisher-Yates shuffle algorithm for arrays
+                    for (let i = clonedQuestions.length - 1; i > 0; i--) {
+                        const j = Math.floor(Math.random() * (i + 1));
+                        [clonedQuestions[i], clonedQuestions[j]] = [clonedQuestions[j], clonedQuestions[i]];
+                    }
+
+                    // Assign the shuffled array to shuffledQuestions
+                    this.shuffledQuestions = clonedQuestions;
+
+                    // Log to check if it's shuffled
+                    console.log(this.shuffledQuestions);
+                },
+            }))
+        })
+    </script>
+</head>
+<body class="bg-blue-100">
+    <div class="container mx-auto max-w-2xl space-y-4 p-4" x-data="quiz">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+            <div class="flex flex-row gap-4 items-start">
+                <a href="index.html" class="outline-none outline-none text-gray-400 focus:text-gray-600 hover:text-gray-600 transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 stroke-current fill-transparent">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M5 12l14 0" />
+                        <path d="M5 12l6 6" />
+                        <path d="M5 12l6 -6" />
+                    </svg>
+                </a>
+                <div>
+                    <div class="text-lg text-gray-700 font-semibold">Mock Board Exam on</div>
+                    <div class="text-2xl text-gray-900 font-bold" x-text="subject"></div>
+                </div>
+            </div>
+            <div class="text-right">
+                <div class="text-base text-gray-500 font-medium">Score</div>
+                <div class="text-lg  text-gray-700 font-semibold" x-text="Object.values(questions).reduce((accumulator, item) => accumulator + ((item.selected_choice == item.answer_key && item.reveal) ? 1 : 0), 0) + '/' + Object.values(questions).reduce((accumulator, item) => accumulator + ((item.selected_choice && item.reveal) ? 1 : 0), 0)"></div>
+            </div>
+        </div>
+        <div>
+            <label class="relative flex gap-x-3" for="instantFeedback">
+                <div>
+                    <input id="instantFeedback" x-model="options.instantFeedback" type="checkbox" class="peer rounded-full w-10 h-6 absolute inset-0 z-0 enabled:focus:ring-blue-600 enabled:focus:ring-offset-blue-100 outline-none checked:bg-none bg-transparent text-transparent border-transparent accent-transparent after:opacity-0">
+                    <div class="rounded-full w-10 h-6 bg-gray-300 peer-enabled:cursor-pointer peer-checked:bg-blue-600 peer-disabled:bg-transparent peer-checked:peer-disabled:bg-transparent border border-transparent peer-disabled:border-gray-300 transition-all relative z-10"></div>
+                    <div class="top-1/2 -mt-4 translate-x-1 peer-checked:translate-x-5 transition-all absolute w-4 h-4 rounded-full peer-enabled:cursor-pointer bg-gray-400 peer-checked:bg-blue-100 peer-disabled:bg-gray-400 peer-checked:peer-disabled:bg-gray-400 z-20"></div>
+                </div>
+                <div class="text-start text-sm leading-6">
+                    <label for="instantFeedback" class="font-medium text-gray-900">Check instantly</label>
+                    <p class="text-gray-500 leading-tight text-xs">Immediately reveal correct answers. The first answer you click will be the final answer.</p>
+                </div>
+            </label>
+        </div>
+        <div class="h-0.5 bg-blue-900 opacity-25 rounded-full"></div>
+        <div class="space-y-4">
+            <template x-for="(item, index) in shuffledQuestions">
+                <div class="space-y-4 rounded-lg bg-white px-6 py-6">
+                    <div class="flex flex-row items-start gap-4">
+                        <div class="flex-1 text-gray-900 font-medium tracking-wide leading-6" x-html="item.question"></div>
+                        <button class="flex-none outline-none text-gray-400 focus:text-gray-600 hover:text-gray-600 transition-all" :class="item.reveal ? '' : 'invisible'" x-on:click="item.selected_choice = null; item.reveal = false">
+                            <svg xmlns="http:<br /><br />www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 stroke-current fill-transparent">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M4.05 11a8 8 0 1 1 .5 4m-.5 5v-5h5" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 text-sm">
+                        <template x-for="(choice, letter) in item.choices">
+                            <button x-bind:disabled="item.reveal" x-bind:class="{ 'flex items-start outline-none text-left border border-blue-200 bg-blue-100 transition-all p-2 rounded-md': (item.selected_choice == null && item.answer_key == letter && item.reveal), 'flex items-start outline-none text-left border border-gray-200 p-2 rounded-md': (item.selected_choice != letter && item.reveal), 'flex items-start outline-none text-left border border-red-200 bg-red-100 transition-all p-2 rounded-md': (item.selected_choice == letter && item.answer_key != letter && item.reveal), 'flex items-start outline-none text-left border border-green-200 bg-green-100 transition-all p-2 rounded-md': (item.selected_choice && item.answer_key == letter && item.reveal), 'flex items-start outline-none text-left border border-gray-200 hover:bg-gray-200 hover:border-gray-400 transition-all p-2 rounded-md': (item.selected_choice != letter && !item.reveal), 'flex items-start outline-none text-left border border-orange-200 bg-orange-100 transition-all p-2 rounded-md': (item.selected_choice == letter && !item.reveal) }" x-on:click="if(!item.reveal) { item.selected_choice = letter; if(options.instantFeedback) { item.reveal = true; if (item.selected_choice != item.answer_key) { new Audio('buzzer.mp3?').play() } } } ">
+                                <div class="tracking-wide text-gray-900 flex flex-row gap-2 items-start">
+                                    <div x-text="letter + '. '"></div>
+                                    <div x-text="choice"></div>
+                                </div>
+                            </button>
+                        </template>
+                    </div>
+                </div>
+            </template>
+        </div>
+        <div class="space-y-4" x-show="!options.instantFeedback && !reveal">
+            <div class="h-0.5 bg-blue-900 opacity-25 rounded-full"></div>
+            <div class="flex justify-end">
+                <button class="px-4 py-2 bg-blue-500 hover:bg-blue-400 font-semibold transition-all text-sm text-white rounded-lg" x-on:click="Object.values(questions).forEach(item => { item.reveal = true }); reveal = true">Submit answers</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

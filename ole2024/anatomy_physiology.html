@@ -1,0 +1,1326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp,container-queries"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    animation: {
+                        border: 'border 2s linear infinite',
+                        flip1: 'flip1 20s ease-in-out infinite',
+                        flip2: 'flip2 20s ease-in-out infinite',
+                    },
+                    colors: {
+                        pink: {
+                            1000: '#1d020d',
+                        },
+                    },
+                    fontFamily: {
+                        sans: ['Inter'],
+                    },
+                    fontSize: {
+                        '2xs': '0.625rem',
+                    },
+                    keyframes: {
+                        border: {
+                            to: { '--border-angle': '360deg' },
+                        },
+                        flip1: {
+                            '0%': { opacity: 0 },
+                            '1%': { opacity: 1 },
+                            '49%': { opacity: 1 },
+                            '50%': { opacity: 0 },
+                            '100%': { opacity: 0 },
+                        },
+                        flip2: {
+                            '0%': { opacity: 0 },
+                            '51%': { opacity: 0 },
+                            '52%': { opacity: 1 },
+                            '99%': { opacity: 1 },
+                            '100%': { opacity: 0 },
+                        }
+                    },
+                    listStyleType: {
+                        square: 'square',
+                    }
+                },
+            },
+        }
+    </script>
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('quiz', () => ({
+                subject: "General Anatomy and Physiology",
+                questions: [
+                    {
+                        question: "Which of these is not a function of bone?",
+                        choices: {
+                            a: "attachment for the muscles",
+                            b: "vitamin D storage",
+                            c: "blood cell production",
+                            d: "calcium and phosphate storage",
+                            e: "internal support and protection"
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "The primary function of osteoclasts is to",
+                        choices: {
+                            a: "break down bone.",
+                            b: "become osteocytes.",
+                            c: "form the periosteum.",
+                            d: "prevent osteoblasts from forming.",
+                            e: "secrete calcium salts and collagen fibers."
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Intramembranous bone formation",
+                        choices: {
+                            a: "occurs at the epiphyseal plate.",
+                            b: "is responsible for growth in diameter of a bone.",
+                            c: "gives rise to the flat bones of the skull.",
+                            d: "occurs within a hyaline cartilage model."
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Yellow marrow is",
+                        choices: {
+                            a: "important for blood cell production.",
+                            b: "found mostly in children’s bones.",
+                            c: "mostly adipose tissue.",
+                            d: "found in the epiphyseal plate."
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "The ossification regions formed during early fetal development",
+                        choices: {
+                            a: "become articular cartilage.",
+                            b: "are secondary ossification centers.",
+                            c: "become medullary cavities.",
+                            d: "are primary ossification centers."
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Growth in the length of a long bone occurs",
+                        choices: {
+                            a: "at the primary ossification center.",
+                            b: "beneath the periosteum.",
+                            c: "at the center of the diaphysis.",
+                            d: "at the epiphyseal plate."
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Once a door knob is grasped with the right hand, what movement of the forearm is necessary to unlatch the door (turn in a clockwise direction)?",
+                        choices: {
+                            a: "supination",
+                            b: "pronation",
+                            c: "rotation",
+                            d: "extension",
+                            e: "flexion"
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Which of the following joints could be classified functionally as synarthroses? (1) syndesmosis, (2) symphysis, (3) synovial, (4) gomphosis, (5) suture.",
+                        choices: {
+                            a: "1 and 2",
+                            b: "3 and 5",
+                            c: "1,2 and 3",
+                            d: "4 and 5",
+                            e: "5 only"
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "For a ballet dancer to stand on her toes, her feet must",
+                        choices: {
+                            a: "evert",
+                            b: "invert",
+                            c: "plantar flex",
+                            d: "dorsiflex",
+                            e: "abduct"
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Canal-like passage",
+                        choices: {
+                            a: "fossa",
+                            b: "sinus",
+                            c: "meatus",
+                            d: "fissure",
+                            e: "groove"
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Narrow, slit-like opening",
+                        choices: {
+                            a: "fossa",
+                            b: "sinus",
+                            c: "meatus",
+                            d: "fissure",
+                            e: "groove",
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "A type of bone fracture wherein bone ends penetrate the skin",
+                        choices: {
+                            a: "compound",
+                            b: "simple",
+                            c: "transverse",
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Type of fracture in which bone breaks into fragments.",
+                        choices: {
+                            a: "spiral",
+                            b: "depressed",
+                            c: "compression",
+                            d: "comminuted",
+                            e: "greenstick",
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Type of fracture common in children where one side of the bone breaks and the other side bends.",
+                        choices: {
+                            a: "spiral",
+                            b: "depressed",
+                            c: "compression",
+                            d: "comminuted",
+                            e: "greenstick",
+                        },
+                        answer_key: "e",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "The following are types of fibrous joints EXCEPT;",
+                        choices: {
+                            a: "gomphoses",
+                            b: "synchondroses",
+                            c: "suture",
+                            d: "syndesmoses",
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Exaggeration of lumbar curve.",
+                        choices: {
+                            a: "scoliosis",
+                            b: "kyphosis",
+                            c: "lordosis"
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Exaggeration of the thoracic curve",
+                        choices: {
+                            a: "scoliosis",
+                            b: "kyphosis",
+                            c: "lordosis"
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "All synchondroses are amphiarthrotic",
+                        choices: {
+                            a: "True",
+                            b: "False"
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Intervertebral disc is an example of symphyses",
+                        choices: {
+                            a: "True",
+                            b: "False"
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "The “Trumpeters muscle”",
+                        choices: {
+                            a: "buccinator",
+                            b: "masseter",
+                            c: "platysma",
+                            d: "zygomaticus"
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "The 'kissing muscle\".",
+                        choices: {
+                            a: "orbicularis oris \& buccinator",
+                            b: "masseter \& buccinator",
+                            c: "orbicularis oris \& masseter",
+                            d: "orbicularis oris \& zygomaticus"
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Acetylcholinesterase is an important molecule in the neuromuscular junction because it",
+                        choices: {
+                            a: "stimulates receptors on the presynaptic terminal.",
+                            b: "synthesizes acetylcholine from acetic acid and choline.",
+                            c: "stimulates receptors within the postsynaptic membrane.",
+                            d: "breaks down acetylcholine.",
+                            e: "causes the release of Ca2\+ from the sarcoplasmic reticulum."
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Given these events: \\\\ (1) Calcium ions combine with tropomyosin. \\\\ (2) Calcium ions combine with troponin. \\\\ (3) Tropomyosin pulls away from actin. \\\\ (4) Troponin pulls away from actin. \\\\ (5) Tropomyosin pulls away from myosin. \\\\ (6) Troponin pulls away from myosin. \\\\ (7) Myosin binds to actin. \\\\ Choose the arrangement that lists the events in the order they occur during muscle contraction.",
+                        choices: {
+                            a: "1,4,7",
+                            b: "2,5,6",
+                            c: "1,3,7",
+                            d: "2,4,7",
+                            e: "2,3,7"
+                        },
+                        answer_key: "e",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "What is the next step after Ach attaches to its receptors at the neuromuscular junction?",
+                        choices: {
+                            a: "ATP is hydrolyzed",
+                            b: "Cross bridges attach",
+                            c: "Calcium binds to the regulatory proteins on the thin filaments",
+                            d: "Sodium channels open"
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "It refers to the cell membrane of a muscle fiber",
+                        choices: {
+                            a: "endomysium",
+                            b: "epimysium",
+                            c: "sarcomere",
+                            d: "sarcolemma"
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Which of the myofilaments possess a troponin and tropomyosin protein?",
+                        choices: {
+                            a: "actin",
+                            b: "myosin"
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "What causes the sarcoplasmic reticulum to release calcium ions?",
+                        choices: {
+                            a: "action potential in the T tubules",
+                            b: "troponin protein",
+                            c: "Ach",
+                            d: "all of these"
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "It refers to basic structural and functional unit of skeletal muscle.",
+                        choices: {
+                            a: "sarcoplasm",
+                            b: "sarcomere",
+                            c: "sarcolemma",
+                            d: "fascia"
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "The snail shaped part of the ear involved in hearing.",
+                        choices: {
+                            a: "organ of corti",
+                            b: "semicircular canal",
+                            c: "cochlea",
+                            d: "vestibule"
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "It contains the receptors for hearing",
+                        choices: {
+                            a: "organ of corti",
+                            b: "semicircular canal",
+                            c: "cochlea",
+                            d: "vestibule"
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Part of the ear responsible for equilibrium",
+                        choices: {
+                            a: "organ of corti",
+                            b: "semicircular canal",
+                            c: "cochlea"
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "The fluid that provides nourishment to the lens and cornea",
+                        choices: {
+                            a: "aqueous humor",
+                            b: "vitreous humor",
+                            c: "choroid",
+                            d: "all of these"
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "The olfactory receptors perceived the sense of smell once only.",
+                        choices: {
+                            a: "True",
+                            b: "False"
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "The muscle which draws the eyebrows medially",
+                        choices: {
+                            a: "orbicularis oculi",
+                            b: "corrugator supercili",
+                            c: "levator palpebrae"
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "The EOM innervated by the trochlear nerve",
+                        choices: {
+                            a: "Superior rectus",
+                            b: "Lateral rectus",
+                            c: "Superior oblique",
+                            d: "Inferior oblique"
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Supplies blood to all eye tunics",
+                        choices: {
+                            a: "Choroid",
+                            b: "Aqueous humor",
+                            c: "Vitreous humor",
+                            d: "Retina"
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "The circular muscle of the iris is also known as",
+                        choices: {
+                            a: "constrictor pupillae muscle",
+                            b: "dilator pupillae muscle"
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Sympathetic stimulation causes the radial muscle of the iris to___",
+                        choices: {
+                            a: "constrict",
+                            b: "dilate"
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "This hormone causes uterine contraction",
+                        choices: {
+                            a: "FSH",
+                            b: "prolactin",
+                            c: "oxytocin"
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "It stimulates the adrenal gland to release hormones",
+                        choices: {
+                            a: "ADH",
+                            b: "ACTH",
+                            c: "TSH"
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "The gland which releases epinephrine & norepinephrine",
+                        choices: {
+                            a: "Adrenal cortex",
+                            b: "adrenal medulla",
+                            c: "both"
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Which of these is (are) expected in Cushing syndrome (hypersecretion of adrenal cortex hormones)?",
+                        choices: {
+                            a: "low blood pressure",
+                            b: "loss of hair in women",
+                            c: "low blood glucose",
+                            d: "deposition of adipose tissue in the face, neck, and abdomen"
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Too little secretion of insulin hormone results to",
+                        choices: {
+                            a: "diabetes insipidus",
+                            b: "diabetes millitus"
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "It refers to all chemical reactions taking place in an organism.",
+                        choices: {
+                            a: "responsiveness",
+                            b: "organization",
+                            c: "metabolism",
+                            d: "development",
+                            e: "reproduction"
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Refers to the perpetuation of species from generation to generation",
+                        choices: {
+                            a: "organization",
+                            b: "metabolism",
+                            c: "responsiveness",
+                            d: "development",
+                            e: "reproduction"
+                        },
+                        answer_key: "e",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "It is the existence and maintenance of a relatively constant environment within the body despite fluctuations in either internal or external environment.",
+                        choices: {
+                            a: "homeostasis",
+                            b: "organization",
+                            c: "irritability",
+                            d: "growth"
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "The most complex among the organ systems in the human body",
+                        choices: {
+                            a: "cardiovascular system",
+                            b: "nervous system",
+                            c: "urinary system"
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "The spleen is part of what organ system?",
+                        choices: {
+                            a: "digestive",
+                            b: "lymphatic",
+                            c: "cardiovascular",
+                            d: "all of these"
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "The trachea is part of what organ system?",
+                        choices: {
+                            a: "digestive",
+                            b: "respiratory",
+                            c: "both"
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "A branch of anatomy which deals with the study of structural changes caused by disease",
+                        choices: {
+                            a: "Gross Anatomy",
+                            b: "Pathological Anatomy",
+                            c: "Macroscopic Anatomy",
+                            d: "Surface Anatomy"
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "It produces the egg cells and female hormones",
+                        choices: {
+                            a: "ovaries",
+                            b: "uterus",
+                            c: "uterine tube",
+                            d: "cervix"
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "After fertilization, generalized cells differentiate to become specific cell types such as skin, bones, muscles, etc..",
+                        choices: {
+                            a: "growth",
+                            b: "locomotion",
+                            c: "differentiation",
+                            d: "organization"
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "The organelle involved in the detoxification of free radicals.",
+                        choices: {
+                            a: "lysosome",
+                            b: "vesicle",
+                            c: "golgie bodies",
+                            d: "peroxisome"
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Involved in packaging & secretion of proteins & lipids.",
+                        choices: {
+                            a: "nucleus",
+                            b: "microtubules",
+                            c: "ER",
+                            d: "golgi bodies"
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "This cell is present only in columnar cells and secretes mucus.",
+                        choices: {
+                            a: "apical cell",
+                            b: "goblet cell",
+                            c: "basal cell"
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Type of tissue lining the digestive tract",
+                        choices: {
+                            a: "simple cuboidal",
+                            b: "pseudostratified columnar nonciliated",
+                            c: "simple squamous",
+                            d: "simple columnar nonciliated"
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Type of tissue lining the trachea",
+                        choices: {
+                            a: "simple squamous",
+                            b: "simple columnar nonciliated",
+                            c: "simple cuboidal",
+                            d: "pseudostratified columnar ciliated"
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "What type of tissue lines the cornea?",
+                        choices: {
+                            a: "Stratified squamous epithelium nonkeratinized",
+                            b: "Stratified squamous epithelium keratinized",
+                            c: "Simple squamous epithelium",
+                            d: "Stratified cuboidal epithelium"
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Seeking water to quench your thirst is an example of",
+                        choices: {
+                            a: "movement",
+                            b: "locomotion",
+                            c: "metabolism",
+                            d: "responsiveness"
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Flow of blood in the body is an example of",
+                        choices: {
+                            a: "movement",
+                            b: "locomotion",
+                            c: "responsiveness",
+                            d: "all of these"
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Type of gland which releases its secretion directly into the the blood circulation.",
+                        choices: {
+                            a: "exocrine gland",
+                            b: "endocrine gland"
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Which among the structures is an endocrine gland?",
+                        choices: {
+                            a: "gallbladder",
+                            b: "liver",
+                            c: "salivary gland",
+                            d: "pancreas"
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "What type of gland is found in the axillae and genitalia?",
+                        choices: {
+                            a: "apocrine",
+                            b: "merocrine",
+                            c: "ceruminous",
+                            d: "sebaceous"
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "The microorganism which causes athlete's foot",
+                        choices: {
+                            a: "virus",
+                            b: "fungi",
+                            c: "bacteria"
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "What microorganism is responsible for warts",
+                        choices: {
+                            a: "virus",
+                            b: "fungi",
+                            c: "bacteria"
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "If a person was born without any sweat glands, it would most likely affect the person’s ability to:",
+                        choices: {
+                            a: "secrete waste product",
+                            b: "control body temperature in warm environments",
+                            c: "flush out secretions that accumulate in hair follicles",
+                            d: "prevent some bacteria from growing on the skin"
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "What type of membrane lines the pleural cavity?",
+                        choices: {
+                            a: "mucous membrane",
+                            b: "serous membrane"
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "What type of membrane lines the peritoneal cavity?",
+                        choices: {
+                            a: "mucous membrane",
+                            b: "serous membrane"
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Referring to an inflammation, movement of blood plasma outside the vessels results to",
+                        choices: {
+                            a: "redness",
+                            b: "heat",
+                            c: "edema",
+                            d: "pain",
+                            e: "disturbance of function"
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "In an inflammation, the release of chemical mediators in response to an injury causes",
+                        choices: {
+                            a: "constriction of blood vessels",
+                            b: "dilation of blood vessels"
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "The most common but the least malignant type of skin cancer",
+                        choices: {
+                            a: "squamous cell carcinoma",
+                            b: "basal cell carcinoma",
+                            c: "malignant melanoma"
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "In what area of the body would you expect to find an especially thick stratum corneum?",
+                        choices: {
+                            a: "back of the hand",
+                            b: "heel of the foot",
+                            c: "abdomen",
+                            d: "over the skin"
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Movement of solvent from lesser to greater solute concentration across a semipermeable membrane.",
+                        choices: {
+                            a: "diffusion",
+                            b: "osmosis",
+                            c: "filtration",
+                            d: "facilitated diffusion"
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Which among is not found in the LUQ?",
+                        choices: {
+                            a: "pancreas",
+                            b: "spleen",
+                            c: "stomach",
+                            d: "gallbladder"
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Responsible for the color of feces and urine",
+                        choices: {
+                            a: "bile",
+                            b: "heme",
+                            c: "biliverdin",
+                            d: "bilirubin"
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "It initiates the cardiac conduction system",
+                        choices: {
+                            a: "SA node",
+                            b: "AV node",
+                            c: "Purkinje fiber",
+                            d: "All of these"
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Blood fragments involved in blood clotting",
+                        choices: {
+                            a: "erythrocytes",
+                            b: "leucocytes",
+                            c: "thrombocytes"
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "It refers to the ability of the immune system to remember previous encounters with a particular substance.",
+                        choices: {
+                            a: "specificity",
+                            b: "memory"
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "In this type of immunity, the antigens (microorganisms) are deliberately administered.",
+                        choices: {
+                            a: "Naturally Acquired Immunity",
+                            b: "Artificially Acquired Immunity"
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "COVID 19 vaccines produces what type of immunization?",
+                        choices: {
+                            a: "active immunity",
+                            b: "passive immunity"
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Fluid portion of the blood",
+                        choices: {
+                            a: "Plasma",
+                            b: "Formed elements"
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "It prevents the backflow of chyme from the stomach to the esophagus",
+                        choices: {
+                            a: "upper esophageal sphincter",
+                            b: "cardiac sphincter",
+                            c: "pyloric sphincter",
+                            d: "cardiac sphincter"
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "This structure stores bile",
+                        choices: {
+                            a: "liver",
+                            b: "gallbladder",
+                            c: "pancreas"
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "It secretes bile",
+                        choices: {
+                            a: "liver",
+                            b: "gallbladder",
+                            c: "pancreas"
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "The largest salivary gland",
+                        choices: {
+                            a: "parotid",
+                            b: "sublingual",
+                            c: "submandibular"
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Site of actual gas exchange",
+                        choices: {
+                            a: "bronchi",
+                            b: "bronchiloles",
+                            c: "alveoli",
+                            d: "all of these"
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Carry unfiltered blood into the kidneys",
+                        choices: {
+                            a: "renal artery",
+                            b: "renal vein",
+                            c: "renal pelvis",
+                            d: "ureter"
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Arrange the flow of urine in correct order. (a) renal pelvis (b) urethra (c) kidney (d) ureter (e) urinary bladder",
+                        choices: {
+                            a: "C,A,D, B,E",
+                            b: "C,A,D,E,B",
+                            c: "A,C,D,B,E",
+                            d: "A,C,D,E,B"
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Normal range of urine volume formed in 24 hours.",
+                        choices: {
+                            a: "1-8ml",
+                            b: "10-18ml",
+                            c: "100-180ml",
+                            d: "1000-1800ml"
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Where the respiratory center is located",
+                        choices: {
+                            a: "alveoli",
+                            b: "lungs",
+                            c: "medulla oblongata",
+                            d: "diaphragm"
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "The left bronchus is wider and straighter than the right bronchus.",
+                        choices: {
+                            a: "True",
+                            b: "False"
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "During inspiration, the diaphragm contracts and the ribs expand.",
+                        choices: {
+                            a: "True",
+                            b: "False"
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Amacrine cell is an example of bipolar neuron.",
+                        choices: {
+                            a: "True",
+                            b: "False"
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "The innermost meninx covering the brain and spinal cord is",
+                        choices: {
+                            a: "pia mater",
+                            b: "arachnoid mater",
+                            c: "dura mater"
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "The sciatic nerve is actually two nerves combined within the same sheath. The two nerves are the",
+                        choices: {
+                            a: "femoral and obturator.",
+                            b: "femoral and gluteal.",
+                            c: "common fibular (peroneal) and tibial.",
+                            d: "common fibular (peroneal) and obturator."
+                        },
+                        answer_key: "c",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "The cranial nerve responsible for focusing the eye (innervating the ciliary muscle of the eye) is the",
+                        choices: {
+                            a: "CN II",
+                            b: "CN III",
+                            c: "CN IV",
+                            d: "CN VI",
+                            e: "CN VII",
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "The chemical involved in the breakdown of a clot (fibrinolysis) is",
+                        choices: {
+                            a: "antithrombin",
+                            b: "fibrinogen",
+                            c: "heparin",
+                            d: "plasmin",
+                            e: "sodium citrate"
+                        },
+                        answer_key: "d",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "The only class of antibody that can cross the placenta.",
+                        choices: {
+                            a: "IgG",
+                            b: "IgA",
+                            c: "IgE",
+                            d: "IgM"
+                        },
+                        answer_key: "a",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Vaccines against Human Papilloma Virus (HPV) produces what type of immunization?",
+                        choices: {
+                            a: "active immunity",
+                            b: "passive immunity",
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    },
+                    {
+                        question: "Type of antibody present in the colostrum.",
+                        choices: {
+                            a: "IgG",
+                            b: "IgA",
+                            c: "IgE",
+                            d: "IgM"
+                        },
+                        answer_key: "b",
+                        reveal: false,
+                        selected_choice: null,
+                    }
+                ],
+                options: {
+                    shuffleQuestions: true,
+                    instantFeedback: true,
+                },
+                shuffledQuestions: [], // Holds shuffled questions
+                reveal: false,
+                init() {
+                    if (this.options.shuffleQuestions) {
+                        this.shuffleQuestions();
+                    } else {
+                        this.shuffledQuestions = this.questions; // Use the original questions if not shuffled
+                    }
+                },
+
+                shuffleQuestions() {
+                    // Clone the questions array to avoid mutating the original
+                    let clonedQuestions = [...this.questions];
+
+                    // Fisher-Yates shuffle algorithm for arrays
+                    for (let i = clonedQuestions.length - 1; i > 0; i--) {
+                        const j = Math.floor(Math.random() * (i + 1));
+                        [clonedQuestions[i], clonedQuestions[j]] = [clonedQuestions[j], clonedQuestions[i]];
+                    }
+
+                    // Assign the shuffled array to shuffledQuestions
+                    this.shuffledQuestions = clonedQuestions;
+
+                    // Log to check if it's shuffled
+                    console.log(this.shuffledQuestions);
+                },
+            }))
+        })
+    </script>
+</head>
+<body class="bg-blue-100">
+    <div class="container mx-auto max-w-2xl space-y-4 p-4" x-data="quiz">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+            <div class="flex flex-row gap-4 items-start">
+                <a href="index.html" class="outline-none outline-none text-gray-400 focus:text-gray-600 hover:text-gray-600 transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 stroke-current fill-transparent">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M5 12l14 0" />
+                        <path d="M5 12l6 6" />
+                        <path d="M5 12l6 -6" />
+                    </svg>
+                </a>
+                <div>
+                    <div class="text-lg text-gray-700 font-semibold">Mock Board Exam on</div>
+                    <div class="text-2xl text-gray-900 font-bold" x-text="subject"></div>
+                </div>
+            </div>
+            <div class="text-right">
+                <div class="text-base text-gray-500 font-medium">Score</div>
+                <div class="text-lg  text-gray-700 font-semibold" x-text="Object.values(questions).reduce((accumulator, item) => accumulator + ((item.selected_choice == item.answer_key && item.reveal) ? 1 : 0), 0) + '/' + Object.values(questions).reduce((accumulator, item) => accumulator + ((item.selected_choice && item.reveal) ? 1 : 0), 0)"></div>
+            </div>
+        </div>
+        <div>
+            <label class="relative flex gap-x-3" for="instantFeedback">
+                <div>
+                    <input id="instantFeedback" x-model="options.instantFeedback" type="checkbox" class="peer rounded-full w-10 h-6 absolute inset-0 z-0 enabled:focus:ring-blue-600 enabled:focus:ring-offset-blue-100 outline-none checked:bg-none bg-transparent text-transparent border-transparent accent-transparent after:opacity-0">
+                    <div class="rounded-full w-10 h-6 bg-gray-300 peer-enabled:cursor-pointer peer-checked:bg-blue-600 peer-disabled:bg-transparent peer-checked:peer-disabled:bg-transparent border border-transparent peer-disabled:border-gray-300 transition-all relative z-10"></div>
+                    <div class="top-1/2 -mt-4 translate-x-1 peer-checked:translate-x-5 transition-all absolute w-4 h-4 rounded-full peer-enabled:cursor-pointer bg-gray-400 peer-checked:bg-blue-100 peer-disabled:bg-gray-400 peer-checked:peer-disabled:bg-gray-400 z-20"></div>
+                </div>
+                <div class="text-start text-sm leading-6">
+                    <label for="instantFeedback" class="font-medium text-gray-900">Check instantly</label>
+                    <p class="text-gray-500 leading-tight text-xs">Immediately reveal correct answers. The first answer you click will be the final answer.</p>
+                </div>
+            </label>
+        </div>
+        <div class="h-0.5 bg-blue-900 opacity-25 rounded-full"></div>
+        <div class="space-y-4">
+            <template x-for="(item, index) in shuffledQuestions">
+                <div class="space-y-4 rounded-lg bg-white px-6 py-6">
+                    <div class="flex flex-row items-start gap-4">
+                        <div class="flex-1 text-gray-900 font-medium tracking-wide leading-6" x-html="item.question"></div>
+                        <button class="flex-none outline-none text-gray-400 focus:text-gray-600 hover:text-gray-600 transition-all" :class="item.reveal ? '' : 'invisible'" x-on:click="item.selected_choice = null; item.reveal = false">
+                            <svg xmlns="http:<br /><br />www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 stroke-current fill-transparent">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M4.05 11a8 8 0 1 1 .5 4m-.5 5v-5h5" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 text-sm">
+                        <template x-for="(choice, letter) in item.choices">
+                            <button x-bind:disabled="item.reveal" x-bind:class="{ 'flex items-start outline-none text-left border border-blue-200 bg-blue-100 transition-all p-2 rounded-md': (item.selected_choice == null && item.answer_key == letter && item.reveal), 'flex items-start outline-none text-left border border-gray-200 p-2 rounded-md': (item.selected_choice != letter && item.reveal), 'flex items-start outline-none text-left border border-red-200 bg-red-100 transition-all p-2 rounded-md': (item.selected_choice == letter && item.answer_key != letter && item.reveal), 'flex items-start outline-none text-left border border-green-200 bg-green-100 transition-all p-2 rounded-md': (item.selected_choice && item.answer_key == letter && item.reveal), 'flex items-start outline-none text-left border border-gray-200 hover:bg-gray-200 hover:border-gray-400 transition-all p-2 rounded-md': (item.selected_choice != letter && !item.reveal), 'flex items-start outline-none text-left border border-orange-200 bg-orange-100 transition-all p-2 rounded-md': (item.selected_choice == letter && !item.reveal) }" x-on:click="if(!item.reveal) { item.selected_choice = letter; if(options.instantFeedback) { item.reveal = true; if (item.selected_choice != item.answer_key) { new Audio('buzzer.mp3?').play() } } }">
+                                <div class="tracking-wide text-gray-900 flex flex-row gap-2 items-start">
+                                    <div x-text="letter + '. '"></div>
+                                    <div x-text="choice"></div>
+                                </div>
+                            </button>
+                        </template>
+                    </div>
+                </div>
+            </template>
+        </div>
+        <div class="space-y-4" x-show="!options.instantFeedback && !reveal">
+            <div class="h-0.5 bg-blue-900 opacity-25 rounded-full"></div>
+            <div class="flex justify-end">
+                <button class="px-4 py-2 bg-blue-500 hover:bg-blue-400 font-semibold transition-all text-sm text-white rounded-lg" x-on:click="Object.values(questions).forEach(item => { item.reveal = true }); reveal = true">Submit answers</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
