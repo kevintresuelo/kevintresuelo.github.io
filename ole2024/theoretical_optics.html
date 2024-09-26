@@ -705,11 +705,13 @@
             </div>
         </div>
         <div>
-            <label class="relative flex gap-x-3" for="instantFeedback">
-                <div class="flex-none relative">
-                    <input id="instantFeedback" x-model="options.instantFeedback" type="checkbox" class="peer rounded-full w-10 h-6 absolute inset-0 z-0 enabled:focus:ring-blue-600 enabled:focus:ring-offset-blue-100 outline-none checked:bg-none bg-transparent text-transparent border-transparent accent-transparent after:opacity-0">
-                    <div class="rounded-full w-10 h-6 bg-gray-300 peer-enabled:cursor-pointer peer-checked:bg-blue-600 peer-disabled:bg-transparent peer-checked:peer-disabled:bg-transparent border border-transparent peer-disabled:border-gray-300 transition-all relative z-10"></div>
-                    <div class="top-1/2 -mt-2 translate-x-1 peer-checked:translate-x-5 transition-all absolute w-4 h-4 rounded-full peer-enabled:cursor-pointer bg-gray-400 peer-checked:bg-blue-100 peer-disabled:bg-gray-400 peer-checked:peer-disabled:bg-gray-400 z-20"></div>
+            <label class="relative flex flex-row gap-4" for="instantFeedback">
+                <div class="flex-none">
+                    <div class="relative">
+                        <input id="instantFeedback" x-model="options.instantFeedback" type="checkbox" class="peer rounded-full w-10 h-6 absolute inset-0 z-0 enabled:focus:ring-blue-600 enabled:focus:ring-offset-blue-100 outline-none checked:bg-none bg-transparent text-transparent border-transparent accent-transparent after:opacity-0">
+                        <div class="rounded-full w-10 h-6 bg-gray-300 peer-enabled:cursor-pointer peer-checked:bg-blue-600 peer-disabled:bg-transparent peer-checked:peer-disabled:bg-transparent border border-transparent peer-disabled:border-gray-300 transition-all relative z-10"></div>
+                        <div class="top-1/2 -mt-2 translate-x-1 peer-checked:translate-x-5 transition-all absolute w-4 h-4 rounded-full peer-enabled:cursor-pointer bg-gray-400 peer-checked:bg-blue-100 peer-disabled:bg-gray-400 peer-checked:peer-disabled:bg-gray-400 z-20"></div>
+                    </div>
                 </div>
                 <div class="text-start text-sm leading-6">
                     <label for="instantFeedback" class="font-medium text-gray-900">Check instantly</label>

@@ -150,6 +150,14 @@
                 <div class="w-1.5 h-1.5 rounded-full bg-blue-400"></div>
                 <div class="w-1.5 h-1.5 rounded-full bg-blue-400"></div>
             </div>
+            <div class="flex flex-row gap-4">
+                <textarea class="flex-1 resize-none text-xs" spellcheck="false" rows="5" x-on:input.debounce.1000ms="questions = JSON.parse($event.target.value)"></textarea>
+            </div>
+            <div class="flex flex-row justify-center gap-2">
+                <div class="w-1.5 h-1.5 rounded-full bg-blue-400"></div>
+                <div class="w-1.5 h-1.5 rounded-full bg-blue-400"></div>
+                <div class="w-1.5 h-1.5 rounded-full bg-blue-400"></div>
+            </div>
             <div class="space-y-4">
                 <template x-for="(item, index) in questions">
                     <div class="space-y-4 rounded-lg px-6 py-6 transition-all" x-bind:class="item.answer_key == null ? 'bg-red-100' : 'bg-white'">
